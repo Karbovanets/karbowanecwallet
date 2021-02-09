@@ -87,7 +87,7 @@ endif(WIN32)
 
 find_package(Boost REQUIRED COMPONENTS date_time filesystem program_options regex serialization system thread chrono)
 if ((${Boost_MAJOR_VERSION} EQUAL 1) AND (${Boost_MINOR_VERSION} EQUAL 54))
-	message(SEND_ERROR "Boost version 1.54 is unsupported, more details are available here http://goo.gl/RrCFmA")
+    message(SEND_ERROR "Boost version 1.54 is unsupported, more details are available here http://goo.gl/RrCFmA")
 endif ()
 
 include_directories(${Boost_INCLUDE_DIRS})
@@ -239,7 +239,7 @@ file(GLOB_RECURSE CRYPTONOTE_SOURCES
   cryptonote/src/Wallet/WalletSerializationV1.cpp
   cryptonote/src/Wallet/WalletSerializationV2.cpp
   cryptonote/src/Wallet/WalletUtils.cpp
-  
+
   cryptonote/src/WalletLegacy/KeysStorage.cpp
   cryptonote/src/WalletLegacy/WalletLegacy.cpp
   cryptonote/src/WalletLegacy/WalletHelper.cpp
@@ -272,8 +272,8 @@ file(GLOB_RECURSE Mnemonics cryptonote/src/Mnemonics/*)
 file(GLOB TRANSLATION_FILES src/languages/*.ts)
 
 set(QRC
-	src/resources.qrc
-	src/qdarkstyle/style.qrc)
+    src/resources.qrc
+    src/qdarkstyle/style.qrc)
 set_source_files_properties(${TRANSLATION_FILES} PROPERTIES OUTPUT_LOCATION "${CMAKE_BINARY_DIR}/languages")
 
 qt5_wrap_ui(UIS ${FORMS})
@@ -308,7 +308,7 @@ add_subdirectory(cryptonote/external/miniupnpc EXCLUDE_FROM_ALL)
 
 if (WIN32)
   if (NOT MSVC)
-	message(FATAL_ERROR "Only MSVC is supported on this platform")
+    message(FATAL_ERROR "Only MSVC is supported on this platform")
   endif ()
   add_definitions(/D_CRT_SECURE_NO_WARNINGS /D_WIN32_WINNT=0x0600 /DSTATICLIB)
 
@@ -324,7 +324,7 @@ if (WIN32)
   set(BUILD_PLATFORM WIN32)
   set(BUILD_RESOURCES src/cryptonotewallet.rc)
   set(QTMAIN Qt5::WinMain)
-  
+
 elseif (UNIX)
   set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} cryptonote/external/miniupnpc/minissdpc.c)
   file(GLOB PLATFORM_POSIX cryptonote/src/Platform/Posix/System/*)
@@ -337,13 +337,13 @@ elseif (UNIX)
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/zstd -DCMAKE_C_FLAGS="-mmacosx-version-min=10.12" -DCMAKE_CXX_FLAGS="-mmacosx-version-min=10.12" -B${PROJECT_BINARY_DIR}/zstd
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/snappy -DCMAKE_C_FLAGS="-mmacosx-version-min=10.12" -DCMAKE_CXX_FLAGS="-mmacosx-version-min=10.12" -B${PROJECT_BINARY_DIR}/snappy
     )
-  else()  
+  else()
     execute_process(
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/zstd -B${PROJECT_BINARY_DIR}/zstd
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/snappy -B${PROJECT_BINARY_DIR}/snappy
     )
   endif()
-  
+
   add_custom_target(
          zstd
          COMMAND $(MAKE) zstd
@@ -352,14 +352,14 @@ elseif (UNIX)
   add_library(zstdlib STATIC IMPORTED GLOBAL)
   set_target_properties(zstdlib PROPERTIES IMPORTED_LOCATION ${PROJECT_BINARY_DIR}/zstd/libzstd.a)
   add_dependencies(zstdlib zstd)
-  
+
   add_custom_target(
          snappy
          COMMAND $(MAKE) snappy
          WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/snappy
   )
   add_library(snappylib STATIC IMPORTED GLOBAL)
-  set_target_properties(snappylib PROPERTIES IMPORTED_LOCATION ${PROJECT_BINARY_DIR}/snappy/libnappy.a)
+  set_target_properties(snappylib PROPERTIES IMPORTED_LOCATION ${PROJECT_BINARY_DIR}/snappy/libsnappy.a)
   add_dependencies(snappylib snappy)
 
   if (APPLE)
@@ -367,7 +367,7 @@ elseif (UNIX)
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/rocksdb -DARCH=${ARCH} -DWITH_ZSTD=ON -DWITH_GFLAGS=0 -DCMAKE_BUILD_TYPE=MinSizeRel -DWITH_TESTS=OFF -DWITH_TOOLS=OFF -DPORTABLE=ON -DCMAKE_C_FLAGS="-mmacosx-version-min=10.12" -DCMAKE_CXX_FLAGS="-mmacosx-version-min=10.12" -B${PROJECT_BINARY_DIR}/rocksdb
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/leveldb -DARCH=${ARCH} -DCMAKE_BUILD_TYPE=MinSizeRel -DLEVELDB_BUILD_TESTS=OFF -DLEVELDB_BUILD_BENCHMARKS=OFF -DLEVELDB_INSTALL=OFF -DCMAKE_C_FLAGS="-mmacosx-version-min=10.12" -DCMAKE_CXX_FLAGS="-mmacosx-version-min=10.12" -B${PROJECT_BINARY_DIR}/leveldb
     )
-  else()  
+  else()
     execute_process(
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/rocksdb -DARCH=${ARCH} -DWITH_ZSTD=ON -DWITH_GFLAGS=0 -DCMAKE_BUILD_TYPE=MinSizeRel -DWITH_TESTS=OFF -DWITH_TOOLS=OFF -DPORTABLE=ON -B${PROJECT_BINARY_DIR}/rocksdb
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/leveldb -DARCH=${ARCH} -DCMAKE_BUILD_TYPE=MinSizeRel -DLEVELDB_BUILD_TESTS=OFF -DLEVELDB_BUILD_BENCHMARKS=OFF -DLEVELDB_INSTALL=OFF -B${PROJECT_BINARY_DIR}/leveldb
@@ -394,7 +394,7 @@ elseif (UNIX)
   add_library(leveldblib STATIC IMPORTED GLOBAL)
   set_target_properties(leveldblib PROPERTIES IMPORTED_LOCATION ${PROJECT_BINARY_DIR}/leveldb/libleveldb.a)
   add_dependencies(leveldblib leveldb)
- 
+
   set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} cryptonote/external/miniupnpc/minissdpc.c)
   if (APPLE)
     enable_language(ASM)
@@ -421,7 +421,7 @@ elseif (UNIX)
 
     set(BUILD_PLATFORM MACOSX_BUNDLE)
     set(BUILD_RESOURCES ${APPLICATION_ICON})
-	
+
     GET_TARGET_PROPERTY(QT_LIB_DIR "${Qt5Widgets_LIBRARIES}" LOCATION)
     GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
   else()
@@ -587,8 +587,8 @@ if (APPLE)
   set_target_properties(${WALLET_NAME} PROPERTIES
   MACOSX_BUNDLE TRUE
   MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
-  
-  target_link_libraries(${WALLET_NAME} Qt5::PrintSupport) 
+
+  target_link_libraries(${WALLET_NAME} Qt5::PrintSupport)
 elseif (UNIX)
   target_link_libraries(${WALLET_NAME} -lpthread)
 elseif (WIN32 AND NOT ROCKSDB_FOUND)
@@ -608,9 +608,9 @@ set(CPACK_PACKAGE_CONTACT "https://karbo.org")
 set(CPACK_STRIP_FILES ON)
 if (APPLE)
     set(CPACK_GENERATOR DragNDrop)
-	set(CPACK_BUNDLE_PLIST ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
+    set(CPACK_BUNDLE_PLIST ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
     set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
-	install(TARGETS ${WALLET_NAME} BUNDLE DESTINATION .)
+    install(TARGETS ${WALLET_NAME} BUNDLE DESTINATION .)
 elseif (UNIX)
     find_program(RPMBUILD rpmbuild)
 
@@ -634,24 +634,24 @@ elseif (UNIX)
  cryptocurrency. It is open-source, nobody owns or controls Karbowanec
  and everyone can take part.")
     else ()
-		set(CPACK_GENERATOR DEB)
-	endif ()
-	
-	set(CPACK_SYSTEM_NAME 64-bit)
-	set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_VENDOR} <krbcoin@ukr.net>")
-	set(CPACK_DEBIAN_PACKAGE_SECTION Office)
-	set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-	set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Karbowanec KRB wallet
+        set(CPACK_GENERATOR DEB)
+    endif ()
+
+    set(CPACK_SYSTEM_NAME 64-bit)
+    set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_VENDOR} <krbcoin@ukr.net>")
+    set(CPACK_DEBIAN_PACKAGE_SECTION Office)
+    set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+    set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Karbowanec KRB wallet
  Karbowanec is Ukrainian decentralized, privacy oriented peer-to-peer
  cryptocurrency. It is open-source, nobody owns or controls Karbowanec
  and everyone can take part.")
 
-	set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CPACK_SYSTEM_NAME}")
+    set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CPACK_SYSTEM_NAME}")
 elseif (WIN32)
     set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
     include(InstallRequiredSystemLibraries)
 
-	set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Karbowanec KRB wallet
+    set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Karbowanec KRB wallet
  Karbowanec is Ukrainian decentralized, privacy oriented peer-to-peer
  cryptocurrency. It is open-source, nobody owns or controls Karbowanec
  and everyone can take part.")
