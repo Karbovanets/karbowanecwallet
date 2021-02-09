@@ -560,7 +560,7 @@ set_target_properties(${CRYPTONOTE_LIB} PROPERTIES COMPILE_DEFINITIONS _GNU_SOUR
 if (WIN32)
   target_link_libraries(${CRYPTONOTE_LIB} rocksdb leveldb snappy zstd ${Boost_LIBRARIES})
 else ()
-  target_link_libraries(${CRYPTONOTE_LIB} rocksdblib leveldblib snappy zstdlib ${Boost_LIBRARIES} -lresolv)
+  target_link_libraries(${CRYPTONOTE_LIB} rocksdblib leveldblib snappylib zstdlib ${Boost_LIBRARIES} -lresolv)
 endif ()
 
 set_target_properties(Mnemonics PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
