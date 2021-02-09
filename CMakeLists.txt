@@ -335,10 +335,12 @@ elseif (UNIX)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mmacosx-version-min=10.12")
     execute_process(
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/zstd -DCMAKE_C_FLAGS="-mmacosx-version-min=10.12" -DCMAKE_CXX_FLAGS="-mmacosx-version-min=10.12" -B${PROJECT_BINARY_DIR}/zstd
+        COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/snappy -DCMAKE_C_FLAGS="-mmacosx-version-min=10.12" -DCMAKE_CXX_FLAGS="-mmacosx-version-min=10.12" -B${PROJECT_BINARY_DIR}/snappy
     )
   else()  
     execute_process(
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/zstd -B${PROJECT_BINARY_DIR}/zstd
+        COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/snappy -B${PROJECT_BINARY_DIR}/snappy
     )
   endif()
   
@@ -560,7 +562,7 @@ set_target_properties(${CRYPTONOTE_LIB} PROPERTIES COMPILE_DEFINITIONS _GNU_SOUR
 if (WIN32)
   target_link_libraries(${CRYPTONOTE_LIB} rocksdb leveldb snappy zstd ${Boost_LIBRARIES})
 else ()
-  target_link_libraries(${CRYPTONOTE_LIB} rocksdblib leveldblib snappylib zstdlib ${Boost_LIBRARIES} -lresolv)
+  target_link_libraries(${CRYPTONOTE_LIB} rocksdblib zstdlib leveldblib snappylib ${Boost_LIBRARIES} -lresolv)
 endif ()
 
 set_target_properties(Mnemonics PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
