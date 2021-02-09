@@ -351,6 +351,15 @@ elseif (UNIX)
   set_target_properties(zstdlib PROPERTIES IMPORTED_LOCATION ${PROJECT_BINARY_DIR}/zstd/libzstd.a)
   add_dependencies(zstdlib zstd)
   
+  add_custom_target(
+         snappy
+         COMMAND $(MAKE) snappy
+         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/snappy
+  )
+  add_library(snappylib STATIC IMPORTED GLOBAL)
+  set_target_properties(snappylib PROPERTIES IMPORTED_LOCATION ${PROJECT_BINARY_DIR}/snappy/libnappy.a)
+  add_dependencies(snappylib snappy)
+
   if (APPLE)
     execute_process(
         COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/cryptonote/external/rocksdb -DARCH=${ARCH} -DWITH_ZSTD=ON -DWITH_GFLAGS=0 -DCMAKE_BUILD_TYPE=MinSizeRel -DWITH_TESTS=OFF -DWITH_TOOLS=OFF -DPORTABLE=ON -DCMAKE_C_FLAGS="-mmacosx-version-min=10.12" -DCMAKE_CXX_FLAGS="-mmacosx-version-min=10.12" -B${PROJECT_BINARY_DIR}/rocksdb
