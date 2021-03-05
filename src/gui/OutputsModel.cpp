@@ -329,11 +329,11 @@ QVariant OutputsModel::getUserRole(const QModelIndex& _index, int _role, CryptoN
 void OutputsModel::reloadWalletTransactions() {
   reset();
   std::vector unspent = WalletAdapter::instance().getOutputs();
-  m_unspentOutputs = QVector<CryptoNote::TransactionOutputInformation>(unspent.begin(), unspent.end());
+  m_unspentOutputs = QVector<CryptoNote::TransactionOutputInformation>::fromStdVector(unspent);
   unspent.clear();
   unspent.shrink_to_fit();
   std::vector spent = WalletAdapter::instance().getSpentOutputs();
-  m_spentOutputs = QVector<CryptoNote::TransactionSpentOutputInformation>(spent.begin(), spent.end());
+  m_spentOutputs = QVector<CryptoNote::TransactionSpentOutputInformation>::fromStdVector(spent);
   spent.clear();
   spent.shrink_to_fit();
 
