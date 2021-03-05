@@ -39,15 +39,6 @@ jobs:
         with:
           just-include: true
 
-      - name: Find Tag
-        id: tagger
-        uses: jimschubert/query-tag-action@v1
-        with:
-          include: 'v*'
-          exclude: '*-rc*'
-          commit-ish: 'HEAD~'
-          skip-unshallow: 'true'
-
       - name: Build
         shell: powershell
         id: build
@@ -57,7 +48,7 @@ jobs:
           VCINSTALLDIR: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\'
         run: |
           $build_folder = "build"
-          $krb_ver = "${{steps.tagger.outputs.tag}}"
+          $krb_ver = git describe --tags --abbrev=0
           $release_name = "Karbo-wallet-win64-${krb_ver}"
           $release_folder = "Release"
           echo "$release_name"
