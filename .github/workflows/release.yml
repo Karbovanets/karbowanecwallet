@@ -12,7 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
+          submodules: true
           fetch-depth: 0
+          ref: ${{ github.ref }}
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
@@ -34,6 +36,15 @@ jobs:
         with:
           just-include: true
 
+      - name: Find Tag
+        id: tagger
+        uses: jimschubert/query-tag-action@v1
+        with:
+          include: 'v*'
+          exclude: '*-rc*'
+          commit-ish: 'HEAD~'
+          skip-unshallow: 'true'
+
       - name: Build
         shell: powershell
         id: build
@@ -43,12 +54,10 @@ jobs:
           VCINSTALLDIR: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\'
         run: |
           $build_folder = "build"
-          $krb_ver = "${{ github.ref }}" -replace '[refs/tags/]'
+          $krb_ver = "${{steps.tagger.outputs.tag}}"
           $release_name = "Karbo-wallet-win64-$krb_ver"
           set CMAKE_PREFIX_PATH="$($qt5_cmake)"
           $qt5_cmake = "${{ env.Qt5_Dir }}/lib/cmake" -replace '[/]', '\\'
-          Remove-Item cryptonote -Recurse -ErrorAction Ignore
-          git clone https://github.com/Karbovanets/karbo cryptonote --quiet
           mkdir "$build_folder"
           cd "$build_folder"
           Start-Process cmake -ArgumentList "-DBOOST_ROOT=""$env:BOOST_ROOT_1_72_0"" -G ""Visual Studio 16 2019"" -A x64 -DARCH=default",".." -NoNewWindow -Wait
@@ -123,7 +132,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
+          submodules: true
           fetch-depth: 0
+          ref: ${{ github.ref }}
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
@@ -159,8 +170,6 @@ jobs:
           release_name="Karbo-wallet-macOS-$krb_ver"
           app_name="KarbowanecWallet.app"
           lang_folder="/Contents/Resources/languages"
-          rm -rf cryptonote
-          git clone https://github.com/Karbovanets/karbo cryptonote
           mkdir -p "$build_folder"
           cd "$build_folder"
           cmake -D ARCH=default -D CMAKE_C_FLAGS="-mmacosx-version-min=10.12" -D CMAKE_CXX_FLAGS="-mmacosx-version-min=10.12" -D CMAKE_BUILD_TYPE=Release ../..
@@ -196,7 +205,18 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
+          submodules: true
           fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Find Tag
+        id: tagger
+        uses: jimschubert/query-tag-action@v1
+        with:
+          include: 'v*'
+          exclude: '*-rc*'
+          commit-ish: 'HEAD~'
+          skip-unshallow: 'true'
 
       - name: Build
         id: build
@@ -204,11 +224,9 @@ jobs:
           sudo apt update -y
           sudo apt install -y qt5-default qttools5-dev qttools5-dev-tools libboost-all-dev
           build_folder="build/release"
-          krb_ver=$(echo "$GITHUB_REF" | sed 's|refs/tags/||')
-          release_name=Karbo-wallet-ubuntu-20.04-"$krb_ver"
+          krb_ver="${{steps.tagger.outputs.tag}}"
+          release_name=Karbo-wallet-ubuntu-20.04-$krb_ver
           app_name="KarbowanecWallet"
-          rm -rf cryptonote
-          git clone https://github.com/Karbovanets/karbo cryptonote
           mkdir -p "$build_folder"
           cd "$build_folder"
           cmake -D ARCH=default -D CMAKE_BUILD_TYPE=Release -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=true -D BOOST_IGNORE_SYSTEM_PATHS_DEFAULT=ON -D BOOST_ROOT=/usr ../..
@@ -239,7 +257,18 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
+          submodules: true
           fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Find Tag
+        id: tagger
+        uses: jimschubert/query-tag-action@v1
+        with:
+          include: 'v*'
+          exclude: '*-rc*'
+          commit-ish: 'HEAD~'
+          skip-unshallow: 'true'
 
       - name: Build
         id: build
@@ -248,11 +277,9 @@ jobs:
           sudo apt update -y
           sudo apt install -y qt5-default qttools5-dev qttools5-dev-tools libboost1.62-all-dev
           build_folder="build/release"
-          krb_ver=$(echo "$GITHUB_REF" | sed 's|refs/tags/||')
-          release_name=Karbo-wallet-ubuntu-18.04-"$krb_ver"
+          krb_ver="${{steps.tagger.outputs.tag}}"
+          release_name=Karbo-wallet-ubuntu-18.04-$krb_ver
           app_name="KarbowanecWallet"
-          rm -rf cryptonote
-          git clone https://github.com/Karbovanets/karbo cryptonote
           mkdir -p "$build_folder"
           cd "$build_folder"
           cmake -D ARCH=default -D CMAKE_BUILD_TYPE=Release -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=true -D BOOST_IGNORE_SYSTEM_PATHS_DEFAULT=ON -D BOOST_ROOT=/usr ../..

@@ -39,6 +39,15 @@ jobs:
         with:
           just-include: true
 
+      - name: Find Tag
+        id: tagger
+        uses: jimschubert/query-tag-action@v1
+        with:
+          include: 'v*'
+          exclude: '*-rc*'
+          commit-ish: 'HEAD~'
+          skip-unshallow: 'true'
+
       - name: Build
         shell: powershell
         id: build
@@ -48,7 +57,7 @@ jobs:
           VCINSTALLDIR: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\'
         run: |
           $build_folder = "build"
-          $krb_ver = git describe --tags --abbrev=0
+          $krb_ver = "${{steps.tagger.outputs.tag}}"
           $release_name = "Karbo-wallet-win64-${krb_ver}"
           $release_folder = "Release"
           echo "$release_name"
@@ -197,7 +206,7 @@ jobs:
           sudo apt install -y qt5-default qttools5-dev qttools5-dev-tools libboost-all-dev
           build_folder="build/release"
           krb_ver="${{steps.tagger.outputs.tag}}"
-          release_name=Karbo-wallet-ubuntu-20.04-"krb_ver"
+          release_name=Karbo-wallet-ubuntu-20.04-$krb_ver
           app_name="KarbowanecWallet"
           mkdir -p "$build_folder"
           cd "$build_folder"
@@ -247,7 +256,7 @@ jobs:
           sudo apt install -y qt5-default qttools5-dev qttools5-dev-tools libboost1.62-all-dev
           build_folder="build/release"
           krb_ver="${{steps.tagger.outputs.tag}}"
-          release_name=Karbo-wallet-ubuntu-18.04-"krb_ver"
+          release_name=Karbo-wallet-ubuntu-18.04-$krb_ver
           app_name="KarbowanecWallet"
           mkdir -p "$build_folder"
           cd "$build_folder"
