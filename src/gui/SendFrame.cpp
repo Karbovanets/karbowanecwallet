@@ -82,7 +82,7 @@ SendFrame::SendFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::SendFrame
   QString connection = Settings::instance().getConnection();
   if(connection.compare("remote") == 0) {
     m_nodeFeeAddress  = NodeAdapter::instance().getNodeFeeAddress();
-    m_flatRateNodeFee = std::min(NodeAdapter::instance().getNodeFeeAmount(), CryptoNote::parameters::COIN);
+    m_flatRateNodeFee = std::min<quint64>(NodeAdapter::instance().getNodeFeeAmount(), CryptoNote::parameters::COIN);
 
     m_ui->m_remote_label->setText(QString(tr("Node fee: %1 %2")).arg(CurrencyAdapter::instance().formatAmount(m_flatRateNodeFee).remove(QRegExp("0+$"))).arg(CurrencyAdapter::instance().getCurrencyTicker().toUpper()));
     m_ui->m_remote_label->show();
