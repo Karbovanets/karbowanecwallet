@@ -26,6 +26,7 @@ SignalHandler.cpp \
 StratumClient.cpp \
 WalletAdapter.cpp \
 Worker.cpp \
+Update.cpp \
 PaymentServer.cpp \
 gui/AboutDialog.cpp \
 gui/AddressBookDialog.cpp \
@@ -55,7 +56,6 @@ gui/TransactionsFrame.cpp \
 gui/TransactionsListModel.cpp \
 gui/TransactionsModel.cpp \
 gui/TransferFrame.cpp \
-update.cpp \
 gui/ConnectionSettings.cpp \
 gui/NewNodeDialog.cpp \
 gui/NodeModel.cpp \
@@ -93,6 +93,7 @@ SignalHandler.h \
 StratumClient.h \
 WalletAdapter.h \
 Worker.h \
+Update.h \
 PaymentServer.h \
 gui/AboutDialog.h \
 gui/AddressBookDialog.h \
@@ -123,7 +124,6 @@ gui/TransactionsListModel.h \
 gui/TransactionsModel.h \
 gui/TransferFrame.h \
 gui/WalletEvents.h \
-Update.h \
 gui/ConnectionSettings.h \
 gui/NewNodeDialog.h \
 gui/NodeModel.h \
