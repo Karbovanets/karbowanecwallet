@@ -1486,12 +1486,12 @@ Please wait...</source>
         <translation>ブロックチェーン ローディング中...</translation>
     </message>
     <message>
-        <location filename="../update.cpp" line="62"/>
+        <location filename="../Update.cpp" line="62"/>
         <source>New version available</source>
         <translation>利用可能な新バージョン</translation>
     </message>
     <message>
-        <location filename="../update.cpp" line="62"/>
+        <location filename="../Update.cpp" line="62"/>
         <source>There is an update available.
 Do you want to go to the download page?</source>
         <translation>利用可能なアップデートがあります。
@@ -1903,12 +1903,12 @@ Do you want to go to the download page?</source>
 <context>
     <name>Updater</name>
     <message>
-        <location filename="../update.cpp" line="38"/>
+        <location filename="../Update.cpp" line="38"/>
         <source>Error: %1</source>
         <translation>エラー: %1</translation>
     </message>
     <message>
-        <location filename="../update.cpp" line="39"/>
+        <location filename="../Update.cpp" line="39"/>
         <source>Unable to check for update</source>
         <translation>アップデートのチェックができません</translation>
     </message>
@@ -2075,37 +2075,37 @@ Do you want to go to the download page?</source>
 <context>
     <name>WalletGui::CoinsFrame</name>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="52"/>
+        <location filename="../gui/CoinsFrame.cpp" line="53"/>
         <source>Copy transaction &amp;hash</source>
         <translation>トランザクション&amp;hashをコピー</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="53"/>
+        <location filename="../gui/CoinsFrame.cpp" line="54"/>
         <source>Copy &amp;key</source>
         <translation>コピーキー</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="54"/>
+        <location filename="../gui/CoinsFrame.cpp" line="55"/>
         <source>Copy &amp;global index</source>
         <translation>グローバルインデックスをコピーする</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="55"/>
+        <location filename="../gui/CoinsFrame.cpp" line="56"/>
         <source>Show &amp;details</source>
         <translation>詳細を表示</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="57"/>
+        <location filename="../gui/CoinsFrame.cpp" line="58"/>
         <source>All types</source>
         <translation>全種類</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="58"/>
+        <location filename="../gui/CoinsFrame.cpp" line="59"/>
         <source>Spent</source>
         <translation>過ごした</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="59"/>
+        <location filename="../gui/CoinsFrame.cpp" line="60"/>
         <source>Unspent</source>
         <translation>未使用</translation>
     </message>
@@ -2783,99 +2783,99 @@ Are you sure?</source>
 <context>
     <name>WalletGui::OutputsModel</name>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="66"/>
+        <location filename="../gui/OutputsModel.cpp" line="67"/>
         <source>Status</source>
         <translation>状態</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="68"/>
+        <location filename="../gui/OutputsModel.cpp" line="69"/>
         <source>Type</source>
         <translation>タイプ</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="70"/>
+        <location filename="../gui/OutputsModel.cpp" line="71"/>
         <source>Public key (stealth address)</source>
         <translation>公開鍵（ステルスアドレス）</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="72"/>
+        <location filename="../gui/OutputsModel.cpp" line="73"/>
         <source>Transaction hash</source>
         <translation>トランザクションのハッシュ</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="74"/>
+        <location filename="../gui/OutputsModel.cpp" line="75"/>
         <source>Amount</source>
         <translation>数量</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="76"/>
+        <location filename="../gui/OutputsModel.cpp" line="77"/>
         <source>Global index</source>
         <translation>グローバルインデックス</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="78"/>
+        <location filename="../gui/OutputsModel.cpp" line="79"/>
         <source>Index in transaction</source>
         <translation>トランザクションのインデックス</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="80"/>
+        <location filename="../gui/OutputsModel.cpp" line="81"/>
         <source>Transaction public key</source>
         <translation>トランザクション公開鍵</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="82"/>
+        <location filename="../gui/OutputsModel.cpp" line="83"/>
         <source>Spent at height</source>
         <translation>高さで過ごした</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="84"/>
+        <location filename="../gui/OutputsModel.cpp" line="85"/>
         <source>Timestamp</source>
         <translation>タイムスタンプ</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="86"/>
+        <location filename="../gui/OutputsModel.cpp" line="87"/>
         <source>Spent in transaction</source>
         <translation>トランザクションに費やさ</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="88"/>
+        <location filename="../gui/OutputsModel.cpp" line="89"/>
         <source>Key image</source>
         <translation>キーの画像</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="90"/>
+        <location filename="../gui/OutputsModel.cpp" line="91"/>
         <source>As input</source>
         <translation>入力として</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="169"/>
-        <location filename="../gui/OutputsModel.cpp" line="267"/>
+        <location filename="../gui/OutputsModel.cpp" line="170"/>
+        <location filename="../gui/OutputsModel.cpp" line="268"/>
         <source>Spent</source>
         <translation>過ごした</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="171"/>
-        <location filename="../gui/OutputsModel.cpp" line="269"/>
+        <location filename="../gui/OutputsModel.cpp" line="172"/>
+        <location filename="../gui/OutputsModel.cpp" line="270"/>
         <source>Unspent</source>
         <translation>未使用</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="179"/>
+        <location filename="../gui/OutputsModel.cpp" line="180"/>
         <source>Key</source>
         <translation>キー</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="181"/>
+        <location filename="../gui/OutputsModel.cpp" line="182"/>
         <source>Multisignature</source>
         <translation>マルチシグニチャ</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="183"/>
+        <location filename="../gui/OutputsModel.cpp" line="184"/>
         <source>Invalid</source>
         <translation>無効</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="200"/>
+        <location filename="../gui/OutputsModel.cpp" line="201"/>
         <source>Pending</source>
         <translation>保留中</translation>
     </message>
@@ -2957,80 +2957,80 @@ Are you sure?</source>
     </message>
     <message>
         <location filename="../gui/SendFrame.cpp" line="87"/>
-        <location filename="../gui/SendFrame.cpp" line="216"/>
+        <location filename="../gui/SendFrame.cpp" line="208"/>
         <source>Node fee: %1 %2</source>
         <translation>ノードの手数料: %1 %2</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="243"/>
+        <location filename="../gui/SendFrame.cpp" line="235"/>
         <source>Payment request should start with karbowanec:</source>
         <translation>ペイメントリクエストはkarbowanecで始めなくてなならない</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="257"/>
-        <location filename="../gui/SendFrame.cpp" line="356"/>
+        <location filename="../gui/SendFrame.cpp" line="249"/>
+        <location filename="../gui/SendFrame.cpp" line="348"/>
         <source>Invalid recipient address</source>
         <translation>無効な受領者アドレス</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="288"/>
-        <location filename="../gui/SendFrame.cpp" line="338"/>
-        <location filename="../gui/SendFrame.cpp" line="590"/>
+        <location filename="../gui/SendFrame.cpp" line="280"/>
+        <location filename="../gui/SendFrame.cpp" line="330"/>
+        <location filename="../gui/SendFrame.cpp" line="582"/>
         <source>Insufficient balance.</source>
         <translation>残高不足。</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="420"/>
+        <location filename="../gui/SendFrame.cpp" line="412"/>
         <source>Incorrect password</source>
         <translation>誤ったパスワード</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="420"/>
+        <location filename="../gui/SendFrame.cpp" line="412"/>
         <source>Wrong password.</source>
         <translation>間違ったパスワード。</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="366"/>
+        <location filename="../gui/SendFrame.cpp" line="358"/>
         <source>Invalid amount</source>
         <translation>数量が無効です</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="402"/>
+        <location filename="../gui/SendFrame.cpp" line="394"/>
         <source>Incorrect fee value</source>
         <translation>正しくない手数料の値</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="411"/>
+        <location filename="../gui/SendFrame.cpp" line="403"/>
         <source>Insufficient balance</source>
         <translation>残高不足</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="411"/>
+        <location filename="../gui/SendFrame.cpp" line="403"/>
         <source>Available balance is insufficient to send this transaction. Have you excluded a fee?</source>
         <translation>このトランザクションを送信するための利用可能残高が不足しています。手数料を除外しましたか？</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="345"/>
+        <location filename="../gui/SendFrame.cpp" line="337"/>
         <source>Invalid payment ID</source>
         <translation>無効なペイメントID</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="550"/>
+        <location filename="../gui/SendFrame.cpp" line="542"/>
         <source>Prepare</source>
         <translation>作る</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="554"/>
+        <location filename="../gui/SendFrame.cpp" line="546"/>
         <source>Send</source>
         <translation>送信</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="568"/>
+        <location filename="../gui/SendFrame.cpp" line="560"/>
         <source>Sweep unmixable dust</source>
         <translation>スイープ混合不可</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="569"/>
+        <location filename="../gui/SendFrame.cpp" line="561"/>
         <source>You have unmixable coins that can be only spent with zero privacy level.
  Shall we continue with zero privacy?</source>
         <translation>プライバシーレベルがゼロの場合にのみ使用できる、混合できないコインがあります。

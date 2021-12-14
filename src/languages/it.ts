@@ -1503,12 +1503,12 @@ Attendere prego…
         <translation>Caricamento del blockchain…</translation>
     </message>
     <message>
-        <location filename="../update.cpp" line="62"/>
+        <location filename="../Update.cpp" line="62"/>
         <source>New version available</source>
         <translation>Nuova versione disponibile</translation>
     </message>
     <message>
-        <location filename="../update.cpp" line="62"/>
+        <location filename="../Update.cpp" line="62"/>
         <source>There is an update available.
 Do you want to go to the download page?</source>
         <translation>C&apos;è un aggiornamento disponibile.
@@ -1904,12 +1904,12 @@ Vuoi andare alla pagina dei download?</translation>
 <context>
     <name>Updater</name>
     <message>
-        <location filename="../update.cpp" line="38"/>
+        <location filename="../Update.cpp" line="38"/>
         <source>Error: %1</source>
         <translation>Errore: %1</translation>
     </message>
     <message>
-        <location filename="../update.cpp" line="39"/>
+        <location filename="../Update.cpp" line="39"/>
         <source>Unable to check for update</source>
         <translation>Impossibile verificare la presenza di aggiornamenti</translation>
     </message>
@@ -2076,37 +2076,37 @@ Vuoi andare alla pagina dei download?</translation>
 <context>
     <name>WalletGui::CoinsFrame</name>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="52"/>
+        <location filename="../gui/CoinsFrame.cpp" line="53"/>
         <source>Copy transaction &amp;hash</source>
         <translation>Copia l&apos;hash di transazione</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="53"/>
+        <location filename="../gui/CoinsFrame.cpp" line="54"/>
         <source>Copy &amp;key</source>
         <translation>Copia &amp;chiave</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="54"/>
+        <location filename="../gui/CoinsFrame.cpp" line="55"/>
         <source>Copy &amp;global index</source>
         <translation>Copia indice &amp;globale</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="55"/>
+        <location filename="../gui/CoinsFrame.cpp" line="56"/>
         <source>Show &amp;details</source>
         <translation>Mostra i dettagli</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="57"/>
+        <location filename="../gui/CoinsFrame.cpp" line="58"/>
         <source>All types</source>
         <translation>Tutti i tipi</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="58"/>
+        <location filename="../gui/CoinsFrame.cpp" line="59"/>
         <source>Spent</source>
         <translation>Trascorso</translation>
     </message>
     <message>
-        <location filename="../gui/CoinsFrame.cpp" line="59"/>
+        <location filename="../gui/CoinsFrame.cpp" line="60"/>
         <source>Unspent</source>
         <translation>Non speso</translation>
     </message>
@@ -2785,99 +2785,99 @@ Are you sure?</source>
 <context>
     <name>WalletGui::OutputsModel</name>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="66"/>
+        <location filename="../gui/OutputsModel.cpp" line="67"/>
         <source>Status</source>
         <translation>Stato</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="68"/>
+        <location filename="../gui/OutputsModel.cpp" line="69"/>
         <source>Type</source>
         <translation>Tipo</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="70"/>
+        <location filename="../gui/OutputsModel.cpp" line="71"/>
         <source>Public key (stealth address)</source>
         <translation>Chiave pubblica (indirizzo nascosto)</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="72"/>
+        <location filename="../gui/OutputsModel.cpp" line="73"/>
         <source>Transaction hash</source>
         <translation>Hash della transazione</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="74"/>
+        <location filename="../gui/OutputsModel.cpp" line="75"/>
         <source>Amount</source>
         <translation>Somma</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="76"/>
+        <location filename="../gui/OutputsModel.cpp" line="77"/>
         <source>Global index</source>
         <translation>Indice globale</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="78"/>
+        <location filename="../gui/OutputsModel.cpp" line="79"/>
         <source>Index in transaction</source>
         <translation>Indice nella transazione</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="80"/>
+        <location filename="../gui/OutputsModel.cpp" line="81"/>
         <source>Transaction public key</source>
         <translation>Chiave pubblica della transazione</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="82"/>
+        <location filename="../gui/OutputsModel.cpp" line="83"/>
         <source>Spent at height</source>
         <translation>Trascorso all&apos;altezza</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="84"/>
+        <location filename="../gui/OutputsModel.cpp" line="85"/>
         <source>Timestamp</source>
         <translation>Timestamp</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="86"/>
+        <location filename="../gui/OutputsModel.cpp" line="87"/>
         <source>Spent in transaction</source>
         <translation>Trascorso in transazione</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="88"/>
+        <location filename="../gui/OutputsModel.cpp" line="89"/>
         <source>Key image</source>
         <translation>Immagine della chiave</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="90"/>
+        <location filename="../gui/OutputsModel.cpp" line="91"/>
         <source>As input</source>
         <translation>Come input</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="169"/>
-        <location filename="../gui/OutputsModel.cpp" line="267"/>
+        <location filename="../gui/OutputsModel.cpp" line="170"/>
+        <location filename="../gui/OutputsModel.cpp" line="268"/>
         <source>Spent</source>
         <translation>Trascorso</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="171"/>
-        <location filename="../gui/OutputsModel.cpp" line="269"/>
+        <location filename="../gui/OutputsModel.cpp" line="172"/>
+        <location filename="../gui/OutputsModel.cpp" line="270"/>
         <source>Unspent</source>
         <translation>Non speso</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="179"/>
+        <location filename="../gui/OutputsModel.cpp" line="180"/>
         <source>Key</source>
         <translation>Chiave</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="181"/>
+        <location filename="../gui/OutputsModel.cpp" line="182"/>
         <source>Multisignature</source>
         <translation>Multisignatura</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="183"/>
+        <location filename="../gui/OutputsModel.cpp" line="184"/>
         <source>Invalid</source>
         <translation>Non valido</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="200"/>
+        <location filename="../gui/OutputsModel.cpp" line="201"/>
         <source>Pending</source>
         <translation>In attesa</translation>
     </message>
@@ -2959,80 +2959,80 @@ Are you sure?</source>
     </message>
     <message>
         <location filename="../gui/SendFrame.cpp" line="87"/>
-        <location filename="../gui/SendFrame.cpp" line="216"/>
+        <location filename="../gui/SendFrame.cpp" line="208"/>
         <source>Node fee: %1 %2</source>
         <translation>Tassa sul nodo: %1 %2</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="243"/>
+        <location filename="../gui/SendFrame.cpp" line="235"/>
         <source>Payment request should start with karbowanec:</source>
         <translation>La richiesta di pagamento dovrebbe iniziare con karbowanec:</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="257"/>
-        <location filename="../gui/SendFrame.cpp" line="356"/>
+        <location filename="../gui/SendFrame.cpp" line="249"/>
+        <location filename="../gui/SendFrame.cpp" line="348"/>
         <source>Invalid recipient address</source>
         <translation>Indirizzo del destinatario non valido</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="288"/>
-        <location filename="../gui/SendFrame.cpp" line="338"/>
-        <location filename="../gui/SendFrame.cpp" line="590"/>
+        <location filename="../gui/SendFrame.cpp" line="280"/>
+        <location filename="../gui/SendFrame.cpp" line="330"/>
+        <location filename="../gui/SendFrame.cpp" line="582"/>
         <source>Insufficient balance.</source>
         <translation>Il saldo insufficiente.</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="420"/>
+        <location filename="../gui/SendFrame.cpp" line="412"/>
         <source>Incorrect password</source>
         <translation>Password errata</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="420"/>
+        <location filename="../gui/SendFrame.cpp" line="412"/>
         <source>Wrong password.</source>
         <translation>Password errata.</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="366"/>
+        <location filename="../gui/SendFrame.cpp" line="358"/>
         <source>Invalid amount</source>
         <translation>Somma non valida</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="402"/>
+        <location filename="../gui/SendFrame.cpp" line="394"/>
         <source>Incorrect fee value</source>
         <translation>Valore di commissione errato</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="411"/>
+        <location filename="../gui/SendFrame.cpp" line="403"/>
         <source>Insufficient balance</source>
         <translation>Saldo insufficiente</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="411"/>
+        <location filename="../gui/SendFrame.cpp" line="403"/>
         <source>Available balance is insufficient to send this transaction. Have you excluded a fee?</source>
         <translation>Il Saldo disponibile non è sufficiente per inviare questa transazione. Hai escluso la commissione?</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="345"/>
+        <location filename="../gui/SendFrame.cpp" line="337"/>
         <source>Invalid payment ID</source>
         <translation>ID di pagamento non valido</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="550"/>
+        <location filename="../gui/SendFrame.cpp" line="542"/>
         <source>Prepare</source>
         <translation>Preparare</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="554"/>
+        <location filename="../gui/SendFrame.cpp" line="546"/>
         <source>Send</source>
         <translation>Invia</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="568"/>
+        <location filename="../gui/SendFrame.cpp" line="560"/>
         <source>Sweep unmixable dust</source>
         <translation>Sweep unmixable</translation>
     </message>
     <message>
-        <location filename="../gui/SendFrame.cpp" line="569"/>
+        <location filename="../gui/SendFrame.cpp" line="561"/>
         <source>You have unmixable coins that can be only spent with zero privacy level.
  Shall we continue with zero privacy?</source>
         <translation>Hai monete non mescolabili che possono essere spese solo con un livello di privacy pari a zero.
