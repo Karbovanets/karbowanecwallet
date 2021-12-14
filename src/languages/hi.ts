@@ -2735,7 +2735,7 @@ Are you sure?</source>
     <message>
         <location filename="../gui/MiningFrame.cpp" line="112"/>
         <source>Mining</source>
-        <translation type="unfinished">माइनिंग</translation>
+        <translation>माइनिंग</translation>
     </message>
     <message>
         <location filename="../gui/MiningFrame.cpp" line="152"/>
