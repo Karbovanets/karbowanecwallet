@@ -802,6 +802,12 @@ void MainWindow::openOptimizationSettings() {
 }
 
 void MainWindow::getBalanceProof() {
+  if (WalletAdapter::instance().getActualBalance() == 0) {
+    QMessageBox::information(this, tr("Zero balance"), tr("You cannot generate balance proof of zero."), QMessageBox::Ok);
+    m_ui->m_proofBalanceAction->setEnabled(false);
+    return;
+  }
+
   if (!confirmWithPassword()) {
     return;
   }
@@ -1145,7 +1151,7 @@ void MainWindow::walletSynchronizationInProgress(uint32_t _current, uint32_t _to
   }
   if (m_syncProgressBar->isHidden() && progressAct) m_syncProgressBar->show();
   m_syncProgressBar->setValue(syncProgress);
-  //m_ui->m_proofBalanceAction->setEnabled(false);
+  m_ui->m_proofBalanceAction->setEnabled(false);
 }
 
 void MainWindow::walletSynchronized(int _error, const QString& _error_text) {
@@ -1155,7 +1161,7 @@ void MainWindow::walletSynchronized(int _error, const QString& _error_text) {
   QString syncLabelTooltip = _error > 0 ? tr("Not synchronized") : tr("Synchronized");
   m_synchronizationStateIconLabel->setToolTip(syncLabelTooltip);
   if (WalletAdapter::instance().getActualBalance() > 0 && !(Settings::instance().isTrackingMode())) {
-    //m_ui->m_proofBalanceAction->setEnabled(true);
+    m_ui->m_proofBalanceAction->setEnabled(true);
   }
   statusBar()->showMessage(m_statusBarText);
   m_syncProgressBar->hide();
@@ -1176,7 +1182,8 @@ void MainWindow::walletOpened(bool _error, const QString& _error_text) {
     m_ui->m_optimizationAction->setEnabled(true);
     m_ui->m_signMessageAction->setEnabled(true);
     m_ui->m_verifySignedMessageAction->setEnabled(true);
-    m_ui->m_proofBalanceAction->setEnabled(true);
+    if (WalletAdapter::instance().getActualBalance() != 0)
+        m_ui->m_proofBalanceAction->setEnabled(true);
     if(WalletAdapter::instance().isDeterministic()) {
        m_ui->m_showMnemonicSeedAction->setEnabled(true);
     }
