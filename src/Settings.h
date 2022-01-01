@@ -36,6 +36,7 @@ public:
   bool hasAllowLocalIpOption() const;
   bool hasHideMyPortOption() const;
   bool isTestnet() const;
+  bool withoutCheckpoints() const;
   bool useLevelDB() const;
   QDir getDataDir() const;
   QString getP2pBindIp() const;
