@@ -28,6 +28,7 @@ public:
   bool hasAllowLocalIpOption() const;
   bool hasHideMyPortOption() const;
   bool hasLevelDBOption() const;
+  bool hasPortableOption() const;
   QString getErrorText() const;
   QString getHelpText() const;
   QString getP2pBindIp() const;
@@ -55,6 +56,7 @@ private:
   QCommandLineOption m_addExclusiveNodeOption;
   QCommandLineOption m_seedNodeOption;
   QCommandLineOption m_hideMyPortOption;
+  QCommandLineOption m_portableOption;
   QCommandLineOption m_dataDirOption;
   QCommandLineOption m_rollBackOption;
   QCommandLineOption m_minimized;
