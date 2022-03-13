@@ -621,9 +621,15 @@ Node* createInprocessNode(const CryptoNote::Currency& currency, Logging::LoggerM
     throw std::runtime_error("Database initialization failed");
   }
 
-  CryptoNote::Checkpoints checkpoints(logManager);
+  bool allowReorg = Settings::instance().alowReorg();
+  if (allowReorg) {
+    LoggerAdapter::instance().log("Deep reorganization is allowed!");
+  }
+  CryptoNote::Checkpoints checkpoints(logManager, allowReorg);
   if (Settings::instance().withoutCheckpoints()) {
     LoggerAdapter::instance().log("Loading without checkpoints");
+  } else if (Settings::instance().isTestnet()) {
+    LoggerAdapter::instance().log( "Running in Testnet mode");
   } else {
     for (const CryptoNote::CheckpointData& checkpoint : CryptoNote::CHECKPOINTS) {
       checkpoints.addCheckpoint(checkpoint.index, checkpoint.blockId);

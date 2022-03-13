@@ -38,6 +38,7 @@ public:
   bool isTestnet() const;
   bool withoutCheckpoints() const;
   bool useLevelDB() const;
+  bool alowReorg() const;
   QDir getDataDir() const;
   QString getP2pBindIp() const;
   quint16 getLocalRpcPort() const;
