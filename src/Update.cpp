@@ -59,12 +59,25 @@ void Updater::replyFinished (QNetworkReply *reply)
 
         bool r = QVersionNumber::compare(ourVersion, remoteVersion) < 0;
         if (r) {
-             if (QMessageBox::warning(nullptr, QObject::tr("New version available"),
-                                      QObject::tr("There is an update available.\nDo you want to go to the download page?"),
-                                      QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok) {
-                 QDesktopServices::openUrl(QUrl(KARBO_DOWNLOAD_URL));
-             }
+             QMessageBox* msgBox = new QMessageBox( nullptr );
+             msgBox->setAttribute( Qt::WA_DeleteOnClose );
+             msgBox->setStandardButtons( { QMessageBox::Ok, QMessageBox::Cancel } );
+             msgBox->setWindowTitle( tr("New version available") );
+             msgBox->setText( tr("There is an update available.\nDo you want to go to the download page?") );
+             msgBox->setIcon(QMessageBox::Information);
+             msgBox->setModal( false ); // we want it non-modal
+             connect(msgBox,SIGNAL(accepted()),this,SLOT(msgBoxAccepted()));
+             connect(msgBox,SIGNAL(rejected()),this,SLOT(msgBoxRejected()));
+             msgBox->show();
         }
     }
     reply->deleteLater();
+}
+
+void Updater::msgBoxAccepted() {
+    QDesktopServices::openUrl(QUrl(KARBO_DOWNLOAD_URL));
+}
+
+void Updater::msgBoxRejected() {
+    // do nothing
 }

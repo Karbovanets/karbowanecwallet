@@ -6,6 +6,7 @@
 #define UPDATE_H
 
 #include <QObject>
+#include <QAbstractButton>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
@@ -30,6 +31,8 @@ signals:
     
 public slots:
     void replyFinished (QNetworkReply *reply);
+    void msgBoxAccepted ();
+    void msgBoxRejected ();
 
 private:
    QNetworkAccessManager *manager;
