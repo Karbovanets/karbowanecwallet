@@ -400,6 +400,7 @@ public:
 
     m_nodeServer.run();
     m_nodeServer.deinit();
+    m_core.save();
     m_database.shutdown();
     m_node.shutdown();
   }
