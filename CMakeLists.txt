@@ -318,9 +318,9 @@ if (WIN32)
   add_definitions(/D_CRT_SECURE_NO_WARNINGS /D_WIN32_WINNT=0x0600 /DSTATICLIB)
 
   add_subdirectory(cryptonote/external/zstd EXCLUDE_FROM_ALL)
+  add_subdirectory(cryptonote/external/snappy EXCLUDE_FROM_ALL)
   add_subdirectory(cryptonote/external/rocksdb EXCLUDE_FROM_ALL)
   add_subdirectory(cryptonote/external/leveldb EXCLUDE_FROM_ALL)
-  add_subdirectory(cryptonote/external/snappy EXCLUDE_FROM_ALL)
   set_property(TARGET rocksdb leveldb snappy zstd PROPERTY FOLDER "external")
 
   include_directories(cryptonote/src/platform/msc)
