@@ -97,10 +97,11 @@ jobs:
           echo "krb_ver=${krb_ver}" >> $env:GITHUB_OUTPUT
 
       - name: Create Release Archive
-        uses:softprops/action-gh-release@v0.1.15
+        uses: softprops/action-gh-release@v0.1.15
         with:
           files: ${{ steps.pack.outputs.asset_path_archive }}
           name: Karbo Wallet ${{ steps.pack.outputs.krb_ver }}
+          append_body: true
           body: |
             **${{ steps.pack.outputs.release_name_archive }}**
             ${{ steps.pack.outputs.sha256a }}
@@ -112,6 +113,7 @@ jobs:
         with:
           files: ${{ steps.pack.outputs.asset_path_install }}
           name: Karbo Wallet ${{ steps.pack.outputs.krb_ver }}
+          append_body: true
           body: |
             **${{ steps.pack.outputs.release_name_install }}**
             ${{ steps.pack.outputs.sha256i }}
@@ -127,10 +129,9 @@ jobs:
           fetch-depth: 0
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v3
         with:
           version: '5.15.2'
-          modules: 'qttools5'
           install-deps: 'true'
 
       - name: Setup Xcode
@@ -174,6 +175,7 @@ jobs:
         with:
           files: ${{ steps.build.outputs.asset_path }}
           name: Karbo Wallet ${{ steps.build.outputs.krb_ver }}
+          append_body: true
           body: |
             **${{ steps.build.outputs.release_name }}**
             ${{ steps.build.outputs.sha256 }}
@@ -215,6 +217,7 @@ jobs:
         with:
           files: ${{ steps.build.outputs.asset_path }}
           name: Karbo Wallet ${{ steps.build.outputs.krb_ver }}
+          append_body: true
           body: |
             **${{ steps.build.outputs.release_name }}**
             ${{ steps.build.outputs.sha256 }}
@@ -256,6 +259,7 @@ jobs:
         with:
           files: ${{ steps.build.outputs.asset_path }}
           name: Karbo Wallet ${{ steps.build.outputs.krb_ver }}
+          append_body: true
           body: |
             **${{ steps.build.outputs.release_name }}**
             ${{ steps.build.outputs.sha256 }}
