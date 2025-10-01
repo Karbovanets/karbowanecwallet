@@ -1,5 +1,5 @@
 // Copyright (c) 2012-2016, The CryptoNote developers, The Bytecoin developers
-// Copyright (c) 2016-2022, The Karbo developers
+// Copyright (c) 2016-2025, The Karbo developers
 //
 // This file is part of Karbo.
 //
@@ -138,7 +138,7 @@ namespace WalletGui
 
     if (!NodeAdapter::instance().getBlockTemplate(bl, m_account, extra_nonce, di, height)) {
       m_logger(Logging::ERROR) << "Failed to get_block_template(), stopping mining";
-      Q_EMIT minerMessageSignal(QString("Failed to get_block_template()"));
+      Q_EMIT minerMessageSignal(QString(tr("Failed to get block template")));
       return false;
     }
 
@@ -231,7 +231,11 @@ namespace WalletGui
     QString formattedTime = date.toString("dd.MM.yyyy hh:mm:ss");
 
     m_logger(Logging::INFO) << "Mining has started with " << threads_count << " thread(s), at difficulty " << m_diffic << " good luck!";
-    Q_EMIT minerMessageSignal(QString("%1 Mining has started with %2 thread(s) at difficulty %3, good luck!").arg(formattedTime).arg(threads_count).arg(m_diffic));
+    Q_EMIT minerMessageSignal(
+        tr("%1 Mining has started with %n thread(s) at difficulty %2, good luck!", nullptr, threads_count)
+            .arg(formattedTime)
+            .arg(m_diffic)
+        );
     return true;
   }
   
@@ -270,7 +274,7 @@ namespace WalletGui
     m_last_hash_rates.clear();
 
     m_logger(Logging::INFO) << "Mining stopped, " << m_threads.size() << " threads finished" ;
-    Q_EMIT minerMessageSignal(QString("Mining stopped, %1 threads finished").arg(threadsCount));
+    Q_EMIT minerMessageSignal(tr("Mining stopped, %n thread(s) finished", nullptr, threadsCount));
 
     return true;
   }
@@ -367,7 +371,7 @@ namespace WalletGui
         }
         catch (std::exception& e) {
           m_logger(Logging::ERROR) << "Signing block failed: " << e.what();
-          Q_EMIT minerMessageSignal(QString("Signing block failed") + QString(e.what()));
+          Q_EMIT minerMessageSignal(QString(tr("Signing block failed")) + QString(e.what()));
           m_stop_mining = true;
         }
       }
@@ -378,7 +382,7 @@ namespace WalletGui
       if (!m_stop_mining) {
         if (!NodeAdapter::instance().getBlockLongHash(context, b, pow)) {
           m_logger(Logging::ERROR) << "getBlockLongHash failed.";
-          Q_EMIT minerMessageSignal(QString("getBlockLongHash failed"));
+          Q_EMIT minerMessageSignal(QString(tr("getBlockLongHash failed")));
           m_stop_mining = true;
         }
       }
@@ -401,11 +405,11 @@ namespace WalletGui
         QString formattedTime = date.toString("dd.MM.yyyy hh:mm:ss");
 
         m_logger(Logging::INFO) << "Found block " << Common::podToHex(id) << " at height " << bh << " for difficulty: " << local_diff << ", POW " << Common::podToHex(pow);
-        Q_EMIT minerMessageSignal(QString("%1 Found block %2 at height %3 for difficulty %4, POW %5").arg(formattedTime).arg(QString::fromStdString(Common::podToHex(id))).arg(bh).arg(local_diff).arg(QString::fromStdString(Common::podToHex(pow))));
+        Q_EMIT minerMessageSignal(QString(tr("%1 Found block %2 at height %3 for difficulty %4, POW %5")).arg(formattedTime).arg(QString::fromStdString(Common::podToHex(id))).arg(bh).arg(local_diff).arg(QString::fromStdString(Common::podToHex(pow))));
 
         if(!NodeAdapter::instance().handleBlockFound(b)) {
           m_logger(Logging::ERROR) << "Failed to submit block to the main chain";
-          Q_EMIT minerMessageSignal(QString("Failed to submit block to the main chain"));
+          Q_EMIT minerMessageSignal(QString(tr("Failed to submit block to the main chain")));
         } else {
           // yay!
         }

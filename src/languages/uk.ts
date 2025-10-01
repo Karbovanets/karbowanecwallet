@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="uk_UA" sourcelanguage="en">
+<TS version="2.1" language="uk_UA" sourcelanguage="en_US">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -2750,7 +2750,7 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/MainWindow.cpp" line="154"/>
         <source>About %1 Wallet</source>
-        <translation>Про гаманець Карбованця</translation>
+        <translation>Про гаманець %1</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.cpp" line="356"/>
@@ -3032,6 +3032,68 @@ Are you sure?</source>
     </message>
 </context>
 <context>
+    <name>WalletGui::Miner</name>
+    <message>
+        <location filename="../Miner.cpp" line="141"/>
+        <source>Failed to get block template</source>
+        <translation>Не вдалося отримати шаблон блоку</translation>
+    </message>
+    <message>
+        <source>%1 Mining has started with %2 thread(s) at difficulty %3, good luck!</source>
+        <translation type="obsolete">%1 Розпочато карбування на %2 потоках зі складністю %3, щасти!</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Miner.cpp" line="235"/>
+        <source>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</source>
+        <translation>
+            <numerusform>%1 Розпочато карбування на %n потоці зі складністю %2, щасти!</numerusform>
+            <numerusform>%1 Розпочато карбування на %n потоках зі складністю %2, щасти!</numerusform>
+            <numerusform>%1 Розпочато карбування на %n потоках зі складністю %2, щасти!</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Mining stopped, %1 threads finished</source>
+        <translation type="vanished">Карбування зупинено, потоків завершено: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>Mining stopped, %n threads finished</source>
+        <translation type="vanished">
+            <numerusform>Карбування зупинено, завершено %n потік</numerusform>
+            <numerusform>Карбування зупинено, завершено %n потоки</numerusform>
+            <numerusform>Карбування зупинено, завершено %n потоків</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Miner.cpp" line="277"/>
+        <source>Mining stopped, %n thread(s) finished</source>
+        <translation>
+            <numerusform>Карбування зупинено, завершено %n потік</numerusform>
+            <numerusform>Карбування зупинено, завершено %n потоки</numerusform>
+            <numerusform>Карбування зупинено, завершено %n потоків</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../Miner.cpp" line="374"/>
+        <source>Signing block failed</source>
+        <translation>Не вдалося підписати блок</translation>
+    </message>
+    <message>
+        <location filename="../Miner.cpp" line="385"/>
+        <source>getBlockLongHash failed</source>
+        <translation>Помилка getBlockLongHash</translation>
+    </message>
+    <message>
+        <location filename="../Miner.cpp" line="408"/>
+        <source>%1 Found block %2 at height %3 for difficulty %4, POW %5</source>
+        <translation>%1 Знайдено блок %2 на висоті %3 зі складністю %4, POW %5</translation>
+    </message>
+    <message>
+        <location filename="../Miner.cpp" line="412"/>
+        <source>Failed to submit block to the main chain</source>
+        <translation>Не вдалося подати блок до основного ланцюга</translation>
+    </message>
+</context>
+<context>
     <name>WalletGui::MiningFrame</name>
     <message>
         <source>Mining. Hashrate: %1 H/s</source>
@@ -3042,17 +3104,17 @@ Are you sure?</source>
         <translation type="vanished">Помилка: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="61"/>
+        <location filename="../gui/MiningFrame.cpp" line="67"/>
         <source>Hashrate</source>
         <translation>Хешрейт</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="198"/>
+        <location filename="../gui/MiningFrame.cpp" line="216"/>
         <source>Starting...</source>
         <translation>Запуск...</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="218"/>
+        <location filename="../gui/MiningFrame.cpp" line="236"/>
         <source>Stopped</source>
         <translation>Зупинено</translation>
     </message>
@@ -3069,14 +3131,14 @@ Are you sure?</source>
         <translation type="vanished">Карбування в пулі. Швидкість: %1 H/s</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="137"/>
+        <location filename="../gui/MiningFrame.cpp" line="143"/>
         <source>Mining</source>
         <translation>Карбування</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="177"/>
         <location filename="../gui/MiningFrame.cpp" line="195"/>
-        <location filename="../gui/MiningFrame.cpp" line="263"/>
+        <location filename="../gui/MiningFrame.cpp" line="213"/>
+        <location filename="../gui/MiningFrame.cpp" line="281"/>
         <source>%1</source>
         <translation type="unfinished">%1</translation>
     </message>
