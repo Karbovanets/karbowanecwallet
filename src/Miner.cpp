@@ -404,8 +404,8 @@ namespace WalletGui
         Q_EMIT minerMessageSignal(QString("%1 Found block %2 at height %3 for difficulty %4, POW %5").arg(formattedTime).arg(QString::fromStdString(Common::podToHex(id))).arg(bh).arg(local_diff).arg(QString::fromStdString(Common::podToHex(pow))));
 
         if(!NodeAdapter::instance().handleBlockFound(b)) {
-          m_logger(Logging::ERROR) << "Failed to submit block";
-          Q_EMIT minerMessageSignal(QString("Failed to submit block"));
+          m_logger(Logging::ERROR) << "Failed to submit block to the main chain";
+          Q_EMIT minerMessageSignal(QString("Failed to submit block to the main chain"));
         } else {
           // yay!
         }
