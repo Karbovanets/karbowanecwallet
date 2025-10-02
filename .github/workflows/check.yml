@@ -26,7 +26,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
 
       - name: Install OpenSSL
-        run: choco install openssl
+        run: choco install openssl --version=3.5.4 -y
 
       - name: Install curl
         run: |
