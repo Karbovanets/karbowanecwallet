@@ -235,6 +235,7 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/P2p/NetNode.cpp
   cryptonote/src/P2p/NetNodeConfig.cpp
   cryptonote/src/P2p/PeerListManager.cpp
+  cryptonote/src/P2p/P2pConnectionContext.cpp
   cryptonote/src/Rpc/JsonRpc.cpp
   cryptonote/src/Rpc/RpcServer.cpp
   cryptonote/src/Rpc/RpcServerConfig.cpp
@@ -247,12 +248,17 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/Serialization/BlockchainExplorerDataSerialization.cpp
   cryptonote/src/Serialization/SerializationOverloads.cpp
   cryptonote/src/System/ContextGroup.cpp
+  cryptonote/src/System/Dispatcher.cpp
   cryptonote/src/System/Event.cpp
   cryptonote/src/System/EventLock.cpp
   cryptonote/src/System/InterruptedException.cpp
   cryptonote/src/System/Ipv4Address.cpp
   cryptonote/src/System/SocketStream.cpp
   cryptonote/src/System/TcpStream.cpp
+  cryptonote/src/System/TcpConnection.cpp
+  cryptonote/src/System/TcpListener.cpp
+  cryptonote/src/System/TcpConnector.cpp
+  cryptonote/src/System/Timer.cpp
   cryptonote/src/Transfers/BlockchainSynchronizer.cpp
   cryptonote/src/Transfers/SynchronizationState.cpp
   cryptonote/src/Transfers/TransfersConsumer.cpp
