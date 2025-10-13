@@ -104,7 +104,7 @@ else(WIN32)
   set(Boost_USE_STATIC_RUNTIME ON)
 endif(WIN32)
 
-find_package(Boost REQUIRED COMPONENTS date_time filesystem program_options regex serialization system thread chrono)
+find_package(Boost REQUIRED COMPONENTS coroutine context system filesystem thread date_time chrono regex serialization program_options atomic)
 if ((${Boost_MAJOR_VERSION} EQUAL 1) AND (${Boost_MINOR_VERSION} EQUAL 54))
 	message(SEND_ERROR "Boost version 1.54 is unsupported, more details are available here http://goo.gl/RrCFmA")
 endif ()
