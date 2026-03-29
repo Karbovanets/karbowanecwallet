@@ -40,8 +40,6 @@ CommandLineParser::CommandLineParser(QObject* _parent) : QObject(_parent), m_par
     tr("blocks"), "0"),
   m_minimized("minimized", tr("Run application in minimized mode")) {
   m_parser.setApplicationDescription(tr("Karbowanec wallet"));
-  m_parser.addHelpOption();
-  m_parser.addVersionOption();
   m_parser.addOption(m_testnetOption);
   m_parser.addOption(m_withoutCheckpointsOption);
   m_parser.addOption(m_p2pBindIpOption);
