@@ -1,7 +1,7 @@
 // Copyright (c) 2011-2016 The Cryptonote developers
 // Copyright (c) 2011-2013 The Bitcoin Core developers
 // Copyright (c) 2015-2016 XDN developers
-// Copyright (c) 2016-2021 The Karbo developers
+// Copyright (c) 2016-2026 The Karbo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -31,7 +31,6 @@
 #include "AddressBookModel.h"
 #include "ChangePasswordDialog.h"
 #include "ConnectionSettings.h"
-#include "OptimizationSettings.h"
 #include "WalletRpcSettings.h"
 #include "PrivateKeysDialog.h"
 #include "ImportKeyDialog.h"
@@ -75,7 +74,7 @@ MainWindow& MainWindow::instance() {
 
 MainWindow::MainWindow() : QMainWindow(),
   m_ui(new Ui::MainWindow), m_trayIcon(nullptr), m_tabActionGroup(new QActionGroup(this)), m_isAboutToQuit(false), paymentServer(0),
-  optimizationManager(nullptr), maxRecentFiles(10), trayIconMenu(0), toggleHideAction(0), maxProgressBar(100), m_statusBarText("") {
+  maxRecentFiles(10), trayIconMenu(0), toggleHideAction(0), maxProgressBar(100), m_statusBarText("") {
   m_ui->setupUi(this);
   m_connectionStateIconLabel = new QPushButton();
   m_connectionStateIconLabel->setFlat(true); // Make the button look like a label, but clickable
@@ -95,8 +94,6 @@ MainWindow::MainWindow() : QMainWindow(),
 MainWindow::~MainWindow() {
     delete paymentServer;
     paymentServer = 0;
-    delete optimizationManager;
-    optimizationManager = 0;
     //if(m_trayIcon) // Hide tray icon, as deleting will let it linger until quit (on Ubuntu)
     //  m_trayIcon->hide();
     #ifdef Q_OS_MAC
@@ -135,6 +132,7 @@ void MainWindow::connectToSignals() {
 void MainWindow::setMainWindowTitle() {
   setWindowTitle(QString(tr("Karbo Wallet %1")).arg(Settings::instance().getVersion()));
 }
+
 void MainWindow::initUi() {
   setMainWindowTitle();
 #ifdef Q_OS_WIN32
@@ -215,7 +213,6 @@ void MainWindow::initUi() {
 
   m_ui->m_miningOnLaunchAction->setChecked(Settings::instance().isMiningOnLaunchEnabled());
   m_ui->m_startOnLoginAction->setChecked(Settings::instance().isStartOnLoginEnabled());
-  m_ui->m_hideFusionTransactions->setChecked(Settings::instance().skipFusionTransactions());
   m_ui->m_hideEverythingOnLocked->setChecked(Settings::instance().hideEverythingOnLocked());
   m_ui->m_lockWalletAction->setEnabled(false);
 
@@ -250,7 +247,6 @@ void MainWindow::initUi() {
   m_ui->m_closeToTrayAction->deleteLater();
 #endif
 
-  OptimizationManager* optimizationManager = new OptimizationManager(this);
   createTrayIconMenu();
 }
 
@@ -556,7 +552,6 @@ void MainWindow::isTrackingMode() {
   m_ui->m_sendAction->setEnabled(false);
   m_ui->m_openUriAction->setEnabled(false);
   m_ui->m_showMnemonicSeedAction->setEnabled(false);
-  m_ui->m_optimizationAction->setEnabled(false);
   m_ui->m_proofBalanceAction->setEnabled(false);
   m_trackingModeIconLabel->show();
 }
@@ -593,39 +588,39 @@ void MainWindow::createLanguageMenu(void)
 {
   QActionGroup* langGroup = new QActionGroup(m_ui->menuLanguage);
   langGroup->setExclusive(true);
-  connect(langGroup, SIGNAL (triggered(QAction *)), this, SLOT (slotLanguageChanged(QAction *)));
+  connect(langGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotLanguageChanged(QAction*)));
+
   QString defaultLocale = Settings::instance().getLanguage();
   if (defaultLocale.isEmpty()){
-    defaultLocale = QLocale::system().name();
-    defaultLocale.truncate(defaultLocale.lastIndexOf('_'));
+    defaultLocale = QLocale::system().name().section('_', 0, 0);
   }
-#if defined(_MSC_VER)
-  m_langPath = QApplication::applicationDirPath();
-  m_langPath.append("/languages");
-#elif defined(Q_OS_MAC)
-  m_langPath = QApplication::applicationDirPath();
-  m_langPath = m_langPath + "/../Resources/languages/";
-#elif defined(__FreeBSD__)
-  m_langPath = "/usr/local/share/karbo/karbowallet/languages";
-#else
-  m_langPath = "/opt/karbo/languages";
-#endif
+
+  // Get the path that we already detected in TranslatorManager
+  m_langPath = TranslatorManager::instance()->getLangPath();
+  // -----------------------
+
   QDir dir(m_langPath);
-  QStringList fileNames = dir.entryList(QStringList("??.qm"));
+  
+  // Use *.qm to ensure 'ua.qm' is caught even if the filter is picky
+  QStringList fileNames = dir.entryList(QStringList("*.qm"), QDir::Files);
+
   for (int i = 0; i < fileNames.size(); ++i) {
-    QString locale;
-    locale = fileNames[i];
-    locale.truncate(locale.lastIndexOf('.'));
+    QString file = fileNames[i];
+    QString locale = QFileInfo(file).baseName(); // Gets "ua" from "ua.qm"
+    
+    // Convert "ua" or "uk" to a readable name like "Українська"
     QString lang = QLocale(locale).nativeLanguageName();
+    
+    // Fallback if QLocale doesn't recognize "ua"
+    if (lang.isEmpty()) lang = locale; 
+
     QAction *action = new QAction(lang, this);
     action->setCheckable(true);
     action->setData(locale);
     m_ui->menuLanguage->addAction(action);
     langGroup->addAction(action);
 
-    // set default translators and language checked
-    if (defaultLocale == locale)
-    {
+    if (defaultLocale == locale) {
       action->setChecked(true);
     }
   }
@@ -633,29 +628,23 @@ void MainWindow::createLanguageMenu(void)
 
 void MainWindow::slotLanguageChanged(QAction* action)
 {
-  if(0 != action) {
-    // load the language dependant on the action content
+    if (!action)
+        return;
+
     QString lang = action->data().toString();
+    TranslatorManager::instance()->switchLanguage(lang);
     loadLanguage(lang);
-    // save is in settings
-    Settings::instance().setLanguage((lang));
-  }
 }
 
 void MainWindow::loadLanguage(const QString& rLanguage)
 {
-  if(m_currLang != rLanguage) {
-    m_currLang = rLanguage;
-    QLocale locale = QLocale(m_currLang);
-    QLocale::setDefault(locale);
+    QLocale locale(rLanguage);
     QString languageName = QLocale::languageToString(locale.language());
-    //TranslatorManager::instance()->switchTranslator(m_translator, QString("%1.qm").arg(rLanguage));
-    //TranslatorManager::instance()->switchTranslator(m_translatorQt, QString("qt_%1.qm").arg(rLanguage));
-    Settings::instance().setLanguage((m_currLang));
+
+    setStatusBarText(tr("Language changed to %1").arg(languageName));
     setStatusBarText(QString(tr("Language changed to %1").arg(languageName)));
     QMessageBox::information(this, tr("Language was changed"),
-       tr("Language changed to %1. The change will take effect after restarting the wallet.").arg(languageName), QMessageBox::Ok);
-  }
+                             tr("Language changed to %1. The change will take effect after restarting the wallet.").arg(languageName), QMessageBox::Ok);
 }
 
 void MainWindow::DisplayCmdLineHelp() {
@@ -691,11 +680,6 @@ void MainWindow::openConnectionSettings() {
 
     QMessageBox::information(this, tr("Connection settings changed"), tr("Connection mode will be changed after restarting the wallet."), QMessageBox::Ok);
   }
-}
-
-void MainWindow::openOptimizationSettings() {
-  OptimizationSettingsDialog dlg(&MainWindow::instance());
-  dlg.exec();
 }
 
 void MainWindow::openWalletRpcSettings() {
@@ -921,13 +905,6 @@ void MainWindow::setCloseToTray(bool _on) {
 #endif
 }
 
-void MainWindow::hideFusionTransactions(bool _on) {
-  Settings::instance().setSkipFusionTransactions(_on);
-  m_ui->m_hideFusionTransactions->setChecked(Settings::instance().skipFusionTransactions());
-  m_ui->m_transactionsFrame->reloadTransactions();
-  m_ui->m_overviewFrame->reloadTransactions();
-}
-
 void MainWindow::hideEverythingOnLocked(bool _on) {
   Settings::instance().setHideEverythingOnLocked(_on);
   m_ui->m_hideEverythingOnLocked->setChecked(Settings::instance().hideEverythingOnLocked());
@@ -1083,7 +1060,6 @@ void MainWindow::walletOpened(bool _error, const QString& _error_text) {
     m_ui->m_showPrivateKey->setEnabled(true);
     m_ui->m_resetAction->setEnabled(true);
     m_ui->m_openUriAction->setEnabled(true);
-    m_ui->m_optimizationAction->setEnabled(true);
     m_ui->m_signMessageAction->setEnabled(true);
     m_ui->m_verifySignedMessageAction->setEnabled(true);
     if (WalletAdapter::instance().getActualBalance() != 0)
@@ -1128,7 +1104,6 @@ void MainWindow::walletClosed() {
   m_ui->m_showPrivateKey->setEnabled(false);
   m_ui->m_resetAction->setEnabled(false);
   m_ui->m_showMnemonicSeedAction->setEnabled(false);
-  m_ui->m_optimizationAction->setEnabled(false);
   m_ui->m_signMessageAction->setEnabled(false);
   m_ui->m_verifySignedMessageAction->setEnabled(false);
   m_ui->m_proofBalanceAction->setEnabled(false);

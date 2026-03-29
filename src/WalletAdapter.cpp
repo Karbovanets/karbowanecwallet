@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2016 The Cryptonote developers
 // Copyright (c) 2015-2016 XDN developers
-// Copyright (c) 2016-2021 The Karbo developers
+// Copyright (c) 2016-2026 The Karbo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -278,11 +278,7 @@ void WalletAdapter::close() {
   Q_EMIT walletCloseCompletedSignal();
   QCoreApplication::processEvents();
 
-  if (m_wallet_rpc != nullptr) {
-    m_wallet_rpc->stop();
-    delete m_wallet_rpc;
-    m_wallet_rpc = nullptr;
-  }
+  stopWalletRpc();
 
   delete m_wallet;
   m_wallet = nullptr;
@@ -491,40 +487,6 @@ QString WalletAdapter::prepareRawTransaction(const std::vector<CryptoNote::Walle
   return QString();
 }
 
-quint64 WalletAdapter::estimateFusion(quint64 _threshold) {
-  Q_CHECK_PTR(m_wallet);
-  try {
-    return m_wallet->estimateFusion(_threshold);
-  } catch (std::system_error&) {
-  }
-  return 0;
-}
-
-std::list<CryptoNote::TransactionOutputInformation> WalletAdapter::getFusionTransfersToSend(quint64 _threshold, size_t _min_input_count, size_t _max_input_count) {
-  Q_CHECK_PTR(m_wallet);
-  try {
-    return m_wallet->selectFusionTransfersToSend(_threshold, _min_input_count, _max_input_count);
-  } catch (std::system_error&) {
-  }
-  return {};
-}
-
-void WalletAdapter::sendFusionTransaction(const std::list<CryptoNote::TransactionOutputInformation>& _fusion_inputs, quint64 _fee, const QString& _extra, quint64 _mixin) {
-  Q_CHECK_PTR(m_wallet);
-  try {
-    lock();
-    Q_EMIT walletStateChangedSignal(tr("Optimizing wallet"));
-    m_wallet->sendFusionTransaction(_fusion_inputs, _fee, _extra.toStdString(), _mixin, 0);
-  } catch (std::system_error&) {
-    unlock();
-  }
-}
-
-bool WalletAdapter::isFusionTransaction(const CryptoNote::WalletLegacyTransaction& walletTx) const {
-  Q_CHECK_PTR(m_wallet);
-  return m_wallet->isFusionTransaction(walletTx);
-}
-
 bool WalletAdapter::changePassword(const QString& _oldPassword, const QString& _newPassword) {
   Q_CHECK_PTR(m_wallet);
   try {
@@ -567,23 +529,63 @@ void WalletAdapter::initCompleted(std::error_code _error) {
 }
 
 void WalletAdapter::runWalletRpc() {
-  auto& dispatcher = NodeAdapter::instance().getDispatcher();
+  m_logger(Logging::INFO) << "Initialize wallet RPC server";
+
+  // Use a dedicated dispatcher owned by the GUI thread so that the QTimer-driven
+  // yield() calls are always on the same thread that created the dispatcher.
+  // Using the InprocessNode's dispatcher here would be wrong: that dispatcher is
+  // created on m_nodeInitializerThread, and calling yield() on it from the GUI
+  // thread causes the hang observed with InprocessNode.
+  m_rpcDispatcher = std::make_unique<System::Dispatcher>();
+
   const std::string walletFilename = Settings::instance().getWalletFile().toStdString();
-  m_wallet_rpc = new Tools::wallet_rpc_server(/*dispatcher,*/
+  m_wallet_rpc = new Tools::wallet_rpc_server(*m_rpcDispatcher,
                                               LoggerAdapter::instance().getLoggerManager(),
                                               *m_wallet,
                                               *NodeAdapter::instance().getNode(),
                                               CurrencyAdapter::instance().getCurrency(),
                                               walletFilename);
   if (!m_wallet_rpc->init(m_wrpcOptions))
-    m_logger(Logging::ERROR) << "Failed to initialize wallet rpc server";
+    m_logger(Logging::ERROR) << "Failed to initialize wallet RPC server";
   bool enable_ssl;
   std::string bind_address, bind_address_ssl, ssl_info;
   m_wallet_rpc->getServerConf(bind_address, bind_address_ssl, enable_ssl);
   if (enable_ssl) ssl_info += std::string(", SSL on address ") + bind_address_ssl;
-    m_logger(Logging::INFO) << "Starting wallet rpc server on address " << bind_address << ssl_info;
+  m_logger(Logging::INFO) << "Starting wallet RPC server on address " << bind_address << ssl_info;
 
   m_wallet_rpc->run();
+
+  m_dispatcherTimer = new QTimer(this);
+  connect(m_dispatcherTimer, &QTimer::timeout, [this]() {
+      m_rpcDispatcher->yield();  // Drive the RPC server's event loop
+  });
+  m_dispatcherTimer->start(1);  // Run every 1ms
+}
+
+void WalletAdapter::stopWalletRpc() {
+  if (!m_wallet_rpc) {
+    return;
+  }
+
+  m_logger(Logging::INFO) << "Stopping wallet RPC server";
+
+  // Stop the timer first
+  if (m_dispatcherTimer) {
+      m_dispatcherTimer->stop();
+      delete m_dispatcherTimer;
+      m_dispatcherTimer = nullptr;
+  }
+
+  // Stop the RPC server
+  if (m_wallet_rpc) {
+      m_wallet_rpc->stop();
+      delete m_wallet_rpc;
+      m_wallet_rpc = nullptr;
+  }
+
+  m_rpcDispatcher.reset();
+
+  m_logger(Logging::INFO) << "Wallet RPC server stopped";
 }
 
 void WalletAdapter::onWalletInitCompleted(int _error, const QString& _errorText) {

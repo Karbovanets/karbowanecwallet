@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.8)
 
 # Required for finding Threads on ARM
 enable_language(C)
@@ -190,6 +190,7 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/crypto/tree-hash.c
   cryptonote/src/crypto/yespower.c
   cryptonote/src/CryptoNoteCore/BlockchainIndices.cpp
+  cryptonote/src/CryptoNoteCore/LMDBBlockchainDB.cpp
   cryptonote/src/CryptoNoteCore/BlockchainMessages.cpp
   cryptonote/src/CryptoNoteCore/BlockIndex.cpp
   cryptonote/src/CryptoNoteCore/CoreConfig.cpp
@@ -214,10 +215,11 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/CryptoNoteProtocol/CryptoNoteProtocolHandler.cpp
   cryptonote/src/InProcessNode/InProcessNode.cpp
   cryptonote/src/InProcessNode/InProcessNodeErrors.cpp
-  cryptonote/src/HTTP/httplib.h
-  cryptonote/src/HTTP/HttpRequest.cpp
+  cryptonote/src/HTTP/HttpServer.cpp
+  cryptonote/src/HTTP/HttpClient.cpp
   cryptonote/src/HTTP/HttpParser.cpp
   cryptonote/src/HTTP/HttpParserErrorCodes.cpp
+  cryptonote/src/HTTP/HttpRequest.cpp
   cryptonote/src/HTTP/HttpResponse.cpp
   cryptonote/src/Logging/ILogger.cpp
   cryptonote/src/Logging/LoggerGroup.cpp
@@ -255,10 +257,10 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/System/Ipv4Address.cpp
   cryptonote/src/System/SocketStream.cpp
   cryptonote/src/System/TcpStream.cpp
+  cryptonote/src/System/SslTcpStreambuf.cpp
   cryptonote/src/System/TcpConnection.cpp
   cryptonote/src/System/TcpListener.cpp
   cryptonote/src/System/TcpConnector.cpp
-  cryptonote/src/System/Timer.cpp
   cryptonote/src/Transfers/BlockchainSynchronizer.cpp
   cryptonote/src/Transfers/SynchronizationState.cpp
   cryptonote/src/Transfers/TransfersConsumer.cpp
@@ -266,6 +268,7 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/Transfers/TransfersSubscription.cpp
   cryptonote/src/Transfers/TransfersSynchronizer.cpp
   cryptonote/src/Wallet/LegacyKeysImporter.cpp
+  cryptonote/src/Wallet/TransactionBuilder.cpp
   cryptonote/src/Wallet/WalletAsyncContextCounter.cpp
   cryptonote/src/Wallet/WalletErrors.cpp
   cryptonote/src/Wallet/WalletRpcServer.cpp
@@ -345,10 +348,17 @@ elseif (UNIX)
 
     include_directories(/usr/include/malloc)
 
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes -std=c++11 -stdlib=libc++")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -maes -D_DARWIN_C_SOURCE")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Cocoa -framework OpenGL -framework CoreFoundation -framework Carbon -framework IOKit -L/usr/lib")
-
+    # Force CMake to skip AGL if it's being erroneously detected
+    set(OPENGL_agl_LIBRARY "" CACHE STRING "" FORCE)
+    
+    # Ensure we are using the modern Cocoa-based OpenGL
+    find_library(OPENGL_LIBRARY OpenGL)
+    find_library(COCOA_LIBRARY Cocoa)
+    find_library(IOKIT_LIBRARY IOKit)
+    
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -D_DARWIN_C_SOURCE")
+    
     set(MACOSX_BUNDLE_ICON_FILE karbowanec.icns)
     set(APPLICATION_ICON src/images/karbowanec.icns)
     set_source_files_properties(${APPLICATION_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
@@ -489,15 +499,67 @@ include_directories(cryptonote/src/Platform/Posix)
 file(GLOB PLATFORM_SOURCES cryptonote/src/Platform/${PLATFORM_DIR}/System/*)
 set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} ${PLATFORM_SOURCES})
 
+if (MSVC)
+  # Build lmdb externally using the Visual Studio generator — this matches how the karbowanec
+  # standalone project (which is the same source) builds lmdb.lib successfully with MSVC.
+  set(_lmdb_src_dir "${CMAKE_SOURCE_DIR}/cryptonote/external/liblmdb")
+  set(_lmdb_build_dir "${CMAKE_BINARY_DIR}/lmdb_external")
+  if(CMAKE_BUILD_TYPE)
+    set(_lmdb_config "${CMAKE_BUILD_TYPE}")
+  else()
+    set(_lmdb_config "Release")
+  endif()
+
+  message(STATUS "Configuring lmdb externally (${_lmdb_config}) in ${_lmdb_build_dir}")
+  execute_process(
+    COMMAND "${CMAKE_COMMAND}"
+      -G "Visual Studio 17 2022"
+      -A x64
+      -S "${_lmdb_src_dir}"
+      -B "${_lmdb_build_dir}"
+    RESULT_VARIABLE _lmdb_configure_result
+    OUTPUT_QUIET
+    ERROR_VARIABLE _lmdb_configure_error
+  )
+  if(NOT _lmdb_configure_result EQUAL 0)
+    message(FATAL_ERROR "lmdb configure failed:\n${_lmdb_configure_error}")
+  endif()
+
+  message(STATUS "Building lmdb externally...")
+  execute_process(
+    COMMAND "${CMAKE_COMMAND}" --build "${_lmdb_build_dir}" --config "${_lmdb_config}"
+    RESULT_VARIABLE _lmdb_build_result
+    OUTPUT_QUIET
+    ERROR_VARIABLE _lmdb_build_error
+  )
+  if(NOT _lmdb_build_result EQUAL 0)
+    message(FATAL_ERROR "lmdb build failed:\n${_lmdb_build_error}")
+  endif()
+
+  add_library(lmdb STATIC IMPORTED GLOBAL)
+  set_target_properties(lmdb PROPERTIES
+    IMPORTED_LOCATION "${_lmdb_build_dir}/${_lmdb_config}/lmdb.lib"
+    INTERFACE_INCLUDE_DIRECTORIES "${_lmdb_src_dir}"
+  )
+else()
+  set(LMDB_SOURCES
+    cryptonote/external/liblmdb/mdb.c
+    cryptonote/external/liblmdb/midl.c)
+  add_library(lmdb STATIC ${LMDB_SOURCES})
+  target_include_directories(lmdb PUBLIC cryptonote/external/liblmdb)
+  set_property(TARGET lmdb APPEND PROPERTY COMPILE_FLAGS "-fPIC")
+endif()
+include_directories(cryptonote/external/liblmdb)
+
 add_library(${CRYPTONOTE_LIB} STATIC ${CRYPTONOTE_SOURCES})
 add_library(Mnemonics ${Mnemonics})
 add_library(QCustomPlot ${QCustomPlot})
 set_target_properties(${CRYPTONOTE_LIB} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
 
 if (APPLE OR ${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-target_link_libraries(${CRYPTONOTE_LIB} ${Boost_LIBRARIES} -lresolv)
+target_link_libraries(${CRYPTONOTE_LIB} ${Boost_LIBRARIES} lmdb -lresolv)
 else ()
-target_link_libraries(${CRYPTONOTE_LIB} ${Boost_LIBRARIES})
+target_link_libraries(${CRYPTONOTE_LIB} ${Boost_LIBRARIES} lmdb)
 endif ()
 set_target_properties(Mnemonics PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
 target_link_libraries(Mnemonics ${Boost_LIBRARIES})
@@ -524,7 +586,13 @@ if (APPLE)
   set_target_properties(${PROJECT_NAME} PROPERTIES
   MACOSX_BUNDLE TRUE
   MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/Info.plist)
-  
+  target_link_libraries(${PROJECT_NAME}
+    "-framework Cocoa"
+    "-framework OpenGL"
+    "-framework CoreFoundation"
+    "-framework IOKit"
+    "-framework QuartzCore"
+)
   target_link_libraries(${PROJECT_NAME} Qt6::PrintSupport)
 elseif (UNIX)
   target_link_libraries(${PROJECT_NAME} -lpthread)

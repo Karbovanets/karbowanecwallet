@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2016 The Cryptonote developers
 // Copyright (c) 2015-2016 XDN developers
-// Copyright (c) 2016-2021 The Karbo developers
+// Copyright (c) 2016-2026 The Karbo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -19,7 +19,9 @@
 
 #include <boost/program_options.hpp>
 
+#include <memory>
 #include <IWalletLegacy.h>
+#include "System/Dispatcher.h"
 #include "Wallet/WalletRpcServer.h"
 
 namespace WalletGui {
@@ -69,11 +71,6 @@ public:
   QString prepareRawTransaction(const std::vector<CryptoNote::WalletLegacyTransfer>& _transfers, quint64 _fee, const QString& _payment_id, quint64 _mixin);
   QString prepareRawTransaction(const std::vector<CryptoNote::WalletLegacyTransfer>& _transfers, const std::list<CryptoNote::TransactionOutputInformation>& _selectedOuts, quint64 _fee, const QString& _payment_id, quint64 _mixin);
 
-  quint64 estimateFusion(quint64 _threshold);
-  std::list<CryptoNote::TransactionOutputInformation> getFusionTransfersToSend(quint64 _threshold, size_t _min_input_count, size_t _max_input_count);
-  void sendFusionTransaction(const std::list<CryptoNote::TransactionOutputInformation>& _fusion_inputs, quint64 _fee, const QString& _extra, quint64 _mixin);
-  bool isFusionTransaction(const CryptoNote::WalletLegacyTransaction& walletTx) const;
-
   bool isOpen() const;
 
   bool changePassword(const QString& _old_pass, const QString& _new_pass);
@@ -103,11 +100,13 @@ private:
   std::fstream m_file;
   CryptoNote::IWalletLegacy* m_wallet;
   Tools::wallet_rpc_server* m_wallet_rpc;
+  std::unique_ptr<System::Dispatcher> m_rpcDispatcher;
   QMutex m_mutex;
   std::atomic<bool> m_isBackupInProgress;
   std::atomic<bool> m_isSynchronized;
   std::atomic<quint64> m_lastWalletTransactionId;
   QTimer m_newTransactionsNotificationTimer;
+  QTimer* m_dispatcherTimer = nullptr;
   QPushButton* m_closeButton;
   Logging::LoggerRef m_logger;
   uint32_t m_syncSpeed;
@@ -132,6 +131,7 @@ private:
   void notifyAboutLastTransaction();
   QString walletErrorMessage(int _error_code);
   void runWalletRpc();
+  void stopWalletRpc();
 
   static void renameFile(const QString& _old_name, const QString& _new_name);
   Q_SLOT void updateBlockStatusText();

@@ -1,3 +1,6 @@
+// Copyright (c) 2016-2026 The Karbowanec developers
+// Distributed under the MIT/X11 software license
+
 #ifndef TRANSLATORMANAGER_H
 #define TRANSLATORMANAGER_H
 
@@ -8,23 +11,31 @@
 
 typedef QMap<QString, QTranslator*> TranslatorMap;
 
-class TranslatorManager
+class TranslatorManager : public QObject
 {
+    Q_OBJECT
+
 public:
     static TranslatorManager* instance();
     ~TranslatorManager();
 
-     void switchTranslator(QTranslator& translator, const QString& filename);
-     inline QString getCurrentLang()  { return m_keyLang; }
+    void switchLanguage(const QString& lang);
+    QString getCurrentLang() const { return m_keyLang; }
+    QString getLangPath() const { return m_langPath; }
+
+signals:
+    void languageChanged();
 
 private:
     TranslatorManager();
 
-    // Hide copy constructor and assignment operator.
-    TranslatorManager(const TranslatorManager &);
-    TranslatorManager& operator=(const TranslatorManager &);
+    // Disable copy
+    TranslatorManager(const TranslatorManager &) = delete;
+    TranslatorManager& operator=(const TranslatorManager &) = delete;
 
-    // Class instance.
+    void loadLanguageInternal(const QString& lang);
+    void clearTranslators();
+
     static TranslatorManager* m_Instance;
 
     TranslatorMap   m_translators;
