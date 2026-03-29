@@ -214,6 +214,59 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  build-appimage:
+    name: AppImage
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Build
+        id: build
+        run: |
+          sudo apt update -y
+          sudo apt install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-svg-dev libqt6svg6 libboost-all-dev
+          build_folder="build/release"
+          krb_ver=$(echo "$GITHUB_REF" | sed 's|refs/tags/||')
+          app_name="KarbowanecWallet"
+          mkdir -p "$build_folder"
+          cd "$build_folder"
+          cmake -D ARCH=default -D CMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=true -D BOOST_IGNORE_SYSTEM_PATHS_DEFAULT=ON -D BOOST_ROOT=/usr ../..
+          make
+          echo "krb_ver=${krb_ver}" >> $GITHUB_OUTPUT
+
+      - name: Create AppImage
+        id: appimage
+        run: |
+          krb_version="${{ steps.build.outputs.krb_ver }}"
+          appimage_name=Karbo-wallet-"$krb_version".AppImage
+          cd appimage
+          chmod +x ./create-appimage.sh
+          ./create-appimage.sh
+          mv Karbo*.AppImage $appimage_name
+          ls -l $appimage_name
+          cd ..
+          sha256=$(shasum -a 256 "./appimage/$appimage_name" | awk '{print toupper($1)}')
+          asset_path="./appimage/$appimage_name"
+          echo "sha256=${sha256}" >> $GITHUB_OUTPUT
+          echo "artifact_name=${appimage_name}" >> $GITHUB_OUTPUT
+          echo "asset_path=${asset_path}" >> $GITHUB_OUTPUT
+          echo "krb_ver=${krb_version}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          files: ${{ steps.appimage.outputs.asset_path }}
+          name: Karbo Wallet ${{ steps.appimage.outputs.krb_ver }}
+          append_body: true
+          body: |
+            **${{ steps.appimage.outputs.artifact_name }}**
+            ${{ steps.appimage.outputs.sha256 }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build-ubuntu24:
     name: Ubuntu 24.04
     runs-on: ubuntu-24.04
