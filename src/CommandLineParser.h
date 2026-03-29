@@ -28,7 +28,8 @@ public:
   bool hasAllowLocalIpOption() const;
   bool hasHideMyPortOption() const;
   bool hasPortableOption() const;
-  bool hasAllowReorgOption() const;
+  bool hasRejectDeepReorgOption() const;
+  quint32 getRejectDeepReorg() const;
   bool hasRpcOption() const;
   bool hasRestrictedRpcOption() const;
   QString getErrorText() const;
@@ -67,7 +68,7 @@ private:
   QCommandLineOption m_portableOption;
   QCommandLineOption m_dataDirOption;
   QCommandLineOption m_rollBackOption;
-  QCommandLineOption m_allowReorgOption;
+  QCommandLineOption m_rejectDeepReorgOption;
   QCommandLineOption m_minimized;
 };
 

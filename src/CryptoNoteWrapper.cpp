@@ -317,11 +317,15 @@ public:
       } else if (Settings::instance().isTestnet()) {
         m_logger(Logging::INFO) << "Running in Testnet mode";
       } else {
-        bool allowReorg = Settings::instance().alowReorg();
-        if (allowReorg) {
-          m_logger(Logging::WARNING) << "Deep reorganization is allowed!";
+        quint32 rejectDeepReorg = 0;
+        if (Settings::instance().hasRejectDeepReorg()) {
+          rejectDeepReorg = Settings::instance().rejectDeepReorg();
+          if (rejectDeepReorg == 0) {
+            rejectDeepReorg = m_currency.minedMoneyUnlockWindow();
+          }
+          m_logger(Logging::WARNING) << "Deep reorganization exceeding " << rejectDeepReorg << " blocks will be rejected";
         }
-        CryptoNote::Checkpoints checkpoints(logManager, allowReorg);
+        CryptoNote::Checkpoints checkpoints(logManager, rejectDeepReorg);
         checkpoints.load_checkpoints_from_dns();
         for (const CryptoNote::CheckpointData& checkpoint : CryptoNote::CHECKPOINTS) {
           checkpoints.add_checkpoint(checkpoint.height, checkpoint.blockId);

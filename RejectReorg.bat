@@ -1,0 +1,1 @@
+start cmd.exe /c %~dp0/KarbowanecWallet.exe --reject-deep-reorg=10
