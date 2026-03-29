@@ -15,6 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          submodules: true
           fetch-depth: 0
 
       - name: Add msbuild to PATH
@@ -54,11 +55,9 @@ jobs:
           $release_name = "Karbo-wallet-win64-$krb_ver"
           $qt5_cmake = "${{ env.Qt5_Dir }}/lib/cmake" -replace '[/]', '\\'
           set CMAKE_PREFIX_PATH="$($qt5_cmake)"
-          Remove-Item cryptonote -Recurse -ErrorAction Ignore
-          git clone https://github.com/seredat/karbowanec cryptonote --quiet
           mkdir "$build_folder"
           cd "$build_folder"
-          Start-Process cmake -ArgumentList "-DBOOST_ROOT=""$env:BOOST_ROOT"" -DBOOST_INCLUDE_DIRS=""$env:BOOST_ROOT/include"" -G ""Visual Studio 17 2022"" -A x64 -DARCH=default",".." -NoNewWindow -Wait
+          Start-Process cmake -ArgumentList "-DBOOST_ROOT=""$env:BOOST_ROOT"" -DBOOST_INCLUDE_DIRS=""$env:BOOST_ROOT/include"" -DCMAKE_BUILD_TYPE=Release -G ""Visual Studio 17 2022"" -A x64 -DARCH=default",".." -NoNewWindow -Wait
           Start-Process msbuild -ArgumentList "KarbowanecWallet.sln","/p:Configuration=Release" -NoNewWindow -Wait
           $build_path = "./$build_folder"
           echo "build_path=${build_path}" >> $env:GITHUB_OUTPUT
@@ -133,12 +132,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          submodules: true
           fetch-depth: 0
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.8.4'
+          version: '6.9.2'
           install-deps: 'true'
 
       - name: Setup Xcode
@@ -171,8 +171,6 @@ jobs:
           release_name="Karbo-wallet-macOS-$krb_ver"
           app_name="KarbowanecWallet.app"
           lang_folder="/Contents/Resources/languages"
-          rm -rf cryptonote
-          git clone https://github.com/seredat/karbowanec.git cryptonote
           mkdir -p "$build_folder"
           cd "$build_folder"
           cmake ../.. \
@@ -222,19 +220,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          submodules: true
           fetch-depth: 0
 
       - name: Build
         id: build
         run: |
           sudo apt update -y
-          sudo apt install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools libboost-all-dev
+          sudo apt install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-svg-dev libqt6svg6 libboost-all-dev
           build_folder="build/release"
           krb_ver=$(echo "$GITHUB_REF" | sed 's|refs/tags/||')
           release_name=Karbo-wallet-ubuntu-24.04-"$krb_ver"
           app_name="KarbowanecWallet"
-          rm -rf cryptonote
-          git clone https://github.com/seredat/karbowanec.git cryptonote
           mkdir -p "$build_folder"
           cd "$build_folder"
           cmake -D ARCH=default -D CMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=true -D BOOST_IGNORE_SYSTEM_PATHS_DEFAULT=ON -D BOOST_ROOT=/usr ../..
