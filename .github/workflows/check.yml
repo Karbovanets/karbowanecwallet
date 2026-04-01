@@ -22,8 +22,10 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.1
+      - name: Setup MSVC environment
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
 
       - name: Install OpenSSL
         run: choco install openssl -y --no-progress
@@ -49,6 +51,8 @@ jobs:
           version: '6.7.3'
           host: 'windows'
           target: 'desktop'
+          arch: 'win64_msvc2022_64'
+          cache: 'true'
           install-deps: 'true'
 
       - name: Build
@@ -64,11 +68,12 @@ jobs:
           $release_folder = "Release"
           echo "$release_name"
           $qt5_cmake = "${{ env.Qt5_Dir }}/lib/cmake" -replace '[/]', '\\'
-          set CMAKE_PREFIX_PATH="$($qt5_cmake)"
-          mkdir "$build_folder"
+          $env:CMAKE_PREFIX_PATH = $qt5_cmake
+          cmake -S . -B "$build_folder" -DBOOST_ROOT="$env:BOOST_ROOT" -DBOOST_INCLUDE_DIRS="$env:BOOST_ROOT/include" -G "Ninja Multi-Config" -DARCH=default
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cmake --build "$build_folder" --config Release --parallel --target KarbowanecWallet
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cd "$build_folder"
-          Start-Process cmake -ArgumentList "-DBOOST_ROOT=""$env:BOOST_ROOT"" -DBOOST_INCLUDE_DIRS=""$env:BOOST_ROOT/include"" -DCMAKE_BUILD_TYPE=Release -G ""Visual Studio 17 2022"" -A x64 -DARCH=default",".." -NoNewWindow -Wait
-          Start-Process cmake -ArgumentList "--build",".","--config","Release","--parallel","--target","KarbowanecWallet" -NoNewWindow -Wait
           $build_path = "./$build_folder"
           mkdir "$release_folder/$release_name"
           mkdir "$release_folder/$release_name/languages"
