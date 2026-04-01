@@ -165,22 +165,6 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>m_languageCombo</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>VerifyMnemonicSeedDialog</receiver>
-   <slot>languageChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>126</x>
-     <y>170</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>240</x>
-     <y>119</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <slot>selectPathClicked()</slot>

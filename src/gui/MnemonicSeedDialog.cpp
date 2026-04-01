@@ -3,11 +3,13 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "MnemonicSeedDialog.h"
+#include "MnemonicSeedLanguage.h"
 #include "ui_mnemonicseeddialog.h"
 #include "CurrencyAdapter.h"
 #include "WalletAdapter.h"
-#include "Mnemonics/electrum-words.h"
 #include "Settings.h"
+
+#include <QComboBox>
 
 namespace WalletGui {
 
@@ -15,18 +17,18 @@ MnemonicSeedDialog::MnemonicSeedDialog(QWidget* _parent) : QDialog(_parent), m_u
   m_ui->setupUi(this);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletInitCompletedSignal, this, &MnemonicSeedDialog::walletOpened, Qt::QueuedConnection);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletCloseCompletedSignal, this, &MnemonicSeedDialog::walletClosed, Qt::QueuedConnection);
+  connect(m_ui->m_languageCombo, &QComboBox::currentTextChanged, this, &MnemonicSeedDialog::languageChanged);
   initLanguages();
-  m_ui->m_languageCombo->setCurrentIndex(m_ui->m_languageCombo->findData(getLanguageName(), Qt::DisplayRole));
+  if (WalletAdapter::instance().isOpen()) {
+    languageChanged();
+  }
 }
 
 MnemonicSeedDialog::~MnemonicSeedDialog() {
 }
 
 void MnemonicSeedDialog::walletOpened() {
-  CryptoNote::AccountKeys keys;
-  WalletAdapter::instance().getAccountKeys(keys);
-  QString mnemonicSeed = WalletAdapter::instance().getMnemonicSeed(getLanguageName());
-  m_ui->m_mnemonicSeedEdit->setText(mnemonicSeed);
+  languageChanged();
 }
 
 void MnemonicSeedDialog::walletClosed() {
@@ -34,52 +36,18 @@ void MnemonicSeedDialog::walletClosed() {
 }
 
 void MnemonicSeedDialog::initLanguages() {
-  std::vector<std::string> languages;
-  Crypto::ElectrumWords::get_language_list(languages);
-  for (size_t i = 0; i < languages.size(); ++i)
-  {
-    m_ui->m_languageCombo->addItem(QString::fromStdString(languages[i]));
-  }
+  MnemonicSeedLanguage::initLanguageCombo(m_ui->m_languageCombo, Settings::instance().getLanguage());
 }
 
 void MnemonicSeedDialog::languageChanged() {
-  QString mnemonicSeed = WalletAdapter::instance().getMnemonicSeed(m_ui->m_languageCombo->currentText());
-  m_ui->m_mnemonicSeedEdit->setText(mnemonicSeed);
-}
+  const QString languageName = m_ui->m_languageCombo->currentText();
+  if (languageName.isEmpty()) {
+    m_ui->m_mnemonicSeedEdit->clear();
+    return;
+  }
 
-QString MnemonicSeedDialog::getLanguageName() {
-  QString lng = Settings::instance().getLanguage();
-  QString lang;
-  if (lng == "en") {
-      lang = "English";
-    } else if(lng == "nl") {
-      lang = "Nederlands";
-    } else if(lng == "fr") {
-      lang = "Français";
-    } else if(lng == "es") {
-      lang = "Español";
-    } else if(lng == "pt") {
-      lang = "Português";
-    } else if(lng == "jp") {
-      lang = "日本語";
-    } else if(lng == "it") {
-      lang = "Italiano";
-    } else if(lng == "de") {
-      lang = "Deutsch";
-    } else if(lng == "ru") {
-      lang = "русский язык";
-    } else if(lng == "cn") {
-      lang = "简体中文 (中国)";
-    } else if(lng == "uk") {
-      lang = "українська мова";
-    } else if(lng == "pl") {
-      lang = "język polski";
-    } else if(lng == "be") {
-      lang = "русский язык";
-    } else {
-      lang = "English";
-    }
-  return lang;
+  QString mnemonicSeed = WalletAdapter::instance().getMnemonicSeed(languageName);
+  m_ui->m_mnemonicSeedEdit->setText(mnemonicSeed);
 }
 
 }
