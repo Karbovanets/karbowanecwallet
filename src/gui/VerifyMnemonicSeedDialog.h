@@ -23,7 +23,6 @@ private:
     int wordCount = 0;
     bool m_seedsMatch = false;
 
-    QString getLanguageName();
     void initLanguages();
 
     Q_SLOT void onTextChanged();

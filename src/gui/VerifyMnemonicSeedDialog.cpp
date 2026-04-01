@@ -3,11 +3,13 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "VerifyMnemonicSeedDialog.h"
+#include "MnemonicSeedLanguage.h"
 #include "ui_verifymnemonicseeddialog.h"
 #include "CurrencyAdapter.h"
 #include "WalletAdapter.h"
-#include "Mnemonics/electrum-words.h"
 #include "Settings.h"
+
+#include <QComboBox>
 
 namespace WalletGui {
 
@@ -15,10 +17,9 @@ VerifyMnemonicSeedDialog::VerifyMnemonicSeedDialog(QWidget* _parent) : QDialog(_
   setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
   m_ui->setupUi(this);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletCloseCompletedSignal, this, &VerifyMnemonicSeedDialog::walletClosed, Qt::QueuedConnection);
+  connect(m_ui->m_languageCombo, &QComboBox::currentTextChanged, this, &VerifyMnemonicSeedDialog::languageChanged);
   initLanguages();
-  m_ui->m_languageCombo->setCurrentIndex(m_ui->m_languageCombo->findData(getLanguageName(), Qt::DisplayRole));
-  QString mnemonicSeed = WalletAdapter::instance().getMnemonicSeed(getLanguageName());
-  m_ui->m_seedEdit->setText(mnemonicSeed);
+  languageChanged();
 }
 
 VerifyMnemonicSeedDialog::~VerifyMnemonicSeedDialog() {
@@ -44,16 +45,19 @@ void VerifyMnemonicSeedDialog::reject() {
 }
 
 void VerifyMnemonicSeedDialog::initLanguages() {
-  std::vector<std::string> languages;
-  Crypto::ElectrumWords::get_language_list(languages);
-  for (size_t i = 0; i < languages.size(); ++i)
-  {
-    m_ui->m_languageCombo->addItem(QString::fromStdString(languages[i]));
-  }
+  MnemonicSeedLanguage::initLanguageCombo(m_ui->m_languageCombo, Settings::instance().getLanguage());
 }
 
 void VerifyMnemonicSeedDialog::languageChanged() {
-  QString mnemonicSeed = WalletAdapter::instance().getMnemonicSeed(m_ui->m_languageCombo->currentText());
+  const QString languageName = m_ui->m_languageCombo->currentText();
+  if (languageName.isEmpty()) {
+    m_ui->m_seedEdit->clear();
+    m_ui->m_okButton->setEnabled(false);
+    m_seedsMatch = false;
+    return;
+  }
+
+  QString mnemonicSeed = WalletAdapter::instance().getMnemonicSeed(languageName);
   m_ui->m_seedEdit->setText(mnemonicSeed);
   if (QString::compare(m_ui->m_seedEdit->toPlainText().trimmed(), m_ui->m_seedRepeat->toPlainText().trimmed(), Qt::CaseInsensitive) == 0) {
     m_ui->m_okButton->setEnabled(true);
@@ -62,41 +66,6 @@ void VerifyMnemonicSeedDialog::languageChanged() {
     m_ui->m_okButton->setEnabled(false);
     m_seedsMatch = false;
   }
-}
-
-QString VerifyMnemonicSeedDialog::getLanguageName() {
-  QString lng = Settings::instance().getLanguage();
-  QString lang;
-  if (lng == "en") {
-      lang = "English";
-    } else if(lng == "nl") {
-      lang = "Nederlands";
-    } else if(lng == "fr") {
-      lang = "Français";
-    } else if(lng == "es") {
-      lang = "Español";
-    } else if(lng == "pt") {
-      lang = "Português";
-    } else if(lng == "jp") {
-      lang = "日本語";
-    } else if(lng == "it") {
-      lang = "Italiano";
-    } else if(lng == "de") {
-      lang = "Deutsch";
-    } else if(lng == "ru") {
-      lang = "русский язык";
-    } else if(lng == "cn") {
-      lang = "简体中文 (中国)";
-    } else if(lng == "uk") {
-      lang = "українська мова";
-    } else if(lng == "pl") {
-      lang = "język polski";
-    } else if(lng == "be") {
-      lang = "русский язык";
-    } else {
-      lang = "English";
-    }
-  return lang;
 }
 
 }
