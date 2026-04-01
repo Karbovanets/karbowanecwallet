@@ -22,13 +22,17 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
 
       - name: Install OpenSSL
-        run: choco install openssl
+        run: choco install openssl -y --no-progress
 
-      - name: Install curl
-        run: |
-          choco install curl -y
+      - name: Cache Boost 1.83
+        id: cache-boost
+        uses: actions/cache@v4
+        with:
+          path: C:\thirdparties\boost-1.83.0
+          key: windows-2022-boost-1.83.0-msvc143
 
       - name: Download and Install Boost 1.83 for MSVC 14.3 (VS 2022)
+        if: steps.cache-boost.outputs.cache-hit != 'true'
         run: |
           $Url = "https://sourceforge.net/projects/boost/files/boost-binaries/1.83.0/boost_1_83_0-msvc-14.3-64.exe"
           $OutputPath = "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\boost-installer.exe"
@@ -58,7 +62,7 @@ jobs:
           mkdir "$build_folder"
           cd "$build_folder"
           Start-Process cmake -ArgumentList "-DBOOST_ROOT=""$env:BOOST_ROOT"" -DBOOST_INCLUDE_DIRS=""$env:BOOST_ROOT/include"" -DCMAKE_BUILD_TYPE=Release -G ""Visual Studio 17 2022"" -A x64 -DARCH=default",".." -NoNewWindow -Wait
-          Start-Process msbuild -ArgumentList "KarbowanecWallet.sln","/p:Configuration=Release" -NoNewWindow -Wait
+          Start-Process cmake -ArgumentList "--build",".","--config","Release","--parallel","--target","KarbowanecWallet" -NoNewWindow -Wait
           $build_path = "./$build_folder"
           echo "build_path=${build_path}" >> $env:GITHUB_OUTPUT
           echo "release_name=${release_name}" >> $env:GITHUB_OUTPUT
