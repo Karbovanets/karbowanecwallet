@@ -80,7 +80,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="KRBcoin">
+        <widget class="QLabel" name="CryptoNote">
          <property name="enabled">
           <bool>true</bool>
          </property>
