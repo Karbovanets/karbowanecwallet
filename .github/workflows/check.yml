@@ -46,13 +46,11 @@ jobs:
           Start-Process -Wait -FilePath $OutputPath "/SILENT","/SP-","/SUPPRESSMSGBOXES","/DIR=C:\\thirdparties\\boost-1.83.0"
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@v4
+        uses: jurplel/install-qt-action@v4.1.1
         with:
           version: '6.7.3'
           host: 'windows'
           target: 'desktop'
-          arch: 'win64_msvc2022_64'
-          cache: 'true'
           install-deps: 'true'
 
       - name: Build
