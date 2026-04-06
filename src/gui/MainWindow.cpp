@@ -520,10 +520,6 @@ void MainWindow::importTrackingKey() {
     if (keyString.isEmpty() || filePath.isEmpty()) {
       return;
     }
-    if (keyString.size() != 256) {
-      QMessageBox::warning(this, tr("Tracking key is not valid"), tr("The tracking key you entered is not valid."), QMessageBox::Ok);
-      return;
-    }
 
     if (!filePath.endsWith(".wallet")) {
       filePath.append(".wallet");
