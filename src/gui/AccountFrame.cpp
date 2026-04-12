@@ -26,8 +26,8 @@ namespace WalletGui {
 namespace {
 
 constexpr int CAPTION_FONT_SIZE = 10;
-constexpr int ADDRESS_FONT_SIZE = 12;
-constexpr int ACCOUNT_NUMBER_VALUE_FONT_SIZE = 18;
+constexpr int ADDRESS_FONT_SIZE = 16;
+constexpr int ACCOUNT_NUMBER_VALUE_FONT_SIZE = 24;
 constexpr int ADDRESS_CHUNK_SIZE = 13;
 constexpr int ADDRESS_CHUNKS_PER_ROW = 4;
 

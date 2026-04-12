@@ -19,17 +19,17 @@ QToolBar#accountToolBar, #m_accountFrame {
   margin: 0;
   padding: 0;
   spacing: 0px;
-  min-height: 156px;
+  min-height: 126px;
 }
 
 QToolBar#accountToolBar {
-  height: 157px;
+  height: 127px;
   /*border-bottom: 1px solid #84898E;*/
 }
 
 #m_accountFrame {
-  height: 156px;
-  max-height: 156px;
+  height: 126px;
+  max-height: 126px;
 }
 
 #m_accountFrame QWidget {
@@ -43,14 +43,13 @@ QToolBar#accountToolBar {
 }
 
 #m_accountFrame #m_addressLabel {
-  font-size: 12px;
+  font-size: 16px;
   color: #ffffff;
 }
 
 #m_accountFrame #m_accountNumberPanel {
   background-color: #2A3640;
   border: 1px solid #43515C;
-  border-radius: 4px;
 }
 
 #m_accountFrame #m_accountNumberLabel {
@@ -73,7 +72,7 @@ QToolBar#accountToolBar {
 
 #m_accountFrame #m_accountBalances {
   background-color: #32414B;
-  border: 0;  margin: 0;
+  border: 0;  margin: 0;
   padding: 0;
 }
 

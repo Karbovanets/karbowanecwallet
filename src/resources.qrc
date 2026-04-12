@@ -55,7 +55,4 @@
         <file>default.qss</file>
         <file>dark.qss</file>
     </qresource>
-    <qresource prefix="/fonts">
-        <file alias="mplusm">fonts/mplus-1m-medium.ttf</file>
-    </qresource>
 </RCC>
