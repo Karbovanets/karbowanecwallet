@@ -33,6 +33,7 @@ public Q_SLOTS:
   void copyClicked();
   void copyPaymentIdClicked();
   void copyLabelClicked();
+  void copyAccountNumberClicked();
   void deleteClicked();
   void payToClicked();
 
