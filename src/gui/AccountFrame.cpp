@@ -7,9 +7,13 @@
 #include <QTimer>
 #include <QFontDatabase>
 #include <QGraphicsDropShadowEffect>
+#include <QMessageBox>
+#include <future>
 #include "AccountFrame.h"
 #include "WalletAdapter.h"
+#include "NodeAdapter.h"
 #include "CurrencyAdapter.h"
+#include "Settings.h"
 #include "QRCodeDialog.h"
 
 #include "ui_accountframe.h"
@@ -39,8 +43,16 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
   connect(&WalletAdapter::instance(), &WalletAdapter::walletUnmixableBalanceUpdatedSignal, this, &AccountFrame::updateUnmixableBalance,
     Qt::QueuedConnection);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletCloseCompletedSignal, this, &AccountFrame::reset);
+  connect(&WalletAdapter::instance(), &WalletAdapter::walletSynchronizationCompletedSignal, this, [this](int _error, const QString&) {
+    if (_error == 0 && WalletAdapter::instance().isOpen()) {
+      fetchAccountNumber(WalletAdapter::instance().getAddress());
+    }
+  });
 
   m_ui->m_unmixableBalanceLabel->setVisible(false);
+  m_ui->m_accountNumberLabel->setVisible(false);
+  m_ui->m_copyAccountNumberButton->setVisible(false);
+  m_ui->m_registerAccountButton->setVisible(false);
 
   int id = QFontDatabase::addApplicationFont(":/fonts/mplusm");
   QString family = QFontDatabase::applicationFontFamilies(id).at(0);
@@ -60,6 +72,8 @@ AccountFrame::~AccountFrame() {
 
 void AccountFrame::updateWalletAddress(const QString& _address) {
   m_ui->m_addressLabel->setText(_address);
+  m_accountNumber.clear();
+  updateAccountNumberDisplay();
 }
 
 void AccountFrame::copyAddress() {
@@ -102,11 +116,75 @@ void AccountFrame::updateUnmixableBalance(quint64 _balance) {
   }
 }
 
+void AccountFrame::fetchAccountNumber(const QString& _address) {
+  if (_address.isEmpty()) {
+    return;
+  }
+
+  std::string address = _address.toStdString();
+  std::string* accountNumber = new std::string();
+
+  NodeAdapter::instance().getAccountNumber(address, *accountNumber,
+    [this, accountNumber](std::error_code ec) {
+      QString result;
+      if (!ec && !accountNumber->empty()) {
+        result = QString::fromStdString(*accountNumber);
+      }
+      delete accountNumber;
+
+      QMetaObject::invokeMethod(this, [this, result]() {
+        m_accountNumber = result;
+        updateAccountNumberDisplay();
+      }, Qt::QueuedConnection);
+    });
+}
+
+void AccountFrame::updateAccountNumberDisplay() {
+  if (m_accountNumber.isEmpty()) {
+    m_ui->m_accountNumberLabel->setVisible(false);
+    m_ui->m_copyAccountNumberButton->setVisible(false);
+    bool canRegister = WalletAdapter::instance().isOpen() && !Settings::instance().isTrackingMode();
+    m_ui->m_registerAccountButton->setVisible(canRegister);
+  } else {
+    m_ui->m_accountNumberLabel->setText(tr("Account #: <b>%1</b>").arg(m_accountNumber));
+    m_ui->m_accountNumberLabel->setVisible(true);
+    m_ui->m_copyAccountNumberButton->setVisible(true);
+    m_ui->m_registerAccountButton->setVisible(false);
+  }
+}
+
+void AccountFrame::copyAccountNumber() {
+  if (!m_accountNumber.isEmpty()) {
+    QApplication::clipboard()->setText(m_accountNumber);
+  }
+}
+
+void AccountFrame::registerAccountNumber() {
+  if (!WalletAdapter::instance().isOpen()) {
+    return;
+  }
+
+  if (Settings::instance().isTrackingMode()) {
+    QMessageBox::critical(this, tr("Error"), tr("Cannot register account number from a tracking wallet."));
+    return;
+  }
+
+  if (QMessageBox::question(this, tr("Register Account Number"),
+      tr("Register an account number for easy payments?\nA small fee will be charged."),
+      QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+    WalletAdapter::instance().registerAccountNumber();
+  }
+}
+
 void AccountFrame::reset() {
   updateActualBalance(0);
   updatePendingBalance(0);
   updateUnmixableBalance(0);
   m_ui->m_addressLabel->clear();
+  m_accountNumber.clear();
+  m_ui->m_accountNumberLabel->setVisible(false);
+  m_ui->m_copyAccountNumberButton->setVisible(false);
+  m_ui->m_registerAccountButton->setVisible(false);
 }
 
 }

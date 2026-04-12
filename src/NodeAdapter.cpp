@@ -498,6 +498,16 @@ System::Dispatcher &NodeAdapter::getDispatcher() {
   return m_node->getDispatcher();
 }
 
+void NodeAdapter::getAccountNumber(const std::string& address, std::string& accountNumber, const std::function<void(std::error_code)>& callback) {
+  Q_CHECK_PTR(m_node);
+  m_node->getAccountNumber(address, accountNumber, callback);
+}
+
+void NodeAdapter::resolveAccountNumber(const std::string& accountNumber, std::string& address, const std::function<void(std::error_code)>& callback) {
+  Q_CHECK_PTR(m_node);
+  m_node->resolveAccountNumber(accountNumber, address, callback);
+}
+
 }
 
 #include "NodeAdapter.moc"

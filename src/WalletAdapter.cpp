@@ -18,6 +18,7 @@
 #include "WalletAdapter.h"
 
 #include "CryptoNoteConfig.h"
+#include "CryptoNoteCore/TransactionExtra.h"
 #include "crypto/crypto.h"
 #include "Common/Base58.h"
 #include "Common/Util.h"
@@ -456,6 +457,30 @@ void WalletAdapter::sendTransaction(const std::vector<CryptoNote::WalletLegacyTr
     lock();
     Q_EMIT walletStateChangedSignal(tr("Sending transaction"));
     m_wallet->sendTransaction(_transfers, _selectedOuts, _fee, NodeAdapter::instance().convertPaymentId(_payment_id), _mixin, 0);
+  } catch (std::system_error&) {
+    unlock();
+  }
+}
+
+void WalletAdapter::registerAccountNumber() {
+  Q_CHECK_PTR(m_wallet);
+
+  CryptoNote::AccountKeys keys;
+  m_wallet->getAccountKeys(keys);
+
+  std::vector<uint8_t> extra;
+  CryptoNote::addAccountRegistrationToExtra(extra, keys.address.spendPublicKey, keys.address.viewPublicKey);
+
+  std::string extraString(extra.begin(), extra.end());
+
+  CryptoNote::WalletLegacyTransfer transfer;
+  transfer.address = m_wallet->getAddress();
+  transfer.amount = CryptoNote::parameters::DEFAULT_DUST_THRESHOLD;
+
+  try {
+    lock();
+    Q_EMIT walletStateChangedSignal(tr("Registering account number"));
+    m_wallet->sendTransaction(transfer, NodeAdapter::instance().getMinimalFee(), extraString, 0, 0);
   } catch (std::system_error&) {
     unlock();
   }

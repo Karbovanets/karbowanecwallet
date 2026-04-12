@@ -23,17 +23,22 @@ public:
 
 private:
   QScopedPointer<Ui::AccountFrame> m_ui;
+  QString m_accountNumber;
 
   void updateWalletAddress(const QString& _address);
   void updateActualBalance(quint64 _balance);
   void updatePendingBalance(quint64 _balance);
   void updateUnmixableBalance(quint64 _balance);
   void reset();
+  void fetchAccountNumber(const QString& _address);
+  void updateAccountNumberDisplay();
 
   QStringList divideAmount(quint64 _val);
 
   Q_SLOT void copyAddress();
   Q_SLOT void showQR();
+  Q_SLOT void copyAccountNumber();
+  Q_SLOT void registerAccountNumber();
 
 Q_SIGNALS:
   void showQRcodeSignal();
