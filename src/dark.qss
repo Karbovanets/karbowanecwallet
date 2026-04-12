@@ -61,8 +61,21 @@ QToolBar#accountToolBar {
 #m_accountFrame #m_copyAccountNumberButton {
   border: 0;
   background: transparent;
+  border-radius: 3px;
   margin: 0;
-  padding: 0;
+  padding: 2px;
+}
+
+#m_accountFrame #m_copyButton:hover,
+#m_accountFrame #m_qrButton:hover,
+#m_accountFrame #m_copyAccountNumberButton:hover {
+  background-color: #505F69;
+}
+
+#m_accountFrame #m_copyButton:pressed,
+#m_accountFrame #m_qrButton:pressed,
+#m_accountFrame #m_copyAccountNumberButton:pressed {
+  background-color: #232629;
 }
 
 #m_accountFrame #m_registerAccountButton {

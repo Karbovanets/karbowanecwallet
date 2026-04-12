@@ -177,30 +177,30 @@ void AccountFrame::showQR() {
 void AccountFrame::updateActualBalance(quint64 _balance) {
   QStringList actualList = divideAmount(_balance);
   const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
-  m_ui->m_actualBalanceLabel->setText(formatBalanceLabel(tr("Available"), actualList, ticker, "#FFFFFF", 14, 10));
+  m_ui->m_actualBalanceLabel->setText(formatBalanceLabel(tr("Available"), actualList, ticker, "#FFFFFF", 18, 10));
 
   quint64 pendingBalance = WalletAdapter::instance().getPendingBalance();
 
   QStringList pendingList = divideAmount(_balance + pendingBalance);
-  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), pendingList, ticker, "#FFFFFF", 16, 10));
+  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), pendingList, ticker, "#FFFFFF", 20, 10));
 }
 
 void AccountFrame::updatePendingBalance(quint64 _balance) {
   QStringList pendingList = divideAmount(_balance);
   const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
-  m_ui->m_pendingBalanceLabel->setText(formatBalanceLabel(tr("Pending"), pendingList, ticker, "#FFFFFF", 14, 10));
+  m_ui->m_pendingBalanceLabel->setText(formatBalanceLabel(tr("Pending"), pendingList, ticker, "#FFFFFF", 18, 10));
 
   quint64 actualBalance = WalletAdapter::instance().getActualBalance();
 
   QStringList totalList = divideAmount(_balance + actualBalance);
-  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), totalList, ticker, "#FFFFFF", 16, 10));
+  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), totalList, ticker, "#FFFFFF", 20, 10));
 }
 
 void AccountFrame::updateUnmixableBalance(quint64 _balance) {
   QStringList unmixableList = divideAmount(_balance);
   const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
 
-  m_ui->m_unmixableBalanceLabel->setText(formatBalanceLabel(tr("Unmixable"), unmixableList, ticker, "#FFFFFF", 14, 10));
+  m_ui->m_unmixableBalanceLabel->setText(formatBalanceLabel(tr("Unmixable"), unmixableList, ticker, "#FFFFFF", 18, 10));
   if (_balance != 0) {
     m_ui->m_unmixableBalanceLabel->setVisible(true);
   } else {
