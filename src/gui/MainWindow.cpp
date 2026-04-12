@@ -1148,7 +1148,7 @@ void MainWindow::checkTrackingMode() {
 void MainWindow::createTrayIcon()
 {
 #ifdef Q_OS_WIN
-    m_trayIcon = new QSystemTrayIcon(QPixmap(":images/cryptonote"), this);
+    m_trayIcon = new QSystemTrayIcon(QPixmap(":images/karbowanez"), this);
     QString toolTip = QString(tr("Karbo Wallet %1")).arg(Settings::instance().getVersion());
     m_trayIcon->setToolTip(toolTip);
     m_trayIcon->show();

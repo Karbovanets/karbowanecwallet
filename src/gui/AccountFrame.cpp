@@ -6,7 +6,6 @@
 #include <QClipboard>
 #include <QTimer>
 #include <QFontDatabase>
-#include <QGraphicsDropShadowEffect>
 #include <QMessageBox>
 #include <future>
 #include "AccountFrame.h"
@@ -19,6 +18,51 @@
 #include "ui_accountframe.h"
 
 namespace WalletGui {
+
+namespace {
+
+constexpr int CAPTION_FONT_SIZE = 10;
+constexpr int ADDRESS_FONT_SIZE = 12;
+constexpr int ACCOUNT_NUMBER_VALUE_FONT_SIZE = 16;
+
+QString formatDisplayAddress(const QString& address) {
+  if (address.isEmpty()) {
+    return QString();
+  }
+
+  QString wrappedAddress;
+  wrappedAddress.reserve(address.size() + (address.size() / 12) * 6);
+
+  for (int i = 0; i < address.size(); ++i) {
+    wrappedAddress += address.mid(i, 1).toHtmlEscaped();
+    if ((i + 1) % 12 == 0 && i + 1 < address.size()) {
+      wrappedAddress += "<wbr/>";
+    }
+  }
+
+  return QString("<div style=\"line-height:1.0;\">%1</div>").arg(wrappedAddress);
+}
+
+QString formatBalanceLabel(const QString& title, const QStringList& amountParts, const QString& ticker, const QString& accentColor,
+  int majorSize, int minorSize) {
+  return QString(
+    "<div style=\"line-height:1.0;\">"
+      "<span style=\"font-size:%1px; color:#B0B8C4;\">%2</span>"
+      "<span style=\"font-size:%1px; color:#B0B8C4;\">: </span>"
+      "<span style=\"font-size:%3px; font-weight:600; color:%4;\">%5</span>"
+      "<span style=\"font-size:%6px; color:#D3D3D3;\">%7 %8</span>"
+    "</div>")
+    .arg(CAPTION_FONT_SIZE)
+    .arg(title.toHtmlEscaped())
+    .arg(majorSize)
+    .arg(accentColor)
+    .arg(amountParts.first().toHtmlEscaped())
+    .arg(minorSize)
+    .arg(amountParts.last().toHtmlEscaped())
+    .arg(ticker.toHtmlEscaped());
+}
+
+}
 
 QStringList AccountFrame::divideAmount(quint64 _val) {
   QStringList list;
@@ -54,61 +98,79 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
   m_ui->m_copyAccountNumberButton->setVisible(false);
   m_ui->m_registerAccountButton->setVisible(false);
 
-  int id = QFontDatabase::addApplicationFont(":/fonts/mplusm");
-  QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-  QFont monospace(family);
-  monospace.setPixelSize(16);
-  m_ui->m_addressLabel->setFont(monospace);
-  // shadow under address
-  QGraphicsDropShadowEffect *textShadow = new QGraphicsDropShadowEffect(this);
-  textShadow->setBlurRadius(4.0);
-  textShadow->setColor(QColor(0, 0, 0));
-  textShadow->setOffset(0,1);
-  m_ui->m_addressLabel->setGraphicsEffect(textShadow);
+  QFont addressFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+  addressFont.setPixelSize(ADDRESS_FONT_SIZE);
+
+  QFont accountNumberFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+  accountNumberFont.setPixelSize(ACCOUNT_NUMBER_VALUE_FONT_SIZE);
+  accountNumberFont.setBold(true);
+
+  m_ui->m_addressLabel->setFont(addressFont);
+  m_ui->m_addressLabel->setWordWrap(true);
+  m_ui->m_addressLabel->setTextFormat(Qt::RichText);
+  m_ui->m_accountNumberLabel->setFont(accountNumberFont);
+  m_ui->m_copyButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
+  m_ui->m_qrButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
+  m_ui->m_copyAccountNumberButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
+  m_ui->m_copyButton->setIconSize(QSize(16, 16));
+  m_ui->m_qrButton->setIconSize(QSize(16, 16));
+  m_ui->m_copyAccountNumberButton->setIconSize(QSize(16, 16));
+  m_ui->m_copyButton->setText(QString());
+  m_ui->m_qrButton->setText(QString());
+  m_ui->m_copyAccountNumberButton->setText(QString());
 }
 
 AccountFrame::~AccountFrame() {
 }
 
 void AccountFrame::updateWalletAddress(const QString& _address) {
-  m_ui->m_addressLabel->setText(_address);
+  m_ui->m_addressLabel->setText(formatDisplayAddress(_address));
+  m_ui->m_addressLabel->setToolTip(_address);
   m_accountNumber.clear();
   updateAccountNumberDisplay();
 }
 
 void AccountFrame::copyAddress() {
-  QApplication::clipboard()->setText(m_ui->m_addressLabel->text());
+  QApplication::clipboard()->setText(WalletAdapter::instance().getAddress());
 }
 
 void AccountFrame::showQR() {
-  QRCodeDialog dlg(tr("QR Code"), m_ui->m_addressLabel->text(), this);
+  const QString address = WalletAdapter::instance().getAddress();
+  if (address.isEmpty()) {
+    return;
+  }
+
+  QRCodeDialog dlg(tr("QR Code"), address, this);
   dlg.exec();
 }
 
 void AccountFrame::updateActualBalance(quint64 _balance) {
   QStringList actualList = divideAmount(_balance);
-  m_ui->m_actualBalanceLabel->setText(QString(tr("<p style=\"height:30\">Available: <strong style=\"font-size:14px; color: #ffffff;\">%1</strong><small style=\"font-size:10px; color: #D3D3D3;\">%2 %3</small></p>")).arg(actualList.first()).arg(actualList.last()).arg(CurrencyAdapter::instance().getCurrencyTicker().toUpper()));
+  const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
+  m_ui->m_actualBalanceLabel->setText(formatBalanceLabel(tr("Available"), actualList, ticker, "#FFFFFF", 14, 10));
 
   quint64 pendingBalance = WalletAdapter::instance().getPendingBalance();
 
   QStringList pendingList = divideAmount(_balance + pendingBalance);
-  m_ui->m_totalBalanceLabel->setText(QString(tr("<p style=\"height:30\">Total: <strong style=\"font-size:18px; color: #ffffff;\">%1</strong><small style=\"font-size:10px; color: #D3D3D3;\">%2 %3</small></p>")).arg(pendingList.first()).arg(pendingList.last()).arg(CurrencyAdapter::instance().getCurrencyTicker().toUpper()));
+  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), pendingList, ticker, "#FFFFFF", 16, 10));
 }
 
 void AccountFrame::updatePendingBalance(quint64 _balance) {
   QStringList pendingList = divideAmount(_balance);
-  m_ui->m_pendingBalanceLabel->setText(QString(tr("<p style=\"height:30\">Pending: <strong style=\"font-size:14px; color: #ffffff;\">%1</strong><small style=\"font-size:10px; color: #D3D3D3;\">%2 %3</small></p>")).arg(pendingList.first()).arg(pendingList.last()).arg(CurrencyAdapter::instance().getCurrencyTicker().toUpper()));
+  const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
+  m_ui->m_pendingBalanceLabel->setText(formatBalanceLabel(tr("Pending"), pendingList, ticker, "#FFFFFF", 14, 10));
 
   quint64 actualBalance = WalletAdapter::instance().getActualBalance();
 
   QStringList totalList = divideAmount(_balance + actualBalance);
-  m_ui->m_totalBalanceLabel->setText(QString(tr("<p style=\"height:30\">Total: <strong style=\"font-size:18px; color: #ffffff;\">%1</strong><small style=\"font-size:10px; color: #D3D3D3;\">%2 %3</small></p>")).arg(totalList.first()).arg(totalList.last()).arg(CurrencyAdapter::instance().getCurrencyTicker().toUpper()));
+  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), totalList, ticker, "#FFFFFF", 16, 10));
 }
 
 void AccountFrame::updateUnmixableBalance(quint64 _balance) {
   QStringList unmixableList = divideAmount(_balance);
+  const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
 
-  m_ui->m_unmixableBalanceLabel->setText(QString(tr("<p style=\"height:30\">Unmixable: <strong style=\"font-size:14px; color: #ffffff;\">%1</strong><small style=\"font-size:10px; color: #D3D3D3;\">%2 %3</small></p>")).arg(unmixableList.first()).arg(unmixableList.last()).arg(CurrencyAdapter::instance().getCurrencyTicker().toUpper()));
+  m_ui->m_unmixableBalanceLabel->setText(formatBalanceLabel(tr("Unmixable"), unmixableList, ticker, "#FFFFFF", 14, 10));
   if (_balance != 0) {
     m_ui->m_unmixableBalanceLabel->setVisible(true);
   } else {
@@ -146,7 +208,14 @@ void AccountFrame::updateAccountNumberDisplay() {
     bool canRegister = WalletAdapter::instance().isOpen() && !Settings::instance().isTrackingMode();
     m_ui->m_registerAccountButton->setVisible(canRegister);
   } else {
-    m_ui->m_accountNumberLabel->setText(tr("Account #: <b>%1</b>").arg(m_accountNumber));
+    m_ui->m_accountNumberLabel->setText(
+      QString(
+        "<div><span style=\"font-size:%1px; color:#B0B8C4;\">%2:</span> "
+          "<span style=\"font-size:%3px; font-weight:600; color:#FFFFFF;\">%4</span></div>")
+        .arg(CAPTION_FONT_SIZE)
+        .arg(tr("Account #").toHtmlEscaped())
+        .arg(ACCOUNT_NUMBER_VALUE_FONT_SIZE)
+        .arg(m_accountNumber.toHtmlEscaped()));
     m_ui->m_accountNumberLabel->setVisible(true);
     m_ui->m_copyAccountNumberButton->setVisible(true);
     m_ui->m_registerAccountButton->setVisible(false);
@@ -181,7 +250,9 @@ void AccountFrame::reset() {
   updatePendingBalance(0);
   updateUnmixableBalance(0);
   m_ui->m_addressLabel->clear();
+  m_ui->m_addressLabel->setToolTip(tr("Your receiving address"));
   m_accountNumber.clear();
+  m_ui->m_accountNumberLabel->clear();
   m_ui->m_accountNumberLabel->setVisible(false);
   m_ui->m_copyAccountNumberButton->setVisible(false);
   m_ui->m_registerAccountButton->setVisible(false);
