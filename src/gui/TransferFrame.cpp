@@ -6,11 +6,13 @@
 
 #include <QApplication>
 #include <QClipboard>
+#include <QRegularExpression>
 
 #include "TransferFrame.h"
 #include "AddressBookDialog.h"
 #include "MainWindow.h"
 #include "CurrencyAdapter.h"
+#include "NodeAdapter.h"
 #include "DnsLookup.h"
 
 #include "ui_transferframe.h"
@@ -19,7 +21,7 @@ namespace WalletGui {
 
 Q_DECL_CONSTEXPR quint32 ADDRESS_INPUT_INTERVAL = 1500;
 
-TransferFrame::TransferFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::TransferFrame), m_aliasProvider(new DnsManager(this)), m_addressInputTimer(-1) {
+TransferFrame::TransferFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::TransferFrame), m_aliasProvider(new DnsManager(this)), m_addressInputTimer(-1), m_accountNumberInputTimer(-1) {
   m_ui->setupUi(this);
   setAttribute(Qt::WA_DeleteOnClose);
   m_ui->m_amountSpin->setSuffix(" " + CurrencyAdapter::instance().getCurrencyTicker().toUpper());
@@ -71,6 +73,13 @@ void TransferFrame::timerEvent(QTimerEvent* _event) {
     return;
   }
 
+  if (_event->timerId() == m_accountNumberInputTimer) {
+    resolveAccountNumber(m_ui->m_addressEdit->text().trimmed());
+    killTimer(m_accountNumberInputTimer);
+    m_accountNumberInputTimer = -1;
+    return;
+  }
+
   QFrame::timerEvent(_event);
 }
 
@@ -84,15 +93,47 @@ void TransferFrame::addressEdited(const QString& _text) {
       killTimer(m_addressInputTimer);
     }
     m_addressInputTimer = startTimer(ADDRESS_INPUT_INTERVAL);
+  } else if (looksLikeAccountNumber(_text.trimmed())) {
+    if (m_accountNumberInputTimer != -1) {
+      killTimer(m_accountNumberInputTimer);
+    }
+    m_accountNumberInputTimer = startTimer(ADDRESS_INPUT_INTERVAL);
   }
 }
 
 void TransferFrame::pasteClicked() {
-  m_ui->m_addressEdit->setText(QApplication::clipboard()->text());
+  QString text = QApplication::clipboard()->text();
+  m_ui->m_addressEdit->setText(text);
+  addressEdited(text);
 }
 
 void TransferFrame::amountValueChange() {
   Q_EMIT amountValueChangedSignal();
+}
+
+bool TransferFrame::looksLikeAccountNumber(const QString& _text) {
+  static QRegularExpression re("^\\d+-\\d+-[0-9A-Za-z]$");
+  return re.match(_text).hasMatch();
+}
+
+void TransferFrame::resolveAccountNumber(const QString& _input) {
+  std::string accountNumber = _input.toStdString();
+  std::string* address = new std::string();
+
+  NodeAdapter::instance().resolveAccountNumber(accountNumber, *address,
+    [this, _input, address](std::error_code ec) {
+      QString resolvedAddress;
+      if (!ec && !address->empty()) {
+        resolvedAddress = QString::fromStdString(*address);
+      }
+      delete address;
+
+      if (!resolvedAddress.isEmpty()) {
+        QMetaObject::invokeMethod(this, [this, _input, resolvedAddress]() {
+          m_ui->m_addressEdit->setText(QString("%1 <%2>").arg(_input).arg(resolvedAddress));
+        }, Qt::QueuedConnection);
+      }
+    });
 }
 
 void TransferFrame::setAddress(QString _address) {

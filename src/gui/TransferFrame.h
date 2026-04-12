@@ -43,7 +43,10 @@ private:
   QScopedPointer<Ui::TransferFrame> m_ui;
   DnsManager* m_aliasProvider;
   int m_addressInputTimer;
+  int m_accountNumberInputTimer;
   void onAliasFound(const QString& _name, const QString& _address);
+  void resolveAccountNumber(const QString& _input);
+  static bool looksLikeAccountNumber(const QString& _text);
 
   Q_SLOT void addressBookClicked();
   Q_SLOT void pasteClicked();
