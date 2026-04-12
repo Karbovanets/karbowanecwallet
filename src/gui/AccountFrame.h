@@ -7,6 +7,8 @@
 
 #include <QFrame>
 
+class QEvent;
+
 namespace Ui {
 class AccountFrame;
 }
@@ -20,6 +22,9 @@ class AccountFrame : public QFrame {
 public:
   AccountFrame(QWidget* _parent);
   ~AccountFrame();
+
+protected:
+  bool eventFilter(QObject* _object, QEvent* _event) override;
 
 private:
   QScopedPointer<Ui::AccountFrame> m_ui;

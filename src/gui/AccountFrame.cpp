@@ -4,9 +4,13 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <QClipboard>
+#include <QEvent>
+#include <QKeyEvent>
+#include <QKeySequence>
 #include <QTimer>
 #include <QFontDatabase>
 #include <QMessageBox>
+#include <QRegularExpression>
 #include <future>
 #include "AccountFrame.h"
 #include "WalletAdapter.h"
@@ -23,24 +27,36 @@ namespace {
 
 constexpr int CAPTION_FONT_SIZE = 10;
 constexpr int ADDRESS_FONT_SIZE = 12;
-constexpr int ACCOUNT_NUMBER_VALUE_FONT_SIZE = 16;
+constexpr int ACCOUNT_NUMBER_VALUE_FONT_SIZE = 18;
+constexpr int ADDRESS_CHUNK_SIZE = 13;
+constexpr int ADDRESS_CHUNKS_PER_ROW = 4;
+
+QString stripVisualAddressSeparators(QString text) {
+  text.remove(QRegularExpression(QStringLiteral("[\\s\\x{00A0}\\x{2028}\\x{2029}]")));
+  return text;
+}
 
 QString formatDisplayAddress(const QString& address) {
   if (address.isEmpty()) {
     return QString();
   }
 
-  QString wrappedAddress;
-  wrappedAddress.reserve(address.size() + (address.size() / 12) * 6);
+  QStringList rows;
+  QStringList rowChunks;
 
-  for (int i = 0; i < address.size(); ++i) {
-    wrappedAddress += address.mid(i, 1).toHtmlEscaped();
-    if ((i + 1) % 12 == 0 && i + 1 < address.size()) {
-      wrappedAddress += "<wbr/>";
+  for (int i = 0; i < address.size(); i += ADDRESS_CHUNK_SIZE) {
+    rowChunks << QString("<span>%1</span>").arg(address.mid(i, ADDRESS_CHUNK_SIZE).toHtmlEscaped());
+    if (rowChunks.size() == ADDRESS_CHUNKS_PER_ROW) {
+      rows << rowChunks.join(QStringLiteral("<span style=\"color:#8A99A6;\">&nbsp;&nbsp;</span>"));
+      rowChunks.clear();
     }
   }
 
-  return QString("<div style=\"line-height:1.0;\">%1</div>").arg(wrappedAddress);
+  if (!rowChunks.isEmpty()) {
+    rows << rowChunks.join(QStringLiteral("<span style=\"color:#8A99A6;\">&nbsp;&nbsp;</span>"));
+  }
+
+  return QString("<div style=\"line-height:1.22;\">%1</div>").arg(rows.join(QStringLiteral("<br/>")));
 }
 
 QString formatBalanceLabel(const QString& title, const QStringList& amountParts, const QString& ticker, const QString& accentColor,
@@ -108,7 +124,9 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
   m_ui->m_addressLabel->setFont(addressFont);
   m_ui->m_addressLabel->setWordWrap(true);
   m_ui->m_addressLabel->setTextFormat(Qt::RichText);
+  m_ui->m_addressLabel->installEventFilter(this);
   m_ui->m_accountNumberLabel->setFont(accountNumberFont);
+  m_ui->m_accountNumberLabel->setTextFormat(Qt::PlainText);
   m_ui->m_copyButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
   m_ui->m_qrButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
   m_ui->m_copyAccountNumberButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -121,6 +139,18 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
 }
 
 AccountFrame::~AccountFrame() {
+}
+
+bool AccountFrame::eventFilter(QObject* _object, QEvent* _event) {
+  if (_object == m_ui->m_addressLabel && _event->type() == QEvent::KeyPress) {
+    const auto* keyEvent = static_cast<QKeyEvent*>(_event);
+    if (keyEvent->matches(QKeySequence::Copy) && m_ui->m_addressLabel->hasSelectedText()) {
+      QApplication::clipboard()->setText(stripVisualAddressSeparators(m_ui->m_addressLabel->selectedText()));
+      return true;
+    }
+  }
+
+  return QFrame::eventFilter(_object, _event);
 }
 
 void AccountFrame::updateWalletAddress(const QString& _address) {
@@ -203,19 +233,18 @@ void AccountFrame::fetchAccountNumber(const QString& _address) {
 
 void AccountFrame::updateAccountNumberDisplay() {
   if (m_accountNumber.isEmpty()) {
-    m_ui->m_accountNumberLabel->setVisible(false);
+    const bool canRegister = WalletAdapter::instance().isOpen() && !Settings::instance().isTrackingMode();
+    m_ui->m_accountNumberLabel->clear();
+    m_ui->m_accountNumberLabel->setVisible(!canRegister);
+    if (!canRegister) {
+      m_ui->m_accountNumberLabel->setText(tr("Not registered"));
+      m_ui->m_accountNumberLabel->setToolTip(tr("This wallet does not have a registered account number."));
+    }
     m_ui->m_copyAccountNumberButton->setVisible(false);
-    bool canRegister = WalletAdapter::instance().isOpen() && !Settings::instance().isTrackingMode();
     m_ui->m_registerAccountButton->setVisible(canRegister);
   } else {
-    m_ui->m_accountNumberLabel->setText(
-      QString(
-        "<div><span style=\"font-size:%1px; color:#B0B8C4;\">%2:</span> "
-          "<span style=\"font-size:%3px; font-weight:600; color:#FFFFFF;\">%4</span></div>")
-        .arg(CAPTION_FONT_SIZE)
-        .arg(tr("Account #").toHtmlEscaped())
-        .arg(ACCOUNT_NUMBER_VALUE_FONT_SIZE)
-        .arg(m_accountNumber.toHtmlEscaped()));
+    m_ui->m_accountNumberLabel->setText(m_accountNumber);
+    m_ui->m_accountNumberLabel->setToolTip(m_accountNumber);
     m_ui->m_accountNumberLabel->setVisible(true);
     m_ui->m_copyAccountNumberButton->setVisible(true);
     m_ui->m_registerAccountButton->setVisible(false);
