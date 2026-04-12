@@ -216,7 +216,7 @@
           </property>
           <property name="font">
            <font>
-            <bold>false</bold>
+            <bold>true</bold>
            </font>
           </property>
           <property name="cursor">

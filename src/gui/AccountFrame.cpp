@@ -116,6 +116,7 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
 
   QFont addressFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
   addressFont.setPixelSize(ADDRESS_FONT_SIZE);
+  addressFont.setWeight(QFont::Bold);
 
   QFont accountNumberFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
   accountNumberFont.setPixelSize(ACCOUNT_NUMBER_VALUE_FONT_SIZE);
