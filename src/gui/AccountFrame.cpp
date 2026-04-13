@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2015 The Cryptonote developers
-// Copyright (c) 2016-2021 The Karbo developers
+// Copyright (c) 2016-2026 The Karbo developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -107,6 +107,9 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
     }
   });
 
+  // Style the account frame with a slightly brighter background
+  applyFramePalette();
+
   m_ui->m_unmixableBalanceLabel->setVisible(false);
   m_ui->m_accountNumberLabel->setVisible(false);
   m_ui->m_copyAccountNumberButton->setVisible(false);
@@ -138,6 +141,22 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
 }
 
 AccountFrame::~AccountFrame() {
+}
+
+void AccountFrame::changeEvent(QEvent* _event) {
+  QFrame::changeEvent(_event);
+  if (_event->type() == QEvent::PaletteChange || _event->type() == QEvent::StyleChange) {
+    applyFramePalette();
+  }
+}
+
+void AccountFrame::applyFramePalette() {
+  const QColor borderColor = palette().color(QPalette::Mid);
+
+  // Account number panel — border only
+  m_ui->m_accountNumberPanel->setStyleSheet(
+    QString("QFrame#m_accountNumberPanel { border: 2px solid %1; border-radius: 8px; }")
+    .arg(borderColor.name()));
 }
 
 bool AccountFrame::eventFilter(QObject* _object, QEvent* _event) {

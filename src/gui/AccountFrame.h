@@ -25,11 +25,13 @@ public:
 
 protected:
   bool eventFilter(QObject* _object, QEvent* _event) override;
+  void changeEvent(QEvent* _event) override;
 
 private:
   QScopedPointer<Ui::AccountFrame> m_ui;
   QString m_accountNumber;
 
+  void applyFramePalette();
   void updateWalletAddress(const QString& _address);
   void updateActualBalance(quint64 _balance);
   void updatePendingBalance(quint64 _balance);

@@ -140,6 +140,12 @@ void MiningFrame::applyChartPalette() {
   }
 
   m_ui->m_hashRateChart->setBackground(QBrush(backgroundColor));
+
+  // Match wrapper frame background to chart background so margins don't show a different color
+  m_ui->m_chartFrame->setAutoFillBackground(true);
+  QPalette framePalette = m_ui->m_chartFrame->palette();
+  framePalette.setColor(QPalette::Window, backgroundColor);
+  m_ui->m_chartFrame->setPalette(framePalette);
 }
 
 void MiningFrame::addPoint(double x, double y)

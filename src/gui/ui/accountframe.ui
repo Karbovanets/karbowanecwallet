@@ -13,7 +13,7 @@
   <property name="minimumSize">
    <size>
     <width>0</width>
-    <height>100</height>
+    <height>126</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -39,16 +39,16 @@
     <number>0</number>
    </property>
    <property name="leftMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <item>
     <layout class="QHBoxLayout" name="topLayout">

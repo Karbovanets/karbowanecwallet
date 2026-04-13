@@ -142,6 +142,8 @@ void MainWindow::initUi() {
 #endif
 
   m_ui->accountToolBar->setAllowedAreas(Qt::TopToolBarArea);
+  m_ui->accountToolBar->setContentsMargins(0, 0, 0, 0);
+  m_ui->accountToolBar->layout()->setContentsMargins(0, 0, 0, 0);
 
   accountWidget = m_ui->accountToolBar->addWidget(m_ui->m_accountFrame);
   addToolBar(Qt::TopToolBarArea, m_ui->accountToolBar);
@@ -150,6 +152,8 @@ void MainWindow::initUi() {
   addToolBarBreak();
   m_ui->accountToolBar->setMovable(false);
   m_ui->toolBar->setMovable(false);
+
+  applyToolBarPalette();
 
   m_ui->m_aboutCryptonoteAction->setText(QString(tr("About %1 Wallet")).arg(CurrencyAdapter::instance().getCurrencyDisplayName()));
   m_ui->m_sendFrame->hide();
@@ -329,11 +333,25 @@ void MainWindow::changeEvent(QEvent* _event) {
     break;
 #endif
   }
+  case QEvent::PaletteChange:
+  case QEvent::StyleChange:
+    applyToolBarPalette();
+    break;
   default:
     break;
   }
   QWidget::changeEvent(_event);
   QMainWindow::changeEvent(_event);
+}
+
+void MainWindow::applyToolBarPalette() {
+  const QColor windowColor = palette().color(QPalette::Window);
+  const QColor darkerColor = windowColor.darker(115);
+
+  // Navigation toolbar (History, Send, etc.): darker background via stylesheet
+  m_ui->toolBar->setStyleSheet(
+    QString("QToolBar#toolBar { background-color: %1; border: none; }")
+    .arg(darkerColor.name()));
 }
 
 bool MainWindow::event(QEvent* _event) {

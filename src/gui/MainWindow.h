@@ -84,6 +84,7 @@ private:
 
   void connectToSignals();
   void initUi();
+  void applyToolBarPalette();
   void setMainWindowTitle();
   void createTrayIcon();
   void createTrayIconMenu();

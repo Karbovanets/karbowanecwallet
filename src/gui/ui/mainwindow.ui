@@ -186,13 +186,13 @@
       <property name="minimumSize">
        <size>
         <width>0</width>
-        <height>100</height>
+        <height>126</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>100</height>
+        <height>126</height>
        </size>
       </property>
       <property name="styleSheet">
@@ -311,13 +311,13 @@
    <property name="maximumSize">
     <size>
      <width>16777215</width>
-     <height>44</height>
+     <height>50</height>
     </size>
    </property>
    <property name="baseSize">
     <size>
      <width>-1</width>
-     <height>44</height>
+     <height>50</height>
     </size>
    </property>
    <property name="font">
@@ -339,8 +339,8 @@
    </property>
    <property name="iconSize">
     <size>
-     <width>34</width>
-     <height>26</height>
+     <width>38</width>
+     <height>30</height>
     </size>
    </property>
    <property name="toolButtonStyle">
