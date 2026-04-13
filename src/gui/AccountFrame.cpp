@@ -138,6 +138,9 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
   m_ui->m_copyButton->setText(QString());
   m_ui->m_qrButton->setText(QString());
   m_ui->m_copyAccountNumberButton->setText(QString());
+  m_ui->m_copyButton->setFocusPolicy(Qt::NoFocus);
+  m_ui->m_qrButton->setFocusPolicy(Qt::NoFocus);
+  m_ui->m_copyAccountNumberButton->setFocusPolicy(Qt::NoFocus);
 }
 
 AccountFrame::~AccountFrame() {

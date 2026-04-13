@@ -81,7 +81,7 @@ MainWindow::MainWindow() : QMainWindow(),
   m_connectionStateIconLabel->setAutoDefault(false);
   m_connectionStateIconLabel->setDefault(false);
   m_connectionStateIconLabel->setFocusPolicy(Qt::NoFocus);
-  m_connectionStateIconLabel->setMaximumSize(16, 16);
+  m_connectionStateIconLabel->setMaximumSize(20, 20);
   m_encryptionStateIconLabel = new QLabel(this);
   m_trackingModeIconLabel = new QLabel(this);
   m_remoteModeIconLabel = new QLabel(this);
@@ -179,6 +179,10 @@ void MainWindow::initUi() {
   m_syncProgressBar->setMaximumHeight(30);
   m_syncProgressBar->hide();
 
+  statusBar()->setMinimumHeight(28);
+  statusBar()->setContentsMargins(4, 0, 4, 0);
+  statusBar()->setSizeGripEnabled(false);
+  statusBar()->setStyleSheet("QStatusBar::item { border: none; }");
   statusBar()->addPermanentWidget(m_syncProgressBar, 1);
   statusBar()->addPermanentWidget(m_trackingModeIconLabel);
   statusBar()->addPermanentWidget(m_remoteModeIconLabel);
@@ -186,14 +190,14 @@ void MainWindow::initUi() {
   statusBar()->addPermanentWidget(m_encryptionStateIconLabel);
   statusBar()->addPermanentWidget(m_synchronizationStateIconLabel);
 
-  m_synchronizationStateIconLabel->setFixedSize(16,16);
+  m_synchronizationStateIconLabel->setFixedSize(20, 20);
   m_synchronizationStateIconLabel->setScaledContents( true );
-  m_connectionStateIconLabel->setFixedSize(16,16);
-  m_encryptionStateIconLabel->setFixedSize(16,16);
+  m_connectionStateIconLabel->setFixedSize(20, 20);
+  m_encryptionStateIconLabel->setFixedSize(20, 20);
   m_encryptionStateIconLabel->setScaledContents( true );
-  m_trackingModeIconLabel->setFixedSize(16,16);
+  m_trackingModeIconLabel->setFixedSize(20, 20);
   m_trackingModeIconLabel->setScaledContents( true );
-  m_remoteModeIconLabel->setFixedSize(16,16);
+  m_remoteModeIconLabel->setFixedSize(20, 20);
   m_remoteModeIconLabel->setScaledContents( true );
 
   m_ui->m_transactionsAction->toggle();
@@ -335,7 +339,8 @@ void MainWindow::changeEvent(QEvent* _event) {
   }
   case QEvent::PaletteChange:
   case QEvent::StyleChange:
-    applyToolBarPalette();
+    if (!m_isAboutToQuit)
+      applyToolBarPalette();
     break;
   default:
     break;
@@ -347,6 +352,7 @@ void MainWindow::changeEvent(QEvent* _event) {
 void MainWindow::applyToolBarPalette() {
   const QColor windowColor = palette().color(QPalette::Window);
   const QColor darkerColor = windowColor.darker(135);
+  const QColor lighterColor = windowColor.lighter(125);
   const QColor accentColor = palette().color(QPalette::Highlight);
 
   m_ui->toolBar->setContentsMargins(0, 0, 0, 0);
@@ -358,11 +364,11 @@ void MainWindow::applyToolBarPalette() {
       "QToolBar#toolBar { background-color: %1; border: none; spacing: 0px; padding: 0px; }"
       "QToolBar#toolBar QToolButton { background-color: %1; border: none; border-radius: 0px;"
       "  padding: 6px 14px; margin: 0px; min-height: 36px; }"
-      "QToolBar#toolBar QToolButton:hover { background-color: %2; }"
+      "QToolBar#toolBar QToolButton:hover { background-color: %4; }"
       "QToolBar#toolBar QToolButton:checked { background-color: %2;"
       "  border-top: 2px solid %3; }"
     )
-    .arg(darkerColor.name(), windowColor.name(), accentColor.name()));
+    .arg(darkerColor.name(), windowColor.name(), accentColor.name(), lighterColor.name()));
 }
 
 bool MainWindow::event(QEvent* _event) {
