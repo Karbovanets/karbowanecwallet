@@ -60,7 +60,7 @@
         <translation>Скапіяваць адрас</translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="676"/>
+        <location filename="../gui/ui/accountframe.ui" line="682"/>
         <source>Total balance</source>
         <translation>Баланс рахунку</translation>
     </message>
@@ -129,17 +129,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="499"/>
+        <location filename="../gui/ui/accountframe.ui" line="505"/>
         <source>Spendable balance</source>
         <translation>Даступны баланс</translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="558"/>
+        <location filename="../gui/ui/accountframe.ui" line="564"/>
         <source>Awaiting network confirmation</source>
         <translation>У чаканні пацверджання сеткі</translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="617"/>
+        <location filename="../gui/ui/accountframe.ui" line="623"/>
         <source>Spendable only with zero privacy level</source>
         <translation>Падаецца толькі з нулявым узроўнем прыватнасці</translation>
     </message>
@@ -299,7 +299,7 @@
         <translation>Пацвердзіць:</translation>
     </message>
     <message>
-        <location filename="../gui/ui/changepassworddialog.ui" line="121"/>
+        <location filename="../gui/ui/changepassworddialog.ui" line="118"/>
         <source>Password not confirmed</source>
         <translation>Пароль не пацверджаны</translation>
     </message>
@@ -771,53 +771,51 @@ Please wait...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="238"/>
+        <location filename="../gui/ui/mainwindow.ui" line="222"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="263"/>
+        <location filename="../gui/ui/mainwindow.ui" line="247"/>
         <source>Settings</source>
         <translation>Налады</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="283"/>
-        <location filename="../gui/ui/mainwindow.ui" line="610"/>
+        <location filename="../gui/ui/mainwindow.ui" line="267"/>
+        <location filename="../gui/ui/mainwindow.ui" line="578"/>
         <source>Help</source>
         <translation>Дапамога</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="345"/>
+        <location filename="../gui/ui/mainwindow.ui" line="329"/>
         <source>toolBar</source>
         <translation>Панэль інструментаў</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="406"/>
         <source>Overview</source>
-        <translation>Агляд</translation>
+        <translation type="vanished">Агляд</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="421"/>
+        <location filename="../gui/ui/mainwindow.ui" line="389"/>
         <source>Send</source>
         <translation>Выслаць</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="436"/>
+        <location filename="../gui/ui/mainwindow.ui" line="404"/>
         <source>Receive</source>
         <translation>Атрымаць</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="451"/>
         <source>Transactions</source>
-        <translation>Транзакцыі</translation>
+        <translation type="vanished">Транзакцыі</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="459"/>
+        <location filename="../gui/ui/mainwindow.ui" line="427"/>
         <source>Exit</source>
         <translation>Выхад</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="462"/>
+        <location filename="../gui/ui/mainwindow.ui" line="430"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
@@ -826,79 +824,79 @@ Please wait...</source>
         <translation type="vanished">Адрасная кніга</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="500"/>
+        <location filename="../gui/ui/mainwindow.ui" line="468"/>
         <source>Create wallet</source>
         <translation>Стварыць гаманец</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="508"/>
+        <location filename="../gui/ui/mainwindow.ui" line="476"/>
         <source>Open wallet</source>
         <translation>Адкрыць гаманец</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="516"/>
+        <location filename="../gui/ui/mainwindow.ui" line="484"/>
         <source>Encrypt wallet</source>
         <translation>Зашыфраваць гаманец</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="524"/>
-        <location filename="../gui/ui/mainwindow.ui" line="527"/>
+        <location filename="../gui/ui/mainwindow.ui" line="492"/>
+        <location filename="../gui/ui/mainwindow.ui" line="495"/>
         <source>Change password</source>
         <translation>Змяніць пароль</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="535"/>
+        <location filename="../gui/ui/mainwindow.ui" line="503"/>
         <source>About</source>
         <translation>Аб праграме</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="543"/>
+        <location filename="../gui/ui/mainwindow.ui" line="511"/>
         <source>About Qt</source>
         <translation>Аб Qt</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="551"/>
+        <location filename="../gui/ui/mainwindow.ui" line="519"/>
         <source>Backup wallet</source>
         <translation>Рэзервовае капіраванне кашалька</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="559"/>
+        <location filename="../gui/ui/mainwindow.ui" line="527"/>
         <source>Start on system login</source>
         <translation>Запускаць пры ўваходзе ў сістэму</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="567"/>
+        <location filename="../gui/ui/mainwindow.ui" line="535"/>
         <source>Minimize to tray</source>
         <translation>Згортваць у трэй</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="575"/>
+        <location filename="../gui/ui/mainwindow.ui" line="543"/>
         <source>Close to tray</source>
         <translation>Не зачыняць, а згортваць у трэй</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="580"/>
+        <location filename="../gui/ui/mainwindow.ui" line="548"/>
         <source>Import private key</source>
         <translation>Імпартаваць прыватны ключ</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="592"/>
+        <location filename="../gui/ui/mainwindow.ui" line="560"/>
         <source>Mining</source>
         <translation>Чаканка</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="597"/>
-        <location filename="../gui/ui/mainwindow.ui" line="600"/>
+        <location filename="../gui/ui/mainwindow.ui" line="565"/>
+        <location filename="../gui/ui/mainwindow.ui" line="568"/>
         <source>Reset wallet</source>
         <translation>Скідванне кашалька</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="477"/>
+        <location filename="../gui/ui/mainwindow.ui" line="445"/>
         <source>Contacts</source>
         <translation>Кантакты</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="267"/>
+        <location filename="../gui/ui/mainwindow.ui" line="251"/>
         <source>Language</source>
         <translation>Мова</translation>
     </message>
@@ -911,54 +909,59 @@ Please wait...</source>
         <translation type="vanished">Паказаць прыватны ключ</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="613"/>
+        <location filename="../gui/ui/mainwindow.ui" line="581"/>
         <source>F1</source>
         <translation>F1</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="618"/>
+        <location filename="../gui/ui/mainwindow.ui" line="586"/>
         <source>Connection</source>
         <translation>Падключэнне</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="623"/>
+        <location filename="../gui/ui/mainwindow.ui" line="591"/>
         <source>Open payment request</source>
         <translation>Адкрыць запыт плацяжу</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="628"/>
+        <location filename="../gui/ui/mainwindow.ui" line="596"/>
         <source>Export tracking key</source>
         <translation>Экспартаваць ключ адсочвання</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="633"/>
+        <location filename="../gui/ui/mainwindow.ui" line="601"/>
         <source>Import tracking key</source>
         <translation>Імпартаваць ключ адсочвання</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="605"/>
+        <location filename="../gui/ui/mainwindow.ui" line="573"/>
         <source>Export private key</source>
         <translation>Экспартаваць прыватны ключ</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="385"/>
+        <location filename="../gui/ui/mainwindow.ui" line="368"/>
         <source>Account toolbar</source>
         <translation>Рахунак</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="638"/>
+        <location filename="../gui/ui/mainwindow.ui" line="419"/>
+        <source>History</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/ui/mainwindow.ui" line="606"/>
         <source>Close wallet</source>
         <translation>Зачыніць гаманец</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="242"/>
-        <location filename="../gui/ui/mainwindow.ui" line="643"/>
+        <location filename="../gui/ui/mainwindow.ui" line="226"/>
+        <location filename="../gui/ui/mainwindow.ui" line="611"/>
         <source>Recent wallets</source>
         <translation>Апошнія гаманцы</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="648"/>
-        <location filename="../gui/ui/mainwindow.ui" line="720"/>
+        <location filename="../gui/ui/mainwindow.ui" line="616"/>
+        <location filename="../gui/ui/mainwindow.ui" line="688"/>
         <source>Information</source>
         <translation>Інфармацыя</translation>
     </message>
@@ -971,22 +974,22 @@ Please wait...</source>
         <translation type="vanished">Інструменты</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="653"/>
+        <location filename="../gui/ui/mainwindow.ui" line="621"/>
         <source>Open log file</source>
         <translation>Адкрыць файл часопіса</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="661"/>
+        <location filename="../gui/ui/mainwindow.ui" line="629"/>
         <source>Show mnemonic seed</source>
         <translation>Паказаць мнеманічную фразу</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="666"/>
+        <location filename="../gui/ui/mainwindow.ui" line="634"/>
         <source>Restore from mnemonic seed</source>
         <translation>Аднаўленне з мнеманічнай фразы</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="671"/>
+        <location filename="../gui/ui/mainwindow.ui" line="639"/>
         <source>Create nondeterministic wallet</source>
         <translation>Стварыць недетерминированный гаманец</translation>
     </message>
@@ -995,7 +998,7 @@ Please wait...</source>
         <translation type="vanished">Запускаць чаканку пры старце</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="292"/>
+        <location filename="../gui/ui/mainwindow.ui" line="276"/>
         <source>Wallet</source>
         <translation>Гаманец</translation>
     </message>
@@ -1004,12 +1007,12 @@ Please wait...</source>
         <translation type="vanished">Прыбраць нязмешвальных</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="684"/>
+        <location filename="../gui/ui/mainwindow.ui" line="652"/>
         <source>Sign message</source>
         <translation>Падпісаць паведамленне</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="689"/>
+        <location filename="../gui/ui/mainwindow.ui" line="657"/>
         <source>Verify signed message</source>
         <translation>Праверка падпісанага паведамленні</translation>
     </message>
@@ -1018,12 +1021,12 @@ Please wait...</source>
         <translation type="vanished">Аптымізацыя</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="694"/>
+        <location filename="../gui/ui/mainwindow.ui" line="662"/>
         <source>Get proof of balance</source>
         <translation>Атрымаць пацверджанне балансу</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="699"/>
+        <location filename="../gui/ui/mainwindow.ui" line="667"/>
         <source>Import keys</source>
         <translation>Імпартаваць ключы</translation>
     </message>
@@ -1032,32 +1035,32 @@ Please wait...</source>
         <translation type="vanished">Не паказваць транзакцыі аптымізацыі гаманца</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="704"/>
+        <location filename="../gui/ui/mainwindow.ui" line="672"/>
         <source>Lock wallet</source>
         <translation>Замкнуць гаманец</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="707"/>
+        <location filename="../gui/ui/mainwindow.ui" line="675"/>
         <source>Ctrl+L</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="715"/>
+        <location filename="../gui/ui/mainwindow.ui" line="683"/>
         <source>Hide everything when wallet is locked</source>
         <translation>Схаваць усё, калі гаманец заблякаваны</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="492"/>
+        <location filename="../gui/ui/mainwindow.ui" line="460"/>
         <source>Coins</source>
         <translation>Манеты</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="679"/>
+        <location filename="../gui/ui/mainwindow.ui" line="647"/>
         <source>Start mining automatically</source>
         <translation>Запускаць чаканку пры старце</translation>
     </message>
     <message>
-        <location filename="../gui/ui/mainwindow.ui" line="725"/>
+        <location filename="../gui/ui/mainwindow.ui" line="693"/>
         <source>Wallet RPC interface</source>
         <translation>RPC-інтэрфейс гаманца</translation>
     </message>
@@ -1069,7 +1072,7 @@ Please wait...</source>
         <translation type="vanished">Стан чаканкі</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="129"/>
+        <location filename="../gui/ui/miningframe.ui" line="258"/>
         <source>CPU cores</source>
         <translation>Ядра працэсара</translation>
     </message>
@@ -1078,7 +1081,7 @@ Please wait...</source>
         <translation type="vanished">Выберыце пул</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="88"/>
+        <location filename="../gui/ui/miningframe.ui" line="112"/>
         <source>Stopped</source>
         <translation>Спынена</translation>
     </message>
@@ -1087,7 +1090,7 @@ Please wait...</source>
         <translation type="vanished">Дадаць пул</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="68"/>
+        <location filename="../gui/ui/miningframe.ui" line="168"/>
         <source>Start mining</source>
         <translation>Пачаць чаканку</translation>
     </message>
@@ -1096,7 +1099,7 @@ Please wait...</source>
         <translation type="vanished">Прыпыніць чаканку</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="117"/>
+        <location filename="../gui/ui/miningframe.ui" line="246"/>
         <source>Settings</source>
         <translation>Налады</translation>
     </message>
@@ -1105,7 +1108,7 @@ Please wait...</source>
         <translation type="vanished">Чаканка ў пуле</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="42"/>
+        <location filename="../gui/ui/miningframe.ui" line="190"/>
         <source>Stop mining</source>
         <translation>Прыпыніць чаканку</translation>
     </message>
@@ -1122,7 +1125,7 @@ Please wait...</source>
         <translation type="vanished">Выдаліць пул</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="58"/>
+        <location filename="../gui/ui/miningframe.ui" line="100"/>
         <source>Mining status:</source>
         <translation>Стан чаканкі:</translation>
     </message>
@@ -1132,17 +1135,22 @@ Please wait...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="33"/>
+        <location filename="../gui/ui/miningframe.ui" line="63"/>
         <source>State</source>
         <translation>Стан</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="81"/>
+        <location filename="../gui/ui/miningframe.ui" line="122"/>
         <source>Speed, H/s:</source>
         <translation>Хуткасць, H/s:</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="95"/>
+        <location filename="../gui/ui/miningframe.ui" line="142"/>
+        <source>0.00</source>
+        <translation type="unfinished">0.00</translation>
+    </message>
+    <message>
+        <location filename="../gui/ui/miningframe.ui" line="78"/>
         <source>Difficulty:</source>
         <translation>Цяжкасць:</translation>
     </message>
@@ -1269,7 +1277,7 @@ Please wait...</source>
         <translation>Пацвердзіць:</translation>
     </message>
     <message>
-        <location filename="../gui/ui/newpassworddialog.ui" line="95"/>
+        <location filename="../gui/ui/newpassworddialog.ui" line="92"/>
         <source>Password not confirmed</source>
         <translation>Пароль не пацверджаны</translation>
     </message>
@@ -1544,7 +1552,7 @@ Please wait...</source>
         <translation>Адмяніць</translation>
     </message>
     <message>
-        <location filename="../gui/ui/passworddialog.ui" line="97"/>
+        <location filename="../gui/ui/passworddialog.ui" line="94"/>
         <source>Password:</source>
         <translation>Пароль:</translation>
     </message>
@@ -1554,12 +1562,12 @@ Please wait...</source>
         <translation>Добра</translation>
     </message>
     <message>
-        <location filename="../gui/ui/passworddialog.ui" line="61"/>
+        <location filename="../gui/ui/passworddialog.ui" line="58"/>
         <source>Wrong password</source>
         <translation>Няправільны пароль</translation>
     </message>
     <message>
-        <location filename="../gui/ui/passworddialog.ui" line="84"/>
+        <location filename="../gui/ui/passworddialog.ui" line="81"/>
         <source>Wallet:</source>
         <translation>Гаманец:</translation>
     </message>
@@ -1611,28 +1619,28 @@ Please wait...</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="92"/>
+        <location filename="../main.cpp" line="105"/>
         <source>Error</source>
         <translation>Памылка</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.cpp" line="649"/>
-        <location filename="../main.cpp" line="95"/>
+        <location filename="../main.cpp" line="108"/>
         <source>Help</source>
         <translation>Дапамога</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="132"/>
+        <location filename="../main.cpp" line="145"/>
         <source>Fail</source>
         <translation>Няўдача</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="147"/>
+        <location filename="../main.cpp" line="160"/>
         <source>Loading blockchain...</source>
         <translation>Загружаецца ланцужок блокаў...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="132"/>
+        <location filename="../main.cpp" line="145"/>
         <source>%1 wallet already running or cannot create lock file %2. Check your permissions.</source>
         <translation>%1 ужо адкрыты ці не можа стварыць файл блакіроўкі %2. Праверце правы доступу.</translation>
     </message>
@@ -1940,29 +1948,29 @@ Do you want to go to the download page?</source>
         <translation>Зачыніць</translation>
     </message>
     <message>
-        <location filename="../gui/ui/signmessagedialog.ui" line="79"/>
+        <location filename="../gui/ui/signmessagedialog.ui" line="76"/>
         <source>Sign message</source>
         <translation>Падпісаць паведамленне</translation>
     </message>
     <message>
-        <location filename="../gui/ui/signmessagedialog.ui" line="102"/>
-        <location filename="../gui/ui/signmessagedialog.ui" line="241"/>
+        <location filename="../gui/ui/signmessagedialog.ui" line="99"/>
+        <location filename="../gui/ui/signmessagedialog.ui" line="235"/>
         <source>Message</source>
         <translation>Паведамленне</translation>
     </message>
     <message>
-        <location filename="../gui/ui/signmessagedialog.ui" line="137"/>
-        <location filename="../gui/ui/signmessagedialog.ui" line="218"/>
+        <location filename="../gui/ui/signmessagedialog.ui" line="134"/>
+        <location filename="../gui/ui/signmessagedialog.ui" line="212"/>
         <source>Signature</source>
         <translation>Подпіс</translation>
     </message>
     <message>
-        <location filename="../gui/ui/signmessagedialog.ui" line="184"/>
+        <location filename="../gui/ui/signmessagedialog.ui" line="178"/>
         <source>Verify message</source>
         <translation>Праверыць паведамленне</translation>
     </message>
     <message>
-        <location filename="../gui/ui/signmessagedialog.ui" line="204"/>
+        <location filename="../gui/ui/signmessagedialog.ui" line="198"/>
         <source>Address</source>
         <translation>Адрас</translation>
     </message>
@@ -1983,14 +1991,14 @@ Do you want to go to the download page?</source>
 <context>
     <name>TransactionFrame</name>
     <message>
-        <location filename="../gui/ui/transactionframe.ui" line="63"/>
+        <location filename="../gui/ui/transactionframe.ui" line="26"/>
         <source>Frame</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../gui/ui/transactionframe.ui" line="129"/>
-        <location filename="../gui/ui/transactionframe.ui" line="139"/>
-        <location filename="../gui/ui/transactionframe.ui" line="162"/>
+        <location filename="../gui/ui/transactionframe.ui" line="92"/>
+        <location filename="../gui/ui/transactionframe.ui" line="102"/>
+        <location filename="../gui/ui/transactionframe.ui" line="125"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
@@ -2185,64 +2193,64 @@ Do you want to go to the download page?</source>
         <translation type="vanished">&lt;p style=&quot;height:30&quot;&gt;Нязмешвальнае: &lt;strong style=&quot;font-size:14px; color: #ffffff;&quot;&gt;%1&lt;/strong&gt;&lt;small style=&quot;font-size:10px; color: #D3D3D3;&quot;&gt;%2 %3&lt;/small&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="173"/>
+        <location filename="../gui/AccountFrame.cpp" line="172"/>
         <source>QR Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="180"/>
+        <location filename="../gui/AccountFrame.cpp" line="179"/>
         <source>Available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="185"/>
-        <location filename="../gui/AccountFrame.cpp" line="196"/>
+        <location filename="../gui/AccountFrame.cpp" line="184"/>
+        <location filename="../gui/AccountFrame.cpp" line="195"/>
         <source>Total</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="191"/>
+        <location filename="../gui/AccountFrame.cpp" line="190"/>
         <source>Pending</source>
         <translation type="unfinished">У чаканні</translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="203"/>
+        <location filename="../gui/AccountFrame.cpp" line="202"/>
         <source>Unmixable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="240"/>
+        <location filename="../gui/AccountFrame.cpp" line="239"/>
         <source>Not registered</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="241"/>
+        <location filename="../gui/AccountFrame.cpp" line="240"/>
         <source>This wallet does not have a registered account number.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="266"/>
+        <location filename="../gui/AccountFrame.cpp" line="265"/>
         <source>Error</source>
         <translation type="unfinished">Памылка</translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="266"/>
+        <location filename="../gui/AccountFrame.cpp" line="265"/>
         <source>Cannot register account number from a tracking wallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="270"/>
+        <location filename="../gui/AccountFrame.cpp" line="269"/>
         <source>Register Account Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="271"/>
+        <location filename="../gui/AccountFrame.cpp" line="270"/>
         <source>Register an account number for easy payments?
 A small fee will be charged.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="282"/>
+        <location filename="../gui/AccountFrame.cpp" line="281"/>
         <source>Your receiving address</source>
         <translation type="unfinished">Гэта ваш адрас для атрымання карбованцаў</translation>
     </message>
@@ -2837,7 +2845,7 @@ A small fee will be charged.</source>
 <context>
     <name>WalletGui::MainWindow</name>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="152"/>
+        <location filename="../gui/MainWindow.cpp" line="154"/>
         <source>About %1 Wallet</source>
         <translation>Пра гаманец</translation>
     </message>
@@ -2892,12 +2900,12 @@ Are you sure?</source>
         <translation>Гаманец</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1003"/>
+        <location filename="../gui/MainWindow.cpp" line="1002"/>
         <source>Encrypted</source>
         <translation>Зашыфраваны</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1003"/>
+        <location filename="../gui/MainWindow.cpp" line="1002"/>
         <source>Not encrypted</source>
         <translation>Ня зашыфраваны</translation>
     </message>
@@ -2906,17 +2914,17 @@ Are you sure?</source>
         <translation type="vanished">%1 піраў</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1020"/>
+        <location filename="../gui/MainWindow.cpp" line="1019"/>
         <source>Synchronization in progress</source>
         <translation>Выконваецца сінхранізацыя</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1038"/>
+        <location filename="../gui/MainWindow.cpp" line="1037"/>
         <source>Not synchronized</source>
         <translation>Ня сінхранізаваны</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1038"/>
+        <location filename="../gui/MainWindow.cpp" line="1037"/>
         <source>Synchronized</source>
         <translation>Сінхранізаваны</translation>
     </message>
@@ -2970,7 +2978,7 @@ Are you sure?</source>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../gui/MainWindow.cpp" line="1012"/>
+        <location filename="../gui/MainWindow.cpp" line="1011"/>
         <source>%n active connection(s)</source>
         <translation>
             <numerusform>%n актыўнае падлучэння</numerusform>
@@ -3066,14 +3074,14 @@ Are you sure?</source>
         <translation>Мова зменены на %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1073"/>
+        <location filename="../gui/MainWindow.cpp" line="1072"/>
         <source>%1 - Karbo Wallet %2</source>
         <translation>%1 - Карбованець в. %2</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="133"/>
-        <location filename="../gui/MainWindow.cpp" line="1124"/>
-        <location filename="../gui/MainWindow.cpp" line="1152"/>
+        <location filename="../gui/MainWindow.cpp" line="135"/>
+        <location filename="../gui/MainWindow.cpp" line="1122"/>
+        <location filename="../gui/MainWindow.cpp" line="1150"/>
         <source>Karbo Wallet %1</source>
         <translation>Карбованець в. %1</translation>
     </message>
@@ -3088,12 +3096,12 @@ Are you sure?</source>
         <translation>Апошні файл гаманца адсутнічае. Верагодна, яго прыбралі.</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="987"/>
+        <location filename="../gui/MainWindow.cpp" line="986"/>
         <source>Incorrect password</source>
         <translation>Няправільны пароль</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="987"/>
+        <location filename="../gui/MainWindow.cpp" line="986"/>
         <source>Wrong password.</source>
         <translation>Няправільны пароль.</translation>
     </message>
@@ -3180,17 +3188,17 @@ Are you sure?</source>
         <translation type="vanished">Памылка: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="67"/>
+        <location filename="../gui/MiningFrame.cpp" line="98"/>
         <source>Hashrate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="216"/>
+        <location filename="../gui/MiningFrame.cpp" line="272"/>
         <source>Starting...</source>
         <translation>Запуск...</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="236"/>
+        <location filename="../gui/MiningFrame.cpp" line="292"/>
         <source>Stopped</source>
         <translation>Спынена</translation>
     </message>
@@ -3207,14 +3215,14 @@ Are you sure?</source>
         <translation type="vanished">Чаканка ў пуле. Хешрейт: %1 H/s</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="143"/>
+        <location filename="../gui/MiningFrame.cpp" line="199"/>
         <source>Mining</source>
         <translation>Чаканка</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="195"/>
-        <location filename="../gui/MiningFrame.cpp" line="213"/>
-        <location filename="../gui/MiningFrame.cpp" line="281"/>
+        <location filename="../gui/MiningFrame.cpp" line="251"/>
+        <location filename="../gui/MiningFrame.cpp" line="269"/>
+        <location filename="../gui/MiningFrame.cpp" line="337"/>
         <source>%1</source>
         <translation type="unfinished">%1</translation>
     </message>
@@ -3460,22 +3468,32 @@ Are you sure?</source>
         <translation>Гаманец (*.wallet)</translation>
     </message>
     <message>
-        <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="90"/>
+        <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="75"/>
+        <source>OK</source>
+        <translation type="unfinished">Добра</translation>
+    </message>
+    <message>
+        <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="75"/>
+        <source>%1 / 25</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="82"/>
         <source>Mnemonic seed is not correct</source>
         <translation>Мнеманічна фраза не з&apos;яўляецца правільнай</translation>
     </message>
     <message>
-        <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="90"/>
+        <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="82"/>
         <source>There must be an error in mnemonic seed. Make sure you entered it correctly.</source>
         <translation>Павінна быць памылка ў мнеманічнай фразе. Пераканайцеся што вы ўвялі яе правільна.</translation>
     </message>
     <message>
-        <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="100"/>
+        <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="92"/>
         <source>File path is empty</source>
         <translation>Шлях да файла пусты</translation>
     </message>
     <message>
-        <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="100"/>
+        <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="92"/>
         <source>Please enter the path where to save the wallet file and its name.</source>
         <translation>Калі ласка, увядзіце шлях для захавання файла кашалька і яго імя.</translation>
     </message>
@@ -3591,12 +3609,12 @@ Are you sure?</source>
 <context>
     <name>WalletGui::SendGlassFrame</name>
     <message>
-        <location filename="../gui/SendGlassFrame.cpp" line="151"/>
+        <location filename="../gui/SendGlassFrame.cpp" line="119"/>
         <source>Synchronizing</source>
         <translation>Працягваецца сінхранізацыя</translation>
     </message>
     <message>
-        <location filename="../gui/SendGlassFrame.cpp" line="134"/>
+        <location filename="../gui/SendGlassFrame.cpp" line="102"/>
         <source>You will be able to send %1
 when the wallet is synchronized</source>
         <translation>Вы зможаце адправіць %1
@@ -3621,12 +3639,12 @@ when the wallet is synchronized</source>
         <translation>Подпіс сапраўдная</translation>
     </message>
     <message>
-        <location filename="../gui/SignMessageDialog.cpp" line="72"/>
+        <location filename="../gui/SignMessageDialog.cpp" line="71"/>
         <source>Signature is invalid!</source>
         <translation>Подпіс з&apos;яўляецца несапраўдным!</translation>
     </message>
     <message>
-        <location filename="../gui/SignMessageDialog.cpp" line="76"/>
+        <location filename="../gui/SignMessageDialog.cpp" line="74"/>
         <source>Address is invalid!</source>
         <translation>Адрас з&apos;яўляецца несапраўдным!</translation>
     </message>
@@ -3731,7 +3749,7 @@ when the wallet is synchronized</source>
 <context>
     <name>WalletGui::TransactionsFrame</name>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="99"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="100"/>
         <source>Select CSV file</source>
         <translation>Выбраць файл CSV</translation>
     </message>
@@ -3756,42 +3774,42 @@ when the wallet is synchronized</source>
         <translation>Паказаць &amp;дэталі</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="58"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="59"/>
         <source>Unconfirmed</source>
         <translation>Непацверджаны</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="59"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="60"/>
         <source>All</source>
         <translation>Усе</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="60"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="61"/>
         <source>Today</source>
         <translation>Сёння</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="61"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="62"/>
         <source>This week</source>
         <translation>На гэтым тыдні</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="62"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="63"/>
         <source>This month</source>
         <translation>У гэтым месяцы</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="63"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="64"/>
         <source>Last month</source>
         <translation>У мінулым месяцы</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="64"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="65"/>
         <source>This year</source>
         <translation>У гэтым годзе</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="65"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="66"/>
         <source>Range...</source>
         <translation>Прамежак...</translation>
     </message>
@@ -3806,27 +3824,27 @@ when the wallet is synchronized</source>
         <translation>Ад</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="68"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="69"/>
         <source>All types</source>
         <translation>Усе тыпы</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="69"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="70"/>
         <source>Incoming</source>
         <translation>Уваходныя</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="70"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="71"/>
         <source>Outgoing</source>
         <translation>Выходныя</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="71"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="72"/>
         <source>Mined</source>
         <translation>Здабытыя</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsFrame.cpp" line="72"/>
+        <location filename="../gui/TransactionsFrame.cpp" line="73"/>
         <source>Sent to myself</source>
         <translation>Высланыя самому сабе</translation>
     </message>

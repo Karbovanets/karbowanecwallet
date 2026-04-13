@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>840</width>
+    <width>860</width>
     <height>660</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>840</width>
+    <width>860</width>
     <height>660</height>
    </size>
   </property>
@@ -30,7 +30,7 @@
   </property>
   <property name="baseSize">
    <size>
-    <width>840</width>
+    <width>860</width>
     <height>660</height>
    </size>
   </property>
@@ -213,7 +213,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>840</width>
+     <width>860</width>
      <height>22</height>
     </rect>
    </property>
@@ -311,13 +311,13 @@
    <property name="maximumSize">
     <size>
      <width>16777215</width>
-     <height>50</height>
+     <height>44</height>
     </size>
    </property>
    <property name="baseSize">
     <size>
      <width>-1</width>
-     <height>50</height>
+     <height>44</height>
     </size>
    </property>
    <property name="font">
@@ -339,8 +339,8 @@
    </property>
    <property name="iconSize">
     <size>
-     <width>38</width>
-     <height>30</height>
+     <width>34</width>
+     <height>26</height>
     </size>
    </property>
    <property name="toolButtonStyle">
