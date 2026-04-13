@@ -346,12 +346,23 @@ void MainWindow::changeEvent(QEvent* _event) {
 
 void MainWindow::applyToolBarPalette() {
   const QColor windowColor = palette().color(QPalette::Window);
-  const QColor darkerColor = windowColor.darker(115);
+  const QColor darkerColor = windowColor.darker(135);
+  const QColor accentColor = palette().color(QPalette::Highlight);
 
-  // Navigation toolbar (History, Send, etc.): darker background via stylesheet
+  m_ui->toolBar->setContentsMargins(0, 0, 0, 0);
+  m_ui->toolBar->layout()->setContentsMargins(0, 0, 0, 0);
+  m_ui->toolBar->layout()->setSpacing(0);
+
   m_ui->toolBar->setStyleSheet(
-    QString("QToolBar#toolBar { background-color: %1; border: none; }")
-    .arg(darkerColor.name()));
+    QString(
+      "QToolBar#toolBar { background-color: %1; border: none; spacing: 0px; padding: 0px; }"
+      "QToolBar#toolBar QToolButton { background-color: %1; border: none; border-radius: 0px;"
+      "  padding: 6px 14px; margin: 0px; min-height: 36px; }"
+      "QToolBar#toolBar QToolButton:hover { background-color: %2; }"
+      "QToolBar#toolBar QToolButton:checked { background-color: %2;"
+      "  border-top: 2px solid %3; }"
+    )
+    .arg(darkerColor.name(), windowColor.name(), accentColor.name()));
 }
 
 bool MainWindow::event(QEvent* _event) {
