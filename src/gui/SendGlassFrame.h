@@ -38,7 +38,6 @@ private:
   quint64 m_currentHeight;
   quint64 m_totalHeight;
   QPixmap m_pixmapBuffer;
-  QString m_lastThemeName;
 
   void paintInBuffer();
   void drawProgressGraph(QPainter &_painter);

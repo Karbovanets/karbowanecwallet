@@ -4,6 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QFile>
 #include <QLocale>
 #include <QTranslator>
 #include <QLockFile>
@@ -13,6 +14,10 @@
 #include <QSplashScreen>
 #include <QStyleFactory>
 #include <QSettings>
+
+#ifdef KARBO_USE_QLEMENTINE
+#include <oclero/qlementine.hpp>
+#endif
 
 #include "CommandLineParser.h"
 #include "CurrencyAdapter.h"
@@ -52,7 +57,9 @@ int main(int argc, char* argv[]) {
   app.setQuitOnLastWindowClosed(false);
 
 #ifndef Q_OS_MAC
+#ifndef KARBO_USE_QLEMENTINE
   QApplication::setStyle(QStyleFactory::create("Fusion"));
+#endif
 #endif
 
   CommandLineParser cmdLineParser(nullptr);
@@ -66,6 +73,11 @@ int main(int argc, char* argv[]) {
 
   setlocale(LC_ALL, "");
 
+#ifdef KARBO_USE_QLEMENTINE
+  auto* style = new oclero::qlementine::QlementineStyle(&app);
+  style->setThemeJsonPath(QStringLiteral(":/themes/qlementine-dark.json"));
+  QApplication::setStyle(style);
+#else
   QFile File1(":/qdarkstyle/style.qss");
   File1.open(QFile::ReadOnly);
   QString StyleSheet1 = QLatin1String(File1.readAll());
@@ -80,6 +92,7 @@ int main(int argc, char* argv[]) {
   qApp->setStyleSheet(MAC_FIX_STYLE_SHEET + StyleSheet1 + StyleSheet2);
 #else
   qApp->setStyleSheet(StyleSheet1 + StyleSheet2);
+#endif
 #endif
 
   if (PaymentServer::ipcSendCommandLine())

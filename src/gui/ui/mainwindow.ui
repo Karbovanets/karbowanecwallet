@@ -95,24 +95,8 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="3">
-     <widget class="WalletGui::TransactionsFrame" name="m_transactionsFrame">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Shape::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Shadow::Raised</enum>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0">
-     <widget class="WalletGui::OverviewFrame" name="m_overviewFrame">
+     <widget class="WalletGui::TransactionsFrame" name="m_transactionsFrame">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -371,10 +355,9 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="m_overviewAction"/>
+   <addaction name="m_transactionsAction"/>
    <addaction name="m_sendAction"/>
    <addaction name="m_receiveAction"/>
-   <addaction name="m_transactionsAction"/>
    <addaction name="m_addressBookAction"/>
    <addaction name="m_miningAction"/>
    <addaction name="m_coinsAction"/>
@@ -391,21 +374,6 @@
     <bool>true</bool>
    </attribute>
   </widget>
-  <action name="m_overviewAction">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/overview</normaloff>:/icons/overview</iconset>
-   </property>
-   <property name="text">
-    <string>Overview</string>
-   </property>
-  </action>
   <action name="m_sendAction">
    <property name="checkable">
     <bool>true</bool>
@@ -448,7 +416,7 @@
      <normaloff>:/icons/transactions</normaloff>:/icons/transactions</iconset>
    </property>
    <property name="text">
-    <string>Transactions</string>
+    <string>History</string>
    </property>
   </action>
   <action name="m_exitAction">
@@ -727,12 +695,6 @@
   </action>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>WalletGui::OverviewFrame</class>
-   <extends>QFrame</extends>
-   <header>gui/OverviewFrame.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>WalletGui::SendFrame</class>
    <extends>QFrame</extends>
@@ -1070,22 +1032,6 @@
     </hint>
     <hint type="destinationlabel">
      <x>337</x>
-     <y>333</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_overviewAction</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>m_overviewFrame</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>112</x>
      <y>333</y>
     </hint>
    </hints>

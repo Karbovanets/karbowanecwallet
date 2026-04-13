@@ -249,13 +249,13 @@
       <widget class="QFrame" name="m_accountNumberPanel">
        <property name="minimumSize">
         <size>
-         <width>198</width>
+         <width>220</width>
          <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>198</width>
+         <width>220</width>
          <height>16777215</height>
         </size>
        </property>
@@ -263,7 +263,7 @@
         <enum>QFrame::Shape::StyledPanel</enum>
        </property>
        <property name="frameShadow">
-        <enum>QFrame::Shadow::Sunken</enum>
+        <enum>QFrame::Shadow::Plain</enum>
        </property>
        <layout class="QVBoxLayout" name="accountNumberPanelLayout">
         <property name="spacing">
@@ -450,6 +450,12 @@
      <property name="styleSheet">
       <string notr="true"/>
      </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <property name="spacing">
        <number>12</number>
@@ -458,16 +464,16 @@
        <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
       </property>
       <property name="leftMargin">
-       <number>12</number>
+       <number>0</number>
       </property>
       <property name="topMargin">
-       <number>4</number>
+       <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>12</number>
+       <number>0</number>
       </property>
       <property name="bottomMargin">
-       <number>4</number>
+       <number>0</number>
       </property>
       <item>
        <widget class="QLabel" name="m_actualBalanceLabel">

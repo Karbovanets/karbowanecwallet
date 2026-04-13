@@ -51,8 +51,7 @@
         <file alias="bg.png">images/bg.png</file>
         <file alias="handle.png">images/handle.png</file>
     </qresource>
-    <qresource prefix="/skin">
-        <file>default.qss</file>
-        <file>dark.qss</file>
+    <qresource prefix="/themes">
+        <file alias="qlementine-dark.json">themes/qlementine-dark.json</file>
     </qresource>
 </RCC>

@@ -78,7 +78,9 @@ MainWindow::MainWindow() : QMainWindow(),
   m_ui->setupUi(this);
   m_connectionStateIconLabel = new QPushButton();
   m_connectionStateIconLabel->setFlat(true); // Make the button look like a label, but clickable
-  m_connectionStateIconLabel->setStyleSheet(".QPushButton { background-color: rgba(255, 255, 255, 0); border: none;}");
+  m_connectionStateIconLabel->setAutoDefault(false);
+  m_connectionStateIconLabel->setDefault(false);
+  m_connectionStateIconLabel->setFocusPolicy(Qt::NoFocus);
   m_connectionStateIconLabel->setMaximumSize(16, 16);
   m_encryptionStateIconLabel = new QLabel(this);
   m_trackingModeIconLabel = new QLabel(this);
@@ -150,7 +152,6 @@ void MainWindow::initUi() {
   m_ui->toolBar->setMovable(false);
 
   m_ui->m_aboutCryptonoteAction->setText(QString(tr("About %1 Wallet")).arg(CurrencyAdapter::instance().getCurrencyDisplayName()));
-  m_ui->m_overviewFrame->hide();
   m_ui->m_sendFrame->hide();
   accountWidget->setVisible(false);
   m_ui->m_receiveFrame->hide();
@@ -159,10 +160,9 @@ void MainWindow::initUi() {
   m_ui->m_miningFrame->hide();
   m_ui->m_coinsFrame->hide();
 
-  m_tabActionGroup->addAction(m_ui->m_overviewAction);
+  m_tabActionGroup->addAction(m_ui->m_transactionsAction);
   m_tabActionGroup->addAction(m_ui->m_sendAction);
   m_tabActionGroup->addAction(m_ui->m_receiveAction);
-  m_tabActionGroup->addAction(m_ui->m_transactionsAction);
   m_tabActionGroup->addAction(m_ui->m_addressBookAction);
   m_tabActionGroup->addAction(m_ui->m_miningAction);
   m_tabActionGroup->addAction(m_ui->m_coinsAction);
@@ -192,7 +192,7 @@ void MainWindow::initUi() {
   m_remoteModeIconLabel->setFixedSize(16,16);
   m_remoteModeIconLabel->setScaledContents( true );
 
-  m_ui->m_overviewAction->toggle();
+  m_ui->m_transactionsAction->toggle();
   encryptedFlagChanged(false);
   
   qobject_cast<AnimatedLabel*>(m_synchronizationStateIconLabel)->setSprite(QPixmap(":icons/sync_sprite"), QSize(16, 16), 5, 24);
@@ -544,7 +544,7 @@ void MainWindow::importTrackingKey() {
 
 void MainWindow::isTrackingMode() {
   m_ui->m_sendFrame->hide();
-  m_ui->m_overviewAction->trigger();
+  m_ui->m_transactionsAction->trigger();
   m_ui->m_sendAction->setEnabled(false);
   m_ui->m_openUriAction->setEnabled(false);
   m_ui->m_showMnemonicSeedAction->setEnabled(false);
@@ -948,7 +948,6 @@ void MainWindow::lockWalletWithPassword() {
 
   if (hide) {
     accountWidget->setVisible(false);
-    m_ui->m_overviewFrame->hide();
     m_ui->m_receiveFrame->hide();
     m_ui->m_sendFrame->hide();
     m_ui->m_transactionsFrame->hide();
@@ -972,7 +971,7 @@ void MainWindow::lockWalletWithPassword() {
 
   if (hide) {
     accountWidget->setVisible(true);
-    m_ui->m_overviewFrame->show();
+    m_ui->m_transactionsAction->trigger();
   }
 }
 
@@ -1072,9 +1071,9 @@ void MainWindow::walletOpened(bool _error, const QString& _error_text) {
 
     setWindowTitle(QString(tr("%1 - Karbo Wallet %2")).arg(Settings::instance().getWalletFile()).arg(Settings::instance().getVersion()));
 
-    m_ui->m_overviewAction->trigger();
+    m_ui->m_transactionsAction->trigger();
     accountWidget->setVisible(true);
-    m_ui->m_overviewFrame->show();
+    m_ui->m_transactionsFrame->show();
 
     checkTrackingMode();
     updateRecentActionList();
@@ -1104,7 +1103,6 @@ void MainWindow::walletClosed() {
   m_ui->m_verifySignedMessageAction->setEnabled(false);
   m_ui->m_proofBalanceAction->setEnabled(false);
   m_ui->m_lockWalletAction->setEnabled(false);
-  m_ui->m_overviewFrame->hide();
   accountWidget->setVisible(false);
   m_ui->m_receiveFrame->hide();
   m_ui->m_sendFrame->hide();

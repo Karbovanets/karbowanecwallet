@@ -68,19 +68,11 @@ void RestoreFromMnemonicSeedDialog::selectPathClicked() {
 }
 
 void RestoreFromMnemonicSeedDialog::onTextChanged() {
-  QRegularExpression regExp("(\\s|\\n|\\r)+");
   wordCount = m_ui->m_seedEdit->toPlainText().split(QRegularExpression("(\\s|\\n|\\r)+")
                                                   , Qt::SkipEmptyParts).count();
-  if(wordCount != 25) {
-    m_ui->m_okButton->setEnabled(false);
-    m_ui->m_errorLabel->setText(QString::number(wordCount));
-    m_ui->m_errorLabel->setStyleSheet("QLabel { color : red; }");
-  }
-  if(wordCount == 25) {
-    m_ui->m_okButton->setEnabled(true);
-    m_ui->m_errorLabel->setText("OK");
-    m_ui->m_errorLabel->setStyleSheet("QLabel { color : green; }");
-  }
+  const bool hasCompleteSeed = wordCount == 25;
+  m_ui->m_okButton->setEnabled(hasCompleteSeed);
+  m_ui->m_errorLabel->setText(hasCompleteSeed ? tr("OK") : tr("%1 / 25").arg(wordCount));
 }
 
 void RestoreFromMnemonicSeedDialog::onAccept() {

@@ -69,12 +69,9 @@
       <bool>false</bool>
      </property>
      <widget class="QWidget" name="m_signTab">
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: transparent;</string>
-      </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
       <attribute name="title">
        <string>Sign message</string>
       </attribute>
@@ -174,12 +171,9 @@
       </layout>
      </widget>
      <widget class="QWidget" name="m_verifyTab">
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: transparent;</string>
-      </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
       <attribute name="title">
        <string>Verify message</string>
       </attribute>

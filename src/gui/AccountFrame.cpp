@@ -26,8 +26,8 @@ namespace WalletGui {
 namespace {
 
 constexpr int CAPTION_FONT_SIZE = 10;
-constexpr int ADDRESS_FONT_SIZE = 16;
-constexpr int ACCOUNT_NUMBER_VALUE_FONT_SIZE = 24;
+constexpr int ADDRESS_FONT_SIZE = 14;
+constexpr int ACCOUNT_NUMBER_VALUE_FONT_SIZE = 26;
 constexpr int ADDRESS_CHUNK_SIZE = 13;
 constexpr int ADDRESS_CHUNKS_PER_ROW = 4;
 
@@ -47,31 +47,29 @@ QString formatDisplayAddress(const QString& address) {
   for (int i = 0; i < address.size(); i += ADDRESS_CHUNK_SIZE) {
     rowChunks << QString("<span>%1</span>").arg(address.mid(i, ADDRESS_CHUNK_SIZE).toHtmlEscaped());
     if (rowChunks.size() == ADDRESS_CHUNKS_PER_ROW) {
-      rows << rowChunks.join(QStringLiteral("<span style=\"color:#8A99A6;\">&nbsp;&nbsp;</span>"));
+      rows << rowChunks.join(QStringLiteral("&nbsp;&nbsp;"));
       rowChunks.clear();
     }
   }
 
   if (!rowChunks.isEmpty()) {
-    rows << rowChunks.join(QStringLiteral("<span style=\"color:#8A99A6;\">&nbsp;&nbsp;</span>"));
+    rows << rowChunks.join(QStringLiteral("&nbsp;&nbsp;"));
   }
 
   return QString("<div style=\"line-height:1.22;\">%1</div>").arg(rows.join(QStringLiteral("<br/>")));
 }
 
-QString formatBalanceLabel(const QString& title, const QStringList& amountParts, const QString& ticker, const QString& accentColor,
-  int majorSize, int minorSize) {
+QString formatBalanceLabel(const QString& title, const QStringList& amountParts, const QString& ticker, int majorSize, int minorSize) {
   return QString(
     "<div style=\"line-height:1.0;\">"
-      "<span style=\"font-size:%1px; color:#B0B8C4;\">%2</span>"
-      "<span style=\"font-size:%1px; color:#B0B8C4;\">: </span>"
-      "<span style=\"font-size:%3px; font-weight:600; color:%4;\">%5</span>"
-      "<span style=\"font-size:%6px; color:#D3D3D3;\">%7 %8</span>"
+      "<span style=\"font-size:%1px;\">%2</span>"
+      "<span style=\"font-size:%1px;\">: </span>"
+      "<span style=\"font-size:%3px; font-weight:600;\">%4</span>"
+      "<span style=\"font-size:%5px;\"> %6 %7</span>"
     "</div>")
     .arg(CAPTION_FONT_SIZE)
     .arg(title.toHtmlEscaped())
     .arg(majorSize)
-    .arg(accentColor)
     .arg(amountParts.first().toHtmlEscaped())
     .arg(minorSize)
     .arg(amountParts.last().toHtmlEscaped())
@@ -178,30 +176,30 @@ void AccountFrame::showQR() {
 void AccountFrame::updateActualBalance(quint64 _balance) {
   QStringList actualList = divideAmount(_balance);
   const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
-  m_ui->m_actualBalanceLabel->setText(formatBalanceLabel(tr("Available"), actualList, ticker, "#FFFFFF", 18, 10));
+  m_ui->m_actualBalanceLabel->setText(formatBalanceLabel(tr("Available"), actualList, ticker, 18, 10));
 
   quint64 pendingBalance = WalletAdapter::instance().getPendingBalance();
 
   QStringList pendingList = divideAmount(_balance + pendingBalance);
-  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), pendingList, ticker, "#FFFFFF", 20, 10));
+  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), pendingList, ticker, 20, 10));
 }
 
 void AccountFrame::updatePendingBalance(quint64 _balance) {
   QStringList pendingList = divideAmount(_balance);
   const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
-  m_ui->m_pendingBalanceLabel->setText(formatBalanceLabel(tr("Pending"), pendingList, ticker, "#FFFFFF", 18, 10));
+  m_ui->m_pendingBalanceLabel->setText(formatBalanceLabel(tr("Pending"), pendingList, ticker, 18, 10));
 
   quint64 actualBalance = WalletAdapter::instance().getActualBalance();
 
   QStringList totalList = divideAmount(_balance + actualBalance);
-  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), totalList, ticker, "#FFFFFF", 20, 10));
+  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), totalList, ticker, 20, 10));
 }
 
 void AccountFrame::updateUnmixableBalance(quint64 _balance) {
   QStringList unmixableList = divideAmount(_balance);
   const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
 
-  m_ui->m_unmixableBalanceLabel->setText(formatBalanceLabel(tr("Unmixable"), unmixableList, ticker, "#FFFFFF", 18, 10));
+  m_ui->m_unmixableBalanceLabel->setText(formatBalanceLabel(tr("Unmixable"), unmixableList, ticker, 18, 10));
   if (_balance != 0) {
     m_ui->m_unmixableBalanceLabel->setVisible(true);
   } else {

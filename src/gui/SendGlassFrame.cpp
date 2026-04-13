@@ -15,70 +15,35 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Karbovanets.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <algorithm>
 #include <QApplication>
 #include <QPainter>
 #include <QScreen>
 #include "CurrencyAdapter.h"
 #include "SendGlassFrame.h"
-#include "Settings.h"
 
 namespace WalletGui {
 
 namespace {
 
-const char SEND_GLASS_FRAME_STYLE_SHEET_TEMPLATE[] =
-  "WalletGui--SendGlassFrame {"
-    "border: none;"
-    "background-color: #ea505F69"
-  "}";
-
-const char SEND_FRAME_STYLE_SHEET[] =
-  "WalletGui--SendFrame {"
-    "background-color: #ffffff;"
-    "border: none;"
-  "}"
-
-  "WalletGui--SendFrame #m_sendScrollarea {"
-    "background-color: %backgroundColorGray%;"
-    "border: none;"
-    "border-bottom: 1px solid %borderColor%;"
-  "}"
-
-  "WalletGui--SendFrame #m_sendScrollarea QScrollBar:vertical {"
-    "margin-top: 0px;"
-    "border-top: none;"
-  "}"
-
-  "WalletGui--SendFrame #scrollAreaWidgetContents {"
-    "background-color: #ffffff;"
-    "border: none;"
-  "}"
-
-  "WalletGui--SendFrame #m_sendFeeFrame {"
-    "border: none;"
-    "border-top: 1px solid %borderColor%;"
-    "border-bottom: 1px solid %borderColor%;"
-  "}";
-
 const quint32 MAX_QUINT32 = std::numeric_limits<quint32>::max();
+
+QColor withAlpha(QColor color, int alpha) {
+  color.setAlpha(alpha);
+  return color;
+}
 
 }
 
 SendGlassFrame::SendGlassFrame(QWidget* _parent) : GlassFrame(_parent), m_currentHeight(MAX_QUINT32), m_totalHeight(MAX_QUINT32),
-  m_pixmapBuffer(QSize(340, 340) * QApplication::primaryScreen()->devicePixelRatio()),
-  m_lastThemeName(Settings::instance().getCurrentTheme()) {
-  setStyleSheet(SEND_GLASS_FRAME_STYLE_SHEET_TEMPLATE);
+  m_pixmapBuffer(QSize(340, 340) * QApplication::primaryScreen()->devicePixelRatio()) {
 }
 
 SendGlassFrame::~SendGlassFrame() {
 }
 
 void SendGlassFrame::paintEvent(QPaintEvent* _event) {
-  if (m_lastThemeName.compare(Settings::instance().getCurrentTheme())) {
-    paintInBuffer();
-    m_lastThemeName = Settings::instance().getCurrentTheme();
-  }
-
+  paintInBuffer();
   GlassFrame::paintEvent(_event);
   QRect image_rect(m_pixmapBuffer.rect());
   int left = rect().left() + (rect().width() - m_pixmapBuffer.width()) / 2;
@@ -86,6 +51,7 @@ void SendGlassFrame::paintEvent(QPaintEvent* _event) {
   image_rect.moveTopLeft(QPoint(left, top));
   QPainter painter(this);
   painter.setRenderHint(QPainter::Antialiasing);
+  painter.fillRect(rect(), withAlpha(palette().color(QPalette::Window), 192));
   painter.drawPixmap(image_rect, m_pixmapBuffer);
 }
 
@@ -99,7 +65,7 @@ void SendGlassFrame::updateSynchronizationState(quint32 _current, quint32 _total
 }
 
 void SendGlassFrame::paintInBuffer() {
-  m_pixmapBuffer.fill(QColor("#00ffffff"));
+  m_pixmapBuffer.fill(Qt::transparent);
 
   QPainter painter(&m_pixmapBuffer);
   painter.setRenderHint(QPainter::Antialiasing);
@@ -112,17 +78,19 @@ void SendGlassFrame::paintInBuffer() {
 void SendGlassFrame::drawProgressGraph(QPainter &_painter) {
   const int degree = 16;
   const int startAngle = 90 * degree;
-  const int endAngle = -(360 * degree) * (static_cast<qreal>(m_currentHeight) / m_totalHeight);
+  const qreal progress = m_totalHeight == 0 || m_totalHeight == MAX_QUINT32 ? 0.0 :
+    std::min<qreal>(1.0, static_cast<qreal>(m_currentHeight) / static_cast<qreal>(m_totalHeight));
+  const int endAngle = -(360 * degree) * progress;
   QRect rect = m_pixmapBuffer.rect().marginsRemoved(QMargins(5, 5, 5, 5));
 
   QPen pen;
   pen.setWidth(10);
 
-  pen.setColor(QColor("#e6e6e6"));
+  pen.setColor(withAlpha(palette().color(QPalette::Mid), 140));
   _painter.setPen(pen);
   _painter.drawArc(rect, 0, 360 * degree);
 
-  pen.setColor(QColor("#232629"));
+  pen.setColor(palette().color(QPalette::Highlight));
   _painter.setPen(pen);
   _painter.drawArc(rect, startAngle, endAngle);
 }
@@ -137,7 +105,7 @@ void SendGlassFrame::drawProgressLabel(QPainter &_painter) {
   messageRect.moveCenter(QPoint(m_pixmapBuffer.width() / 2, 163));
 
   QPen pen;
-  pen.setColor(QColor("#232629"));
+  pen.setColor(palette().color(QPalette::WindowText));
   _painter.setPen(pen);
   _painter.setFont(font);
   _painter.setRenderHint(QPainter::TextAntialiasing);
@@ -154,7 +122,7 @@ void SendGlassFrame::drawProgressValue(QPainter &_painter) {
   messageRect.moveCenter(QPoint(m_pixmapBuffer.width() / 2, 198));
 
   QPen pen;
-  pen.setColor(QColor("#232629"));
+  pen.setColor(withAlpha(palette().color(QPalette::WindowText), 180));
   _painter.setPen(pen);
   _painter.setFont(font);
   _painter.drawText(messageRect, Qt::AlignCenter, msg);
