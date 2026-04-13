@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2015 The Cryptonote developers
-// Copyright (c) 2016-2020 The Karbowanec developers
+// Copyright (c) 2016-2026 The Karbowanec developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include <QApplication>
@@ -12,12 +12,9 @@
 #include <QProcess>
 #include <QRegularExpression>
 #include <QSplashScreen>
-#include <QStyleFactory>
 #include <QSettings>
 
-#ifdef KARBO_USE_QLEMENTINE
 #include <oclero/qlementine.hpp>
-#endif
 
 #include "CommandLineParser.h"
 #include "CurrencyAdapter.h"
@@ -73,27 +70,10 @@ int main(int argc, char* argv[]) {
 
   setlocale(LC_ALL, "");
 
-#ifdef KARBO_USE_QLEMENTINE
   auto* style = new oclero::qlementine::QlementineStyle(&app);
   style->setThemeJsonPath(QStringLiteral(":/themes/qlementine-dark.json"));
   QApplication::setStyle(style);
-#else
-  QFile File1(":/qdarkstyle/style.qss");
-  File1.open(QFile::ReadOnly);
-  QString StyleSheet1 = QLatin1String(File1.readAll());
 
-  QFile File2(":/skin/dark.qss");
-  File2.open(QFile::ReadOnly);
-  QString StyleSheet2 = QLatin1String(File2.readAll());
-
-  // fix font sizes for MacOS
-  const char MAC_FIX_STYLE_SHEET[] = "QWidget{font-size:12px}";
-#ifdef Q_OS_MAC
-  qApp->setStyleSheet(MAC_FIX_STYLE_SHEET + StyleSheet1 + StyleSheet2);
-#else
-  qApp->setStyleSheet(StyleSheet1 + StyleSheet2);
-#endif
-#endif
 
   if (PaymentServer::ipcSendCommandLine())
   exit(0);
