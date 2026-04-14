@@ -112,7 +112,7 @@ void MiningFrame::applyChartPalette() {
   const QColor textColor = chartPalette.color(QPalette::WindowText);
   const QColor axisColor = chartPalette.color(QPalette::Mid);
   const QColor subTickColor = chartPalette.color(QPalette::Midlight);
-  const QColor backgroundColor = chartPalette.color(QPalette::Base);
+  const QColor backgroundColor = chartPalette.color(QPalette::Window);
 
   m_ui->m_hashRateChart->graph()->setPen(QPen(accentColor));
   m_ui->m_hashRateChart->graph()->setBrush(QBrush(withAlpha(accentColor, 48)));
