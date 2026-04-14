@@ -5,6 +5,7 @@
 
 #include <QDateTime>
 #include <QFont>
+#include <QIcon>
 #include <QMetaEnum>
 #include <QPixmap>
 #include <QPixmapCache>
@@ -21,16 +22,26 @@ namespace WalletGui {
 
 namespace {
 
-QPixmap getTransactionIcon(TransactionType _transactionType) {
+QPixmap renderSvgIcon(const QString& _path, const QSize& _size) {
+  QString cacheKey = _path + QString("_%1x%2").arg(_size.width()).arg(_size.height());
+  QPixmap pixmap;
+  if (!QPixmapCache::find(cacheKey, &pixmap)) {
+    pixmap = QIcon(_path).pixmap(_size);
+    QPixmapCache::insert(cacheKey, pixmap);
+  }
+  return pixmap;
+}
+
+QPixmap getTransactionIcon(TransactionType _transactionType, const QSize& _size) {
   switch (_transactionType) {
   case TransactionType::MINED:
-    return QPixmap(":icons/tx-mined");
+    return renderSvgIcon(":icons/tx-mined", _size);
   case TransactionType::INPUT:
-    return QPixmap(":icons/tx-input");
+    return renderSvgIcon(":icons/tx-input", _size);
   case TransactionType::OUTPUT:
-    return QPixmap(":icons/tx-output");
+    return renderSvgIcon(":icons/tx-output", _size);
   case TransactionType::INOUT:
-    return QPixmap(":icons/tx-inout");
+    return renderSvgIcon(":icons/tx-inout", _size);
   default:
     break;
   }
@@ -358,15 +369,10 @@ QVariant TransactionsModel::getDecorationRole(const QModelIndex& _index) const {
     } else {
       file = QString(":icons/transaction");
     }
-    QPixmap pixmap;
-    if (!QPixmapCache::find(file, &pixmap)) {
-      pixmap.load(file);
-      QPixmapCache::insert(file, pixmap);
-    }
-    return pixmap.scaled(16, 16, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    return renderSvgIcon(file, QSize(16, 16));
 
   } else if (_index.column() == COLUMN_ADDRESS) {
-    return _index.data(ROLE_ICON).value<QPixmap>().scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    return _index.data(ROLE_ICON).value<QPixmap>();
   }
 
   return QVariant();
@@ -421,7 +427,7 @@ QVariant TransactionsModel::getUserRole(const QModelIndex& _index, int _role, Cr
 
   case ROLE_ICON: {
     TransactionType transactionType = static_cast<TransactionType>(_index.data(ROLE_TYPE).value<quint8>());
-    return getTransactionIcon(transactionType);
+    return getTransactionIcon(transactionType, QSize(20, 20));
   }
 
   case ROLE_TRANSACTION_ID:

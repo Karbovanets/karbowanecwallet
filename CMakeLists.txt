@@ -56,7 +56,7 @@ include_directories(${CMAKE_BINARY_DIR}
     external/libqrencode
     external/qcustomplot)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui Network PrintSupport LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui Network PrintSupport LinguistTools Svg)
 
 option(KARBO_USE_QLEMENTINE "Use Qlementine instead of the bundled qdarkstyle stylesheet" ON)
 
@@ -621,7 +621,7 @@ elseif (WIN32)
 endif (APPLE)
 
 #qt5_use_modules(${PROJECT_NAME} Core Widgets Gui Network PrintSupport)
-target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Widgets Qt6::Gui Qt6::Network Qt6::PrintSupport)
+target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Widgets Qt6::Gui Qt6::Network Qt6::PrintSupport Qt6::Svg)
 
 # Installation
 
