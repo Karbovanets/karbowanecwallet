@@ -13,11 +13,11 @@
   <property name="windowTitle">
    <string>Frame</string>
   </property>
-  <property name="frameShape">
-   <enum>QFrame::Box</enum>
+  <property name="styleSheet">
+   <string notr="true">QFrame#TransferFrame { border: 1px solid palette(mid); border-radius: 4px; }</string>
   </property>
-  <property name="frameShadow">
-   <enum>QFrame::Sunken</enum>
+  <property name="frameShape">
+   <enum>QFrame::NoFrame</enum>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
