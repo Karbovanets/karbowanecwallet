@@ -171,6 +171,13 @@ void MainWindow::initUi() {
   m_tabActionGroup->addAction(m_ui->m_miningAction);
   m_tabActionGroup->addAction(m_ui->m_coinsAction);
 
+  // Add spacing between icon and text in toolbar buttons
+  for (auto* action : m_ui->toolBar->actions()) {
+      if (!action->icon().isNull() && !action->iconText().isEmpty()) {
+           action->setIconText(QStringLiteral("  ") + action->iconText());
+      }
+  }
+
   m_syncProgressBar->setMaximum(maxProgressBar);
   m_syncProgressBar->setMinimum(0);
   m_syncProgressBar->setValue(0);
@@ -202,7 +209,7 @@ void MainWindow::initUi() {
 
   m_ui->m_transactionsAction->toggle();
   encryptedFlagChanged(false);
-  
+
   qobject_cast<AnimatedLabel*>(m_synchronizationStateIconLabel)->setSprite(QPixmap(":icons/sync_sprite"), QSize(16, 16), 5, 24);
   m_connectionStateIconLabel->setIcon(QPixmap(":icons/disconnected").scaled(96, 96, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
   m_trackingModeIconLabel->setPixmap(QPixmap(":icons/tracking").scaledToHeight(96, Qt::SmoothTransformation));
@@ -358,7 +365,6 @@ void MainWindow::applyToolBarPalette() {
   m_ui->toolBar->setContentsMargins(0, 0, 0, 0);
   m_ui->toolBar->layout()->setContentsMargins(0, 0, 0, 0);
   m_ui->toolBar->layout()->setSpacing(0);
-
   m_ui->toolBar->setStyleSheet(
     QString(
       "QToolBar#toolBar { background-color: %1; border: none; spacing: 0px; padding: 0px; }"
@@ -631,19 +637,19 @@ void MainWindow::createLanguageMenu(void)
   // -----------------------
 
   QDir dir(m_langPath);
-  
+
   // Use *.qm to ensure 'ua.qm' is caught even if the filter is picky
   QStringList fileNames = dir.entryList(QStringList("*.qm"), QDir::Files);
 
   for (int i = 0; i < fileNames.size(); ++i) {
     QString file = fileNames[i];
     QString locale = QFileInfo(file).baseName(); // Gets "ua" from "ua.qm"
-    
+
     // Convert "ua" or "uk" to a readable name like "Українська"
     QString lang = QLocale(locale).nativeLanguageName();
-    
+
     // Fallback if QLocale doesn't recognize "ua"
-    if (lang.isEmpty()) lang = locale; 
+    if (lang.isEmpty()) lang = locale;
 
     QAction *action = new QAction(lang, this);
     action->setCheckable(true);
@@ -1024,7 +1030,7 @@ bool MainWindow::confirmWithPassword() {
       return true;
     }
   }
-  
+
   return false;
 }
 
