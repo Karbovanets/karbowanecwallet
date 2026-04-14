@@ -16,6 +16,25 @@
 
 #include <oclero/qlementine.hpp>
 
+// Subclass to fix tooltip colors (Qlementine draws tooltips directly, ignoring palette)
+class KarboStyle : public oclero::qlementine::QlementineStyle {
+public:
+  using QlementineStyle::QlementineStyle;
+
+  QColor const& toolTipBackgroundColor() const override {
+    static const QColor bg(35, 38, 41);
+    return bg;
+  }
+  QColor const& toolTipBorderColor() const override {
+    static const QColor border(74, 74, 74);
+    return border;
+  }
+  QColor const& toolTipForegroundColor() const override {
+    static const QColor fg(220, 220, 220);
+    return fg;
+  }
+};
+
 #include "CommandLineParser.h"
 #include "CurrencyAdapter.h"
 #include "LoggerAdapter.h"
@@ -70,7 +89,7 @@ int main(int argc, char* argv[]) {
 
   setlocale(LC_ALL, "");
 
-  auto* style = new oclero::qlementine::QlementineStyle(&app);
+  auto* style = new KarboStyle(&app);
   style->setThemeJsonPath(QStringLiteral(":/themes/qlementine-dark.json"));
   QApplication::setStyle(style);
 
