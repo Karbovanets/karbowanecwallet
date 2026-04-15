@@ -620,8 +620,6 @@ endif (APPLE)
 #qt5_use_modules(${PROJECT_NAME} Core Widgets Gui Network PrintSupport)
 target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Widgets Qt6::Gui Qt6::Network Qt6::PrintSupport Qt6::Svg)
 
-patch_qlementine_menu_event_filter()
-
 # Installation
 
 set(CPACK_PACKAGE_NAME ${WALLET_NAME})
