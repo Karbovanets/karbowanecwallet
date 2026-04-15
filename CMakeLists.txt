@@ -61,34 +61,13 @@ find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui Network PrintSupport Lingu
 option(KARBO_USE_QLEMENTINE "Use Qlementine instead of the bundled qdarkstyle stylesheet" ON)
 
 if (KARBO_USE_QLEMENTINE)
-  find_package(qlementine CONFIG QUIET)
-  if (NOT TARGET qlementine)
-    FetchContent_Declare(
-      Qlementine
-      GIT_REPOSITORY https://github.com/oclero/qlementine.git
-      GIT_TAG v1.4.2
-    )
-    FetchContent_MakeAvailable(Qlementine)
-  endif()
+  FetchContent_Declare(
+    Qlementine
+    GIT_REPOSITORY https://github.com/oclero/qlementine.git
+    GIT_TAG v1.4.2
+  )
+  FetchContent_MakeAvailable(Qlementine)
 endif()
-
-function(patch_qlementine_menu_event_filter)
-  set(_qlementine_menu_filter
-    "${CMAKE_BINARY_DIR}/_deps/qlementine-src/lib/src/style/eventFilters/MenuEventFilter.hpp")
-
-  if (EXISTS "${_qlementine_menu_filter}")
-    file(READ "${_qlementine_menu_filter}" _qlementine_menu_filter_contents)
-    if (NOT _qlementine_menu_filter_contents MATCHES "#include <QCoreApplication>")
-      string(REPLACE
-        "#include <QEvent>"
-        "#include <QCoreApplication>\n#include <QEvent>"
-        _qlementine_menu_filter_contents
-        "${_qlementine_menu_filter_contents}")
-      file(WRITE "${_qlementine_menu_filter}" "${_qlementine_menu_filter_contents}")
-      message(STATUS "Patched Qlementine MenuEventFilter.hpp for Linux build compatibility")
-    endif()
-  endif()
-endfunction()
 
 # We have to look for Homebrew OpenSSL a bit differently
 # Borrowed from https://github.com/tarantool/tarantool/commit/6eab201af1843f53a833c8928dc58fceffa08147
