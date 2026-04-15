@@ -212,7 +212,6 @@ jobs:
         uses: jurplel/install-qt-action@v4.1.1
         with:
           version: '6.9.2'
-          host: 'windows'
           target: 'desktop'
           install-deps: 'true'
 
@@ -260,7 +259,6 @@ jobs:
         uses: jurplel/install-qt-action@v4.1.1
         with:
           version: '6.9.2'
-          host: 'windows'
           target: 'desktop'
           install-deps: 'true'
 
