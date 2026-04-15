@@ -72,6 +72,24 @@ if (KARBO_USE_QLEMENTINE)
   endif()
 endif()
 
+function(patch_qlementine_menu_event_filter)
+  set(_qlementine_menu_filter
+    "${CMAKE_BINARY_DIR}/_deps/qlementine-src/lib/src/style/eventFilters/MenuEventFilter.hpp")
+
+  if (EXISTS "${_qlementine_menu_filter}")
+    file(READ "${_qlementine_menu_filter}" _qlementine_menu_filter_contents)
+    if (NOT _qlementine_menu_filter_contents MATCHES "#include <QCoreApplication>")
+      string(REPLACE
+        "#include <QEvent>"
+        "#include <QCoreApplication>\n#include <QEvent>"
+        _qlementine_menu_filter_contents
+        "${_qlementine_menu_filter_contents}")
+      file(WRITE "${_qlementine_menu_filter}" "${_qlementine_menu_filter_contents}")
+      message(STATUS "Patched Qlementine MenuEventFilter.hpp for Linux build compatibility")
+    endif()
+  endif()
+endfunction()
+
 # We have to look for Homebrew OpenSSL a bit differently
 # Borrowed from https://github.com/tarantool/tarantool/commit/6eab201af1843f53a833c8928dc58fceffa08147
 if (APPLE)
@@ -622,6 +640,8 @@ endif (APPLE)
 
 #qt5_use_modules(${PROJECT_NAME} Core Widgets Gui Network PrintSupport)
 target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Widgets Qt6::Gui Qt6::Network Qt6::PrintSupport Qt6::Svg)
+
+patch_qlementine_menu_event_filter()
 
 # Installation
 
