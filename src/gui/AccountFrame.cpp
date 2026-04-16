@@ -323,6 +323,7 @@ void AccountFrame::registerAccountNumber() {
   if (QMessageBox::question(this, tr("Register Account Number"),
       tr("Register an account number for easy payments?\nA small fee will be charged."),
       QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+    m_accountNumberResolved = false;
     WalletAdapter::instance().registerAccountNumber();
   }
 }
