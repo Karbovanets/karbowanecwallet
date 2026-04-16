@@ -3131,10 +3131,10 @@ Are you sure?</source>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="235"/>
         <source>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</source>
-        <translation>
-            <numerusform>%1 Розпочато карбування на %n потоці зі складністю %2, щасти!</numerusform>
-            <numerusform>%1 Розпочато карбування на %n потоках зі складністю %2, щасти!</numerusform>
-            <numerusform>%1 Розпочато карбування на %n потоках зі складністю %2, щасти!</numerusform>
+        <translation type="unfinished">
+            <numerusform>%1 Розпочато карбування на %n потоці зі складністю %2. Хай щастить!</numerusform>
+            <numerusform>%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!</numerusform>
+            <numerusform>%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!</numerusform>
         </translation>
     </message>
     <message>
@@ -3152,10 +3152,10 @@ Are you sure?</source>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="277"/>
         <source>Mining stopped, %n thread(s) finished</source>
-        <translation>
-            <numerusform>Карбування зупинено, завершено %n потік</numerusform>
-            <numerusform>Карбування зупинено, завершено %n потоки</numerusform>
-            <numerusform>Карбування зупинено, завершено %n потоків</numerusform>
+        <translation type="unfinished">
+            <numerusform>Карбування зупинено, завершено роботу %n потоку</numerusform>
+            <numerusform>Карбування зупинено, завершено роботу %n потоків</numerusform>
+            <numerusform>Карбування зупинено, завершено роботу %n потоків</numerusform>
         </translation>
     </message>
     <message>
