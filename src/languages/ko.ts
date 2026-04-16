@@ -2002,6 +2002,16 @@ Do you want to go to the download page?</source>
         <source>Enter a label for this address to add it to your address book</source>
         <translation>이것을 주소록에 추가하려면 이 주소를 위한 라벨을 입력하세요</translation>
     </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation>계좌 번호를 찾을 수 없습니다</translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
+        <translation>유효하지 않은 계좌 번호</translation>
+    </message>
 </context>
 <context>
     <name>Updater</name>

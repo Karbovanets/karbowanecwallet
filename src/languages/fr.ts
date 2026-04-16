@@ -2112,6 +2112,16 @@ Voulez-vous aller à la page de téléchargement?</translation>
         <source>Remove recepient</source>
         <translation>Supprimer le destinataire</translation>
     </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation>Numéro de compte introuvable</translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
+        <translation>Numéro de compte invalide</translation>
+    </message>
 </context>
 <context>
     <name>Updater</name>

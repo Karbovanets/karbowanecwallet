@@ -2089,6 +2089,16 @@ Czy chesz otworzyć stronę pobierania w przeglądarce?</translation>
         <source>Remove recepient</source>
         <translation>Usuń odbiorcę</translation>
     </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation>Numer konta nie został znaleziony</translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
+        <translation>Nieprawidłowy numer konta</translation>
+    </message>
 </context>
 <context>
     <name>Updater</name>

@@ -2024,6 +2024,16 @@ Do you want to go to the download page?</source>
         <source>Enter a label for this address to add it to your address book</source>
         <translation>أدخل علامة لهذا العنوان لإضافته إلى دفتر العناوين الخاص بك.</translation>
     </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation>رقم الحساب غير موجود</translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
+        <translation>رقم الحساب غير صالح</translation>
+    </message>
 </context>
 <context>
     <name>Updater</name>

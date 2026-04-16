@@ -2015,6 +2015,16 @@ Do you want to go to the download page?</source>
         <source>Enter a label for this address to add it to your address book</source>
         <translation>为该地址输入标签，并添加至地址簿</translation>
     </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation>未找到账号</translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
+        <translation>无效的账号</translation>
+    </message>
 </context>
 <context>
     <name>Updater</name>

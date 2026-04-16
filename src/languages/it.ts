@@ -1961,6 +1961,16 @@ Vuoi andare alla pagina dei download?</translation>
         <source>Enter a label for this address to add it to your address book</source>
         <translation>Inserisci un&apos;etichetta per questo indirizzo, per aggiungerlo alla rubrica</translation>
     </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation>Numero conto non trovato</translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
+        <translation>Numero conto non valido</translation>
+    </message>
 </context>
 <context>
     <name>Updater</name>

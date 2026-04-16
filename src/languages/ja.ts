@@ -1952,6 +1952,16 @@ Do you want to go to the download page?</source>
         <source>Enter a label for this address to add it to your address book</source>
         <translation>ラベルを入力して、このアドレスをアドレス帳に加える</translation>
     </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation>口座番号が見つかりません</translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
+        <translation>無効な口座番号</translation>
+    </message>
 </context>
 <context>
     <name>Updater</name>

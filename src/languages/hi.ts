@@ -1954,6 +1954,16 @@ Do you want to go to the download page?</source>
         <source>Enter a label for this address to add it to your address book</source>
         <translation>अपनी एड्रेस बुक में जोड़ने के लिए इस पते के लिए एक लेबल लिखें</translation>
     </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation>खाता संख्या नहीं मिली</translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
+        <translation>अमान्य खाता संख्या</translation>
+    </message>
 </context>
 <context>
     <name>Updater</name>

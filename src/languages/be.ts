@@ -2092,6 +2092,16 @@ Do you want to go to the download page?</source>
         <source>Remove recepient</source>
         <translation>Выдаліць атрымальніка</translation>
     </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation>Нумар рахунку не знойдзены</translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
+        <translation>Няправільны нумар рахунку</translation>
+    </message>
 </context>
 <context>
     <name>Updater</name>
