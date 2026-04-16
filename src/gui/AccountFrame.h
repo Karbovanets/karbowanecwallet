@@ -30,6 +30,8 @@ protected:
 private:
   QScopedPointer<Ui::AccountFrame> m_ui;
   QString m_accountNumber;
+  bool m_accountNumberResolved;
+  bool m_accountNumberFetchInProgress;
 
   void applyFramePalette();
   void updateWalletAddress(const QString& _address);

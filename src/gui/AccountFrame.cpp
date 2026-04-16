@@ -91,7 +91,8 @@ QStringList AccountFrame::divideAmount(quint64 _val) {
   return list;
 }
 
-AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::AccountFrame) {
+AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::AccountFrame),
+  m_accountNumberResolved(false), m_accountNumberFetchInProgress(false) {
   m_ui->setupUi(this);
   connect(&WalletAdapter::instance(), &WalletAdapter::updateWalletAddressSignal, this, &AccountFrame::updateWalletAddress);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletActualBalanceUpdatedSignal, this, &AccountFrame::updateActualBalance,
@@ -102,9 +103,11 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
     Qt::QueuedConnection);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletCloseCompletedSignal, this, &AccountFrame::reset);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletSynchronizationCompletedSignal, this, [this](int _error, const QString&) {
-    if (_error == 0 && WalletAdapter::instance().isOpen()) {
-      fetchAccountNumber(WalletAdapter::instance().getAddress());
+    if (_error != 0 || !WalletAdapter::instance().isOpen() || m_accountNumberResolved) {
+      return;
     }
+
+    fetchAccountNumber(WalletAdapter::instance().getAddress());
   });
 
   // Style the account frame with a slightly brighter background
@@ -178,7 +181,10 @@ void AccountFrame::updateWalletAddress(const QString& _address) {
   m_ui->m_addressLabel->setText(formatDisplayAddress(_address));
   m_ui->m_addressLabel->setToolTip(_address);
   m_accountNumber.clear();
+  m_accountNumberResolved = false;
+  m_accountNumberFetchInProgress = false;
   updateAccountNumberDisplay();
+  fetchAccountNumber(_address);
 }
 
 void AccountFrame::copyAddress() {
@@ -230,26 +236,52 @@ void AccountFrame::updateUnmixableBalance(quint64 _balance) {
 }
 
 void AccountFrame::fetchAccountNumber(const QString& _address) {
-  if (_address.isEmpty()) {
+  if (_address.isEmpty() || m_accountNumberFetchInProgress) {
     return;
   }
 
+  m_accountNumberFetchInProgress = true;
+  const QString requestedAddress = _address;
   std::string address = _address.toStdString();
   std::string* accountNumber = new std::string();
 
   NodeAdapter::instance().getAccountNumber(address, *accountNumber,
-    [this, accountNumber](std::error_code ec) {
+    [this, accountNumber, requestedAddress](std::error_code ec) {
       QString result;
-      if (!ec && !accountNumber->empty()) {
+      const bool hasResult = !ec;
+      if (hasResult && !accountNumber->empty()) {
         result = QString::fromStdString(*accountNumber);
       }
       delete accountNumber;
 
-      QMetaObject::invokeMethod(this, [this, result]() {
-        m_accountNumber = result;
+      QMetaObject::invokeMethod(this, [this, result, hasResult, requestedAddress]() {
+        if (WalletAdapter::instance().getAddress() != requestedAddress) {
+          m_accountNumberFetchInProgress = false;
+          return;
+        }
+
+      // In case Node lookups can transiently fail keep the current display and retry on next
+      // synchronization completion instead of clearing it.
+      if (!hasResult) {
+        m_accountNumberFetchInProgress = false;
+        return;
+      }
+
+      if (result.isEmpty()) {
+        m_accountNumberResolved = true;
+        m_accountNumber.clear();
+        m_accountNumberFetchInProgress = false;
         updateAccountNumberDisplay();
-      }, Qt::QueuedConnection);
-    });
+        return;
+      }
+
+      m_accountNumberResolved = true;
+      m_accountNumber = result;
+      m_accountNumberFetchInProgress = false;
+      updateAccountNumberDisplay();
+
+    }, Qt::QueuedConnection);
+  });
 }
 
 void AccountFrame::updateAccountNumberDisplay() {
