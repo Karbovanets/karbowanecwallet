@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2015 The Cryptonote developers
 // Copyright (c) 2015 XDN developers
-// Copyright (c) 2016-2017 The Karbovanets developers
+// Copyright (c) 2016-2026 The Karbovanets developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -85,9 +85,11 @@ void TransferFrame::timerEvent(QTimerEvent* _event) {
 
 void TransferFrame::onAliasFound(const QString& _name, const QString& _address) {
   m_ui->m_addressEdit->setText(QString("%1 <%2>").arg(_name).arg(_address));
+  m_ui->m_addressStatusLabel->hide();
 }
 
 void TransferFrame::addressEdited(const QString& _text) {
+  m_ui->m_addressStatusLabel->hide();
   if(!_text.isEmpty() && _text.contains('.')) {
     if (m_addressInputTimer != -1) {
       killTimer(m_addressInputTimer);
@@ -117,22 +119,28 @@ bool TransferFrame::looksLikeAccountNumber(const QString& _text) {
 }
 
 void TransferFrame::resolveAccountNumber(const QString& _input) {
-  std::string accountNumber = _input.toStdString();
+  std::string* accountNumber = new std::string(_input.toStdString());
   std::string* address = new std::string();
 
-  NodeAdapter::instance().resolveAccountNumber(accountNumber, *address,
-    [this, _input, address](std::error_code ec) {
-      QString resolvedAddress;
-      if (!ec && !address->empty()) {
-        resolvedAddress = QString::fromStdString(*address);
-      }
+  NodeAdapter::instance().resolveAccountNumber(*accountNumber, *address,
+    [this, _input, accountNumber, address](std::error_code ec) {
+      const QString resolvedAddress = (!ec && !address->empty())
+          ? QString::fromStdString(*address) : QString();
+      delete accountNumber;
       delete address;
 
-      if (!resolvedAddress.isEmpty()) {
-        QMetaObject::invokeMethod(this, [this, _input, resolvedAddress]() {
+      QMetaObject::invokeMethod(this, [this, _input, resolvedAddress, ec]() {
+        if (!resolvedAddress.isEmpty()) {
           m_ui->m_addressEdit->setText(QString("%1 <%2>").arg(_input).arg(resolvedAddress));
-        }, Qt::QueuedConnection);
-      }
+          m_ui->m_addressStatusLabel->hide();
+        } else if (ec == std::errc::no_such_file_or_directory) {
+          m_ui->m_addressStatusLabel->setText(tr("Account number not found"));
+          m_ui->m_addressStatusLabel->show();
+        } else if (ec == std::errc::invalid_argument) {
+          m_ui->m_addressStatusLabel->setText(tr("Invalid account number"));
+          m_ui->m_addressStatusLabel->show();
+        }
+      }, Qt::QueuedConnection);
     });
 }
 
