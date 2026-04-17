@@ -69,7 +69,7 @@
     <message>
         <location filename="../gui/ui/accountframe.ui" line="152"/>
         <location filename="../gui/ui/accountframe.ui" line="181"/>
-        <location filename="../gui/ui/accountframe.ui" line="336"/>
+        <location filename="../gui/ui/accountframe.ui" line="339"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -79,47 +79,47 @@
         <translation>QRコードを表示</translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="301"/>
+        <location filename="../gui/ui/accountframe.ui" line="304"/>
         <source>Account #</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="333"/>
+        <location filename="../gui/ui/accountframe.ui" line="336"/>
         <source>Copy account number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="375"/>
+        <location filename="../gui/ui/accountframe.ui" line="378"/>
         <source>Your account number for easy payments</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="403"/>
+        <location filename="../gui/ui/accountframe.ui" line="406"/>
         <source>Register an account number for this address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="406"/>
+        <location filename="../gui/ui/accountframe.ui" line="409"/>
         <source>Register Account Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="505"/>
+        <location filename="../gui/ui/accountframe.ui" line="508"/>
         <source>Spendable balance</source>
         <translation>利用可能残高</translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="564"/>
+        <location filename="../gui/ui/accountframe.ui" line="567"/>
         <source>Awaiting network confirmation</source>
         <translation>ネットワーク確認待ち</translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="623"/>
+        <location filename="../gui/ui/accountframe.ui" line="626"/>
         <source>Spendable only with zero privacy level</source>
         <translation>プライバシーレベル0でのみ使用可能</translation>
     </message>
     <message>
-        <location filename="../gui/ui/accountframe.ui" line="682"/>
+        <location filename="../gui/ui/accountframe.ui" line="685"/>
         <source>Total balance</source>
         <translation>総残高</translation>
     </message>
@@ -1008,12 +1008,12 @@ Please wait...</source>
         <translation type="vanished">プール選択</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="168"/>
+        <location filename="../gui/ui/miningframe.ui" line="86"/>
         <source>Start mining</source>
         <translation>マイニング開始</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="190"/>
+        <location filename="../gui/ui/miningframe.ui" line="60"/>
         <source>Stop mining</source>
         <translation>マイニング停止</translation>
     </message>
@@ -1023,32 +1023,27 @@ Please wait...</source>
         <translation type="unfinished">フレーム</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="63"/>
+        <location filename="../gui/ui/miningframe.ui" line="51"/>
         <source>State</source>
         <translation>状態</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="122"/>
+        <location filename="../gui/ui/miningframe.ui" line="102"/>
         <source>Speed, H/s:</source>
         <translation>速度、H/s：</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="142"/>
-        <source>0.00</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/ui/miningframe.ui" line="112"/>
+        <location filename="../gui/ui/miningframe.ui" line="109"/>
         <source>Stopped</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="78"/>
+        <location filename="../gui/ui/miningframe.ui" line="116"/>
         <source>Difficulty:</source>
         <translation>採掘難易度:</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="100"/>
+        <location filename="../gui/ui/miningframe.ui" line="76"/>
         <source>Mining status:</source>
         <translation>マイニング 状態:</translation>
     </message>
@@ -1057,12 +1052,12 @@ Please wait...</source>
         <translation type="vanished">プール消去</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="246"/>
+        <location filename="../gui/ui/miningframe.ui" line="160"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../gui/ui/miningframe.ui" line="258"/>
+        <location filename="../gui/ui/miningframe.ui" line="172"/>
         <source>CPU cores</source>
         <translation>CPUのコア</translation>
     </message>
@@ -1503,28 +1498,28 @@ Please wait...</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="649"/>
-        <location filename="../main.cpp" line="108"/>
+        <location filename="../gui/MainWindow.cpp" line="690"/>
+        <location filename="../main.cpp" line="107"/>
         <source>Help</source>
         <translation>ヘルプ</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="105"/>
+        <location filename="../main.cpp" line="104"/>
         <source>Error</source>
         <translation>エラー</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="145"/>
+        <location filename="../main.cpp" line="144"/>
         <source>Fail</source>
         <translation>失敗</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="145"/>
+        <location filename="../main.cpp" line="144"/>
         <source>%1 wallet already running or cannot create lock file %2. Check your permissions.</source>
         <translation>%1 ウォレットは既に実行されているか、ロックファイルの作成ができません。%2. あなたの権限を確認してください。</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="160"/>
+        <location filename="../main.cpp" line="159"/>
         <source>Loading blockchain...</source>
         <translation>ブロックチェーン ローディング中...</translation>
     </message>
@@ -1938,29 +1933,27 @@ Do you want to go to the download page?</source>
         <translation>受領者削除</translation>
     </message>
     <message>
-        <location filename="../gui/ui/transferframe.ui" line="86"/>
+        <location filename="../gui/ui/transferframe.ui" line="99"/>
         <source>Amount:</source>
         <translation>数量:</translation>
     </message>
     <message>
-        <location filename="../gui/ui/transferframe.ui" line="122"/>
+        <location filename="../gui/ui/transferframe.ui" line="135"/>
         <source>Save to Contacts as:</source>
         <translation>連絡先を～として保存:</translation>
     </message>
     <message>
-        <location filename="../gui/ui/transferframe.ui" line="132"/>
+        <location filename="../gui/ui/transferframe.ui" line="145"/>
         <source>Enter a label for this address to add it to your address book</source>
         <translation>ラベルを入力して、このアドレスをアドレス帳に加える</translation>
     </message>
     <message>
-        <location filename="../gui/TransferFrame.cpp" line="137"/>
         <source>Account number not found</source>
-        <translation>口座番号が見つかりません</translation>
+        <translation type="vanished">口座番号が見つかりません</translation>
     </message>
     <message>
-        <location filename="../gui/TransferFrame.cpp" line="140"/>
         <source>Invalid account number</source>
-        <translation>無効な口座番号</translation>
+        <translation type="vanished">無効な口座番号</translation>
     </message>
 </context>
 <context>
@@ -2024,64 +2017,64 @@ Do you want to go to the download page?</source>
         <translation type="vanished">クリップボードにコピーされた</translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="172"/>
+        <location filename="../gui/AccountFrame.cpp" line="200"/>
         <source>QR Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="179"/>
+        <location filename="../gui/AccountFrame.cpp" line="207"/>
         <source>Available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="184"/>
-        <location filename="../gui/AccountFrame.cpp" line="195"/>
+        <location filename="../gui/AccountFrame.cpp" line="212"/>
+        <location filename="../gui/AccountFrame.cpp" line="223"/>
         <source>Total</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="190"/>
+        <location filename="../gui/AccountFrame.cpp" line="218"/>
         <source>Pending</source>
         <translation type="unfinished">保留中</translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="202"/>
+        <location filename="../gui/AccountFrame.cpp" line="230"/>
         <source>Unmixable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="239"/>
+        <location filename="../gui/AccountFrame.cpp" line="293"/>
         <source>Not registered</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="240"/>
+        <location filename="../gui/AccountFrame.cpp" line="294"/>
         <source>This wallet does not have a registered account number.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="265"/>
+        <location filename="../gui/AccountFrame.cpp" line="319"/>
         <source>Error</source>
         <translation type="unfinished">エラー</translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="265"/>
+        <location filename="../gui/AccountFrame.cpp" line="319"/>
         <source>Cannot register account number from a tracking wallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="269"/>
+        <location filename="../gui/AccountFrame.cpp" line="323"/>
         <source>Register Account Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="270"/>
+        <location filename="../gui/AccountFrame.cpp" line="324"/>
         <source>Register an account number for easy payments?
 A small fee will be charged.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/AccountFrame.cpp" line="281"/>
+        <location filename="../gui/AccountFrame.cpp" line="336"/>
         <source>Your receiving address</source>
         <translation type="unfinished">あなたの受信アドレス</translation>
     </message>
@@ -2689,18 +2682,18 @@ A small fee will be charged.</source>
     <name>WalletGui::MainWindow</name>
     <message>
         <location filename="../gui/MainWindow.cpp" line="135"/>
-        <location filename="../gui/MainWindow.cpp" line="1122"/>
-        <location filename="../gui/MainWindow.cpp" line="1150"/>
+        <location filename="../gui/MainWindow.cpp" line="1163"/>
+        <location filename="../gui/MainWindow.cpp" line="1191"/>
         <source>Karbo Wallet %1</source>
         <translation>カルボウォレット %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="154"/>
+        <location filename="../gui/MainWindow.cpp" line="158"/>
         <source>About %1 Wallet</source>
         <translation>カルボウォレットについて</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="203"/>
+        <location filename="../gui/MainWindow.cpp" line="218"/>
         <source>Tracking wallet. Spending unavailable</source>
         <translation>トラッキングウォレット. 利用不可能な出費</translation>
     </message>
@@ -2709,45 +2702,45 @@ A small fee will be charged.</source>
         <translation type="vanished">リモートノードを介して接続</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="240"/>
+        <location filename="../gui/MainWindow.cpp" line="255"/>
         <source>&amp;Show / Hide</source>
         <translation>表示 / 非表示</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="241"/>
+        <location filename="../gui/MainWindow.cpp" line="256"/>
         <source>Show or hide the main window</source>
         <translation>メインウィンドウを表示または非表示</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="352"/>
-        <location filename="../gui/MainWindow.cpp" line="382"/>
+        <location filename="../gui/MainWindow.cpp" line="393"/>
+        <location filename="../gui/MainWindow.cpp" line="423"/>
         <source>New wallet file</source>
         <translation>新ウォレットファイル</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="360"/>
-        <location filename="../gui/MainWindow.cpp" line="389"/>
-        <location filename="../gui/MainWindow.cpp" line="716"/>
+        <location filename="../gui/MainWindow.cpp" line="401"/>
+        <location filename="../gui/MainWindow.cpp" line="430"/>
+        <location filename="../gui/MainWindow.cpp" line="757"/>
         <source>Wallets (*.wallet)</source>
         <translation>ウォレット (*.wallet)</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="422"/>
+        <location filename="../gui/MainWindow.cpp" line="463"/>
         <source>Open .wallet/.keys file</source>
         <translation>.wallet/.keysファイルを開く</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="424"/>
+        <location filename="../gui/MainWindow.cpp" line="465"/>
         <source>Wallet (*.wallet *.keys)</source>
         <translation>ウォレット (*.wallet *.keys)</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="429"/>
+        <location filename="../gui/MainWindow.cpp" line="470"/>
         <source>Wrong wallet file extension</source>
         <translation>ウォレットファイルの拡張子が間違っています</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="430"/>
+        <location filename="../gui/MainWindow.cpp" line="471"/>
         <source>Wrong wallet file extension, wallet file should have &quot;.wallet&quot;, &quot;.keys&quot; or &quot;.trackingwallet&quot; extension.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2784,17 +2777,17 @@ A small fee will be charged.</source>
         <translation type="vanished">あなたが入力したプライベートスペンドキーは無効です。</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="204"/>
+        <location filename="../gui/MainWindow.cpp" line="219"/>
         <source>Wallet is connected through remote node. Additional fee may be applied.</source>
         <translation>リモートノードを介してウォレットは接続されます。追加料金が適用される場合があります。</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="454"/>
+        <location filename="../gui/MainWindow.cpp" line="495"/>
         <source>Recent wallet file not found</source>
         <translation>最近のウォレットファイルが見つかりません</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="454"/>
+        <location filename="../gui/MainWindow.cpp" line="495"/>
         <source>The recent wallet file is missing. Probably it was removed.</source>
         <translation>最近のウォレットファイルがありません。 おそらく削除されました。</translation>
     </message>
@@ -2811,126 +2804,126 @@ A small fee will be charged.</source>
         <translation type="vanished">ニーモニックシードにエラーがあります。正しく入力したか確認してください。</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="640"/>
-        <location filename="../gui/MainWindow.cpp" line="641"/>
+        <location filename="../gui/MainWindow.cpp" line="681"/>
+        <location filename="../gui/MainWindow.cpp" line="682"/>
         <source>Language changed to %1</source>
         <translation>言語が%1に変更されました</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="642"/>
+        <location filename="../gui/MainWindow.cpp" line="683"/>
         <source>Language was changed</source>
         <translation>言語は変更されました。</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="643"/>
+        <location filename="../gui/MainWindow.cpp" line="684"/>
         <source>Language changed to %1. The change will take effect after restarting the wallet.</source>
         <translation>ウォレットの再起動後に言語が変更されます。</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="652"/>
+        <location filename="../gui/MainWindow.cpp" line="693"/>
         <source>More info can be found at www.karbowanec.com in Documentation section</source>
         <translation>詳細情報はwww.karbowanec.comのDocumentationセクションにあります。</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="677"/>
+        <location filename="../gui/MainWindow.cpp" line="718"/>
         <source>Connection settings changed</source>
         <translation>接続設定は変更されました</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="677"/>
+        <location filename="../gui/MainWindow.cpp" line="718"/>
         <source>Connection mode will be changed after restarting the wallet.</source>
         <translation>ウォレットの再起動後に接続モードが変更されます。</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="684"/>
+        <location filename="../gui/MainWindow.cpp" line="725"/>
         <source>Wallet RPC settings changed</source>
         <translation>ウォレットRPC設定が変更されました</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="684"/>
+        <location filename="../gui/MainWindow.cpp" line="725"/>
         <source>Changes will take effect when you restart the wallet.</source>
         <translation>ウォレットを再起動すると、変更が有効になります。</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="690"/>
+        <location filename="../gui/MainWindow.cpp" line="731"/>
         <source>Zero balance</source>
         <translation>ゼロバランス</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="690"/>
+        <location filename="../gui/MainWindow.cpp" line="731"/>
         <source>You cannot generate balance proof of zero.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="709"/>
+        <location filename="../gui/MainWindow.cpp" line="750"/>
         <source>Backup wallet to...</source>
         <translation>...へウォレットをバックアップ</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="729"/>
+        <location filename="../gui/MainWindow.cpp" line="770"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="729"/>
+        <location filename="../gui/MainWindow.cpp" line="770"/>
         <source>Your wallet will be reset and restored from blockchain.
 Are you sure?</source>
         <translation>ウォレットがリセットされ、ブロックチェーンから復元されます。本当に実行してもよろしいでしょうか？</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="928"/>
+        <location filename="../gui/MainWindow.cpp" line="969"/>
         <source>Wallet error</source>
         <translation>ウォレットエラー</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="931"/>
+        <location filename="../gui/MainWindow.cpp" line="972"/>
         <source>Wallet</source>
         <translation>ウォレット</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="986"/>
+        <location filename="../gui/MainWindow.cpp" line="1027"/>
         <source>Incorrect password</source>
         <translation>誤ったパスワード</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="986"/>
+        <location filename="../gui/MainWindow.cpp" line="1027"/>
         <source>Wrong password.</source>
         <translation>間違ったパスワード。</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1002"/>
+        <location filename="../gui/MainWindow.cpp" line="1043"/>
         <source>Encrypted</source>
         <translation>暗号化</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1002"/>
+        <location filename="../gui/MainWindow.cpp" line="1043"/>
         <source>Not encrypted</source>
         <translation>暗号化されていない</translation>
     </message>
     <message numerus="yes">
-        <location filename="../gui/MainWindow.cpp" line="1011"/>
+        <location filename="../gui/MainWindow.cpp" line="1052"/>
         <source>%n active connection(s)</source>
         <translation>
             <numerusform>%n アクティブコネクション</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1019"/>
+        <location filename="../gui/MainWindow.cpp" line="1060"/>
         <source>Synchronization in progress</source>
         <translation>同期化進行中</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1037"/>
+        <location filename="../gui/MainWindow.cpp" line="1078"/>
         <source>Not synchronized</source>
         <translation>同期化されていない</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1037"/>
+        <location filename="../gui/MainWindow.cpp" line="1078"/>
         <source>Synchronized</source>
         <translation>同期化</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="1072"/>
+        <location filename="../gui/MainWindow.cpp" line="1113"/>
         <source>%1 - Karbo Wallet %2</source>
         <translatorcomment>%1 - カルボウォレット %2</translatorcomment>
         <translation></translation>
@@ -2993,29 +2986,29 @@ Are you sure?</source>
         <translation type="vanished">エラー: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="98"/>
+        <location filename="../gui/MiningFrame.cpp" line="73"/>
         <source>Hashrate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="199"/>
+        <location filename="../gui/MiningFrame.cpp" line="180"/>
         <source>Mining</source>
         <translation>マイニング</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="251"/>
-        <location filename="../gui/MiningFrame.cpp" line="269"/>
-        <location filename="../gui/MiningFrame.cpp" line="337"/>
+        <location filename="../gui/MiningFrame.cpp" line="232"/>
+        <location filename="../gui/MiningFrame.cpp" line="250"/>
+        <location filename="../gui/MiningFrame.cpp" line="318"/>
         <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="272"/>
+        <location filename="../gui/MiningFrame.cpp" line="253"/>
         <source>Starting...</source>
         <translation>開始...</translation>
     </message>
     <message>
-        <location filename="../gui/MiningFrame.cpp" line="292"/>
+        <location filename="../gui/MiningFrame.cpp" line="273"/>
         <source>Stopped</source>
         <translation>停止</translation>
     </message>
@@ -3105,105 +3098,105 @@ Are you sure?</source>
 <context>
     <name>WalletGui::OutputsModel</name>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="68"/>
+        <location filename="../gui/OutputsModel.cpp" line="69"/>
         <source>Status</source>
         <translation>状態</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="70"/>
+        <location filename="../gui/OutputsModel.cpp" line="71"/>
         <source>Type</source>
         <translation>タイプ</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="72"/>
+        <location filename="../gui/OutputsModel.cpp" line="73"/>
         <source>Public key (stealth address)</source>
         <translation>公開鍵（ステルスアドレス）</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="74"/>
+        <location filename="../gui/OutputsModel.cpp" line="75"/>
         <source>Transaction hash</source>
         <translation>トランザクションのハッシュ</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="76"/>
+        <location filename="../gui/OutputsModel.cpp" line="77"/>
         <source>Amount</source>
         <translation>数量</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="78"/>
+        <location filename="../gui/OutputsModel.cpp" line="79"/>
         <source>Global index</source>
         <translation>グローバルインデックス</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="80"/>
+        <location filename="../gui/OutputsModel.cpp" line="81"/>
         <source>Index in transaction</source>
         <translation>トランザクションのインデックス</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="82"/>
+        <location filename="../gui/OutputsModel.cpp" line="83"/>
         <source>Transaction public key</source>
         <translation>トランザクション公開鍵</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="84"/>
+        <location filename="../gui/OutputsModel.cpp" line="85"/>
         <source>Spent at height</source>
         <translation>高さで過ごした</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="86"/>
+        <location filename="../gui/OutputsModel.cpp" line="87"/>
         <source>Timestamp</source>
         <translation>タイムスタンプ</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="88"/>
+        <location filename="../gui/OutputsModel.cpp" line="89"/>
         <source>Spent in transaction</source>
         <translation>トランザクションに費やさ</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="90"/>
+        <location filename="../gui/OutputsModel.cpp" line="91"/>
         <source>Key image</source>
         <translation>キーの画像</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="92"/>
+        <location filename="../gui/OutputsModel.cpp" line="93"/>
         <source>As input</source>
         <translation>入力として</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="175"/>
-        <location filename="../gui/OutputsModel.cpp" line="278"/>
-        <location filename="../gui/OutputsModel.cpp" line="374"/>
+        <location filename="../gui/OutputsModel.cpp" line="176"/>
+        <location filename="../gui/OutputsModel.cpp" line="279"/>
+        <location filename="../gui/OutputsModel.cpp" line="375"/>
         <source>Spent</source>
         <translation>過ごした</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="177"/>
-        <location filename="../gui/OutputsModel.cpp" line="280"/>
-        <location filename="../gui/OutputsModel.cpp" line="376"/>
+        <location filename="../gui/OutputsModel.cpp" line="178"/>
+        <location filename="../gui/OutputsModel.cpp" line="281"/>
+        <location filename="../gui/OutputsModel.cpp" line="377"/>
         <source>Unspent</source>
         <translation>未使用</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="185"/>
-        <location filename="../gui/OutputsModel.cpp" line="288"/>
+        <location filename="../gui/OutputsModel.cpp" line="186"/>
+        <location filename="../gui/OutputsModel.cpp" line="289"/>
         <source>Key</source>
         <translation>キー</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="187"/>
-        <location filename="../gui/OutputsModel.cpp" line="290"/>
+        <location filename="../gui/OutputsModel.cpp" line="188"/>
+        <location filename="../gui/OutputsModel.cpp" line="291"/>
         <source>Multisignature</source>
         <translation>マルチシグニチャ</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="189"/>
-        <location filename="../gui/OutputsModel.cpp" line="292"/>
+        <location filename="../gui/OutputsModel.cpp" line="190"/>
+        <location filename="../gui/OutputsModel.cpp" line="293"/>
         <source>Invalid</source>
         <translation>無効</translation>
     </message>
     <message>
-        <location filename="../gui/OutputsModel.cpp" line="204"/>
-        <location filename="../gui/OutputsModel.cpp" line="307"/>
+        <location filename="../gui/OutputsModel.cpp" line="205"/>
+        <location filename="../gui/OutputsModel.cpp" line="308"/>
         <source>Pending</source>
         <translation>保留中</translation>
     </message>
@@ -3589,69 +3582,69 @@ when the wallet is synchronized</source>
 <context>
     <name>WalletGui::TransactionsModel</name>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="89"/>
+        <location filename="../gui/TransactionsModel.cpp" line="100"/>
         <source>Date</source>
         <translation>日付</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="91"/>
+        <location filename="../gui/TransactionsModel.cpp" line="102"/>
         <source>Type</source>
         <translation>タイプ</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="93"/>
+        <location filename="../gui/TransactionsModel.cpp" line="104"/>
         <source>Hash</source>
         <translation>ハッシュ</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="95"/>
+        <location filename="../gui/TransactionsModel.cpp" line="106"/>
         <source>Key</source>
         <translation>キー</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="97"/>
+        <location filename="../gui/TransactionsModel.cpp" line="108"/>
         <source>Address</source>
         <translation>アドレス</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="99"/>
+        <location filename="../gui/TransactionsModel.cpp" line="110"/>
         <source>Amount</source>
         <translation>数量</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="101"/>
+        <location filename="../gui/TransactionsModel.cpp" line="112"/>
         <source>Fee</source>
         <translation>手数料</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="103"/>
+        <location filename="../gui/TransactionsModel.cpp" line="114"/>
         <source>PaymentID</source>
         <translation>ペイメントID</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="209"/>
-        <location filename="../gui/TransactionsModel.cpp" line="270"/>
+        <location filename="../gui/TransactionsModel.cpp" line="220"/>
+        <location filename="../gui/TransactionsModel.cpp" line="281"/>
         <source>me (%1)</source>
         <translation>自分 (%1)</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="211"/>
-        <location filename="../gui/TransactionsModel.cpp" line="272"/>
+        <location filename="../gui/TransactionsModel.cpp" line="222"/>
+        <location filename="../gui/TransactionsModel.cpp" line="283"/>
         <source>(n/a)</source>
         <translation>データなし</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="310"/>
+        <location filename="../gui/TransactionsModel.cpp" line="321"/>
         <source>Canceled or failed transaction</source>
         <translation>キャンセルまたは失敗したトランザクション</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="313"/>
+        <location filename="../gui/TransactionsModel.cpp" line="324"/>
         <source>Incoming transaction, unconfirmed</source>
         <translation>インカミングトランザクション、未承認</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="316"/>
+        <location filename="../gui/TransactionsModel.cpp" line="327"/>
         <source>Mined, confirmations</source>
         <translation>マイニング済み、承認</translation>
     </message>
@@ -3660,24 +3653,24 @@ when the wallet is synchronized</source>
         <translation type="vanished">ウォレット最適化トランザクション、未確認</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="319"/>
+        <location filename="../gui/TransactionsModel.cpp" line="330"/>
         <source>Sent to yourself, unconfirmed</source>
         <translation>自分に送信、未承認</translation>
     </message>
     <message>
-        <location filename="../gui/TransactionsModel.cpp" line="322"/>
+        <location filename="../gui/TransactionsModel.cpp" line="333"/>
         <source>Outgoing transaction, unconfirmed</source>
         <translation>アウトゴーイングトランザクション、未承認</translation>
     </message>
     <message numerus="yes">
-        <location filename="../gui/TransactionsModel.cpp" line="325"/>
+        <location filename="../gui/TransactionsModel.cpp" line="336"/>
         <source>Incoming transaction, %n confirmation(s)</source>
         <translation>
             <numerusform>インカミングトランザクション, %n 確認</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../gui/TransactionsModel.cpp" line="328"/>
+        <location filename="../gui/TransactionsModel.cpp" line="339"/>
         <source>Mined, %n confirmation(s)</source>
         <translation>
             <numerusform>マイニング済み、%n 確認</numerusform>
@@ -3690,18 +3683,31 @@ when the wallet is synchronized</source>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../gui/TransactionsModel.cpp" line="331"/>
+        <location filename="../gui/TransactionsModel.cpp" line="342"/>
         <source>Sent to yourself, %n confirmation(s)</source>
         <translation>
             <numerusform>自分に送信, %n 確認</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../gui/TransactionsModel.cpp" line="334"/>
+        <location filename="../gui/TransactionsModel.cpp" line="345"/>
         <source>Outgoing transaction, %n confirmation(s)</source>
         <translation>
             <numerusform>アウトゴーイングトランザクション, %n 確認</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>WalletGui::TransferFrame</name>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation type="unfinished">口座番号が見つかりません</translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
+        <translation type="unfinished">無効な口座番号</translation>
     </message>
 </context>
 <context>
