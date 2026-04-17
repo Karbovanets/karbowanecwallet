@@ -948,7 +948,7 @@ Por favor, espera...</translation>
     <message>
         <location filename="../gui/ui/mainwindow.ui" line="419"/>
         <source>History</source>
-        <translation type="unfinished"></translation>
+        <translation>Historial</translation>
     </message>
     <message>
         <location filename="../gui/ui/mainwindow.ui" line="606"/>

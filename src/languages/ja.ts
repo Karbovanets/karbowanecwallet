@@ -921,7 +921,7 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/mainwindow.ui" line="419"/>
         <source>History</source>
-        <translation type="unfinished"></translation>
+        <translation>履歴</translation>
     </message>
     <message>
         <location filename="../gui/ui/mainwindow.ui" line="573"/>

@@ -926,7 +926,7 @@ Attendere prego…
     <message>
         <location filename="../gui/ui/mainwindow.ui" line="419"/>
         <source>History</source>
-        <translation type="unfinished"></translation>
+        <translation>Cronologia</translation>
     </message>
     <message>
         <location filename="../gui/ui/mainwindow.ui" line="573"/>
