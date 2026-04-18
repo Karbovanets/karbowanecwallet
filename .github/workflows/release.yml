@@ -24,7 +24,7 @@ jobs:
           arch: x64
 
       - name: Install OpenSSL
-        run: choco install openssl -y --no-progress
+        run: choco install openssl --version=3.3.2 -y --no-progress
 
       - name: Cache Boost 1.84
         id: cache-boost
