@@ -67,14 +67,11 @@ void SignMessageDialog::verifyMessage() {
   if(CurrencyAdapter::instance().getCurrency().parseAccountAddressString(addr_str, acc)) {
     if (WalletAdapter::instance().verifyMessage(message, acc, signature)) {
       m_ui->m_verificationResult->setText(tr("Signature is valid"));
-      m_ui->m_verificationResult->setStyleSheet("QLabel { color : green; }");
     } else {
       m_ui->m_verificationResult->setText(tr("Signature is invalid!"));
-      m_ui->m_verificationResult->setStyleSheet("QLabel { color : red; }");
     }
   } else {
     m_ui->m_verificationResult->setText(tr("Address is invalid!"));
-    m_ui->m_verificationResult->setStyleSheet("QLabel { color : red; }");
   }
 }
 

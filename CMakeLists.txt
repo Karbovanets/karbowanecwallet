@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(CryptoNoteWallet.cmake)
 include(external/ext.cmake)
+include(FetchContent)
 
 if (NOT ARCH OR ARCH STREQUAL "" OR ARCH STREQUAL "native" OR ARCH STREQUAL "default")
   set(ARCH_ID "${CMAKE_SYSTEM_PROCESSOR}")
@@ -55,7 +56,18 @@ include_directories(${CMAKE_BINARY_DIR}
     external/libqrencode
     external/qcustomplot)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui Network PrintSupport LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui Network PrintSupport LinguistTools Svg)
+
+option(KARBO_USE_QLEMENTINE "Use Qlementine instead of the bundled qdarkstyle stylesheet" ON)
+
+if (KARBO_USE_QLEMENTINE)
+  FetchContent_Declare(
+    Qlementine
+    GIT_REPOSITORY https://github.com/oclero/qlementine.git
+    GIT_TAG v1.4.2
+  )
+  FetchContent_MakeAvailable(Qlementine)
+endif()
 
 # We have to look for Homebrew OpenSSL a bit differently
 # Borrowed from https://github.com/tarantool/tarantool/commit/6eab201af1843f53a833c8928dc58fceffa08147
@@ -295,9 +307,10 @@ file(GLOB_RECURSE Mnemonics cryptonote/src/Mnemonics/*)
 file(GLOB_RECURSE QCustomPlot external/qcustomplot/*)
 file(GLOB TRANSLATION_FILES src/languages/*.ts)
 
-set(QRC
-	src/resources.qrc
-	src/qdarkstyle/style.qrc)
+set(QRC src/resources.qrc)
+if (NOT KARBO_USE_QLEMENTINE)
+  list(APPEND QRC src/qdarkstyle/style.qrc)
+endif()
 set_source_files_properties(${TRANSLATION_FILES} PROPERTIES OUTPUT_LOCATION "${CMAKE_BINARY_DIR}/languages")
 
 qt_wrap_ui(UIS ${FORMS})
@@ -569,6 +582,10 @@ target_link_libraries(QCustomPlot Qt6::Core Qt6::PrintSupport)
 add_executable(${PROJECT_NAME} ${BUILD_PLATFORM} ${BUILD_RESOURCES} ${SOURCES} ${HEADERS} ${UIS} ${RCC})
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${QRENCODE_LIB} Mnemonics QCustomPlot)
+if (KARBO_USE_QLEMENTINE)
+  target_link_libraries(${PROJECT_NAME} qlementine)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE KARBO_USE_QLEMENTINE=1)
+endif()
 add_dependencies(${PROJECT_NAME} translations)
 if (WIN32)
   add_dependencies(${PROJECT_NAME} translations_delault)
@@ -601,7 +618,7 @@ elseif (WIN32)
 endif (APPLE)
 
 #qt5_use_modules(${PROJECT_NAME} Core Widgets Gui Network PrintSupport)
-target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Widgets Qt6::Gui Qt6::Network Qt6::PrintSupport)
+target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Widgets Qt6::Gui Qt6::Network Qt6::PrintSupport Qt6::Svg)
 
 # Installation
 

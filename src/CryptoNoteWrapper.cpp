@@ -264,6 +264,14 @@ public:
     return &m_node;
   }
 
+  void getAccountNumber(const std::string& address, std::string& accountNumber, const std::function<void(std::error_code)>& callback) override {
+    m_node.getAccountNumber(address, accountNumber, callback);
+  }
+
+  void resolveAccountNumber(const std::string& accountNumber, std::string& address, const std::function<void(std::error_code)>& callback) override {
+    m_node.resolveAccountNumber(accountNumber, address, callback);
+  }
+
 private:
   INodeCallback& m_callback;
   const CryptoNote::Currency& m_currency;
@@ -525,6 +533,14 @@ public:
 
   CryptoNote::INode* getNode() override {
     return &m_node;
+  }
+
+  void getAccountNumber(const std::string& address, std::string& accountNumber, const std::function<void(std::error_code)>& callback) override {
+    m_node.getAccountNumber(address, accountNumber, callback);
+  }
+
+  void resolveAccountNumber(const std::string& accountNumber, std::string& address, const std::function<void(std::error_code)>& callback) override {
+    m_node.resolveAccountNumber(accountNumber, address, callback);
   }
 
 private:

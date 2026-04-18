@@ -12,6 +12,7 @@
 #include <Logging/LoggerMessage.h>
 
 class QAbstractButton;
+class QEvent;
 
 namespace Ui {
 class MiningFrame;
@@ -34,6 +35,7 @@ public:
   bool isSoloRunning() const;
 
 protected:
+  void changeEvent(QEvent* _event) override;
   void timerEvent(QTimerEvent* _event) Q_DECL_OVERRIDE;
 
 private:
@@ -53,6 +55,7 @@ private:
   bool m_sychronized = false;
   bool m_mining_was_stopped = false;
 
+  void applyChartPalette();
   void walletOpened();
   void walletClosed();
   quint32 getHashRate() const;

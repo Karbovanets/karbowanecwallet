@@ -75,6 +75,9 @@ public:
   virtual CryptoNote::INode* getNode() = 0;
   virtual System::Dispatcher& getDispatcher() = 0;
 
+  virtual void getAccountNumber(const std::string& address, std::string& accountNumber, const std::function<void(std::error_code)>& callback) = 0;
+  virtual void resolveAccountNumber(const std::string& accountNumber, std::string& address, const std::function<void(std::error_code)>& callback) = 0;
+
 };
 
 class INodeCallback {

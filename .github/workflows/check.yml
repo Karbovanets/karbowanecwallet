@@ -13,7 +13,7 @@ jobs:
     name: Windows
     runs-on: windows-2022
     env:
-      BOOST_ROOT: C:\thirdparties\boost-1.83.0
+      BOOST_ROOT: C:\thirdparties\boost-1.86.0
       VCINSTALLDIR: 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\'
     steps:
       - uses: actions/checkout@v4
@@ -27,28 +27,25 @@ jobs:
         with:
           arch: x64
 
-      - name: Install OpenSSL
-        run: choco install openssl -y --no-progress
-
-      - name: Cache Boost 1.83
+      - name: Cache Boost 1.84
         id: cache-boost
         uses: actions/cache@v4
         with:
-          path: C:\thirdparties\boost-1.83.0
-          key: windows-2022-boost-1.83.0-msvc143
+          path: C:\thirdparties\boost-1.86.0
+          key: windows-2022-boost-1.86.0-msvc143
 
-      - name: Download and Install Boost 1.83 for MSVC 14.3 (VS 2022)
+      - name: Download and Install Boost 1.84 for MSVC 14.3 (VS 2022)
         if: steps.cache-boost.outputs.cache-hit != 'true'
         run: |
-          $Url = "https://sourceforge.net/projects/boost/files/boost-binaries/1.83.0/boost_1_83_0-msvc-14.3-64.exe"
+          $Url = "https://sourceforge.net/projects/boost/files/boost-binaries/1.86.0/boost_1_86_0-msvc-14.3-64.exe"
           $OutputPath = "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\boost-installer.exe"
           curl -L $Url -o $OutputPath
-          Start-Process -Wait -FilePath $OutputPath "/SILENT","/SP-","/SUPPRESSMSGBOXES","/DIR=C:\\thirdparties\\boost-1.83.0"
+          Start-Process -Wait -FilePath $OutputPath "/SILENT","/SP-","/SUPPRESSMSGBOXES","/DIR=C:\\thirdparties\\boost-1.86.0"
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4.1.1
         with:
-          version: '6.7.3'
+          version: '6.9.2'
           host: 'windows'
           target: 'desktop'
           install-deps: 'true'
@@ -208,11 +205,18 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4.1.1
+        with:
+          version: '6.9.2'
+          target: 'desktop'
+          install-deps: 'true'
+
       - name: Build
         id: build
         run: |
           sudo apt update -y
-          sudo apt install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-svg-dev libqt6svg6 libboost-all-dev
+          sudo apt install -y libboost-all-dev
           build_folder="build/release"
           krb_ver=$(git describe --tags --abbrev=0)
           release_name=Karbo-wallet-ubuntu-24.04-$krb_ver
@@ -248,11 +252,18 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4.1.1
+        with:
+          version: '6.9.2'
+          target: 'desktop'
+          install-deps: 'true'
+
       - name: Build
         id: build
         run: |
           sudo apt update -y
-          sudo apt install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-svg-dev libqt6svg6 libboost-all-dev
+          sudo apt install -y libboost-all-dev
           build_folder="build/release"
           krb_ver=$(git describe --tags --abbrev=0)
           release_name=Karbo-wallet-ubuntu-24.04-$krb_ver

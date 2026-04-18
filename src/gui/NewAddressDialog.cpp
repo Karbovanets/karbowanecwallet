@@ -6,6 +6,7 @@
 #include <QRegularExpressionValidator>
 #include <QRegularExpression>
 #include "NewAddressDialog.h"
+#include "NodeAdapter.h"
 
 #include "ui_newaddressdialog.h"
 
@@ -17,12 +18,17 @@ NewAddressDialog::NewAddressDialog(QWidget* _parent) : QDialog(_parent), m_ui(ne
   QRegularExpression hexMatcher("^[0-9A-F]{64}$", QRegularExpression::CaseInsensitiveOption);
   QValidator *validator = new QRegularExpressionValidator(hexMatcher, this);
   m_ui->m_contactPaymentIdEdit->setValidator(validator);
+
+  connect(m_ui->m_addressEdit, &QLineEdit::textEdited, this, &NewAddressDialog::onAddressEdited);
 }
 
 NewAddressDialog::~NewAddressDialog() {
 }
 
 QString NewAddressDialog::getAddress() const {
+  if (!m_resolvedAddress.isEmpty()) {
+    return m_resolvedAddress;
+  }
   return m_ui->m_addressEdit->text();
 }
 
@@ -40,10 +46,45 @@ void NewAddressDialog::setEditLabel(QString label) {
 
 void NewAddressDialog::setEditAddress(QString address) {
   m_ui->m_addressEdit->setText(address);
+  m_resolvedAddress.clear();
 }
 
 void NewAddressDialog::setEditPaymentId(QString paymentid) {
   m_ui->m_contactPaymentIdEdit->setText(paymentid);
+}
+
+bool NewAddressDialog::looksLikeAccountNumber(const QString& _text) {
+  static QRegularExpression re("^\\d+-\\d+-[0-9A-Za-z]$");
+  return re.match(_text).hasMatch();
+}
+
+void NewAddressDialog::onAddressEdited(const QString& _text) {
+  m_resolvedAddress.clear();
+  QString trimmed = _text.trimmed();
+  if (looksLikeAccountNumber(trimmed)) {
+    resolveAccountNumber(trimmed);
+  }
+}
+
+void NewAddressDialog::resolveAccountNumber(const QString& _input) {
+  std::string accountNumber = _input.toStdString();
+  std::string* address = new std::string();
+
+  NodeAdapter::instance().resolveAccountNumber(accountNumber, *address,
+    [this, _input, address](std::error_code ec) {
+      QString resolvedAddress;
+      if (!ec && !address->empty()) {
+        resolvedAddress = QString::fromStdString(*address);
+      }
+      delete address;
+
+      if (!resolvedAddress.isEmpty()) {
+        QMetaObject::invokeMethod(this, [this, _input, resolvedAddress]() {
+          m_resolvedAddress = resolvedAddress;
+          m_ui->m_addressEdit->setText(QString("%1 (%2)").arg(_input).arg(resolvedAddress));
+        }, Qt::QueuedConnection);
+      }
+    });
 }
 
 }

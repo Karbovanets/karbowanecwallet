@@ -5,6 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <algorithm>
+#include <QIcon>
 #include <QMetaEnum>
 
 #include "CryptoNoteCore/CryptoNoteTools.h"
@@ -153,9 +154,9 @@ QVariant OutputsModel::getDecorationRole(const QModelIndex& _index) const {
   if(_index.column() == COLUMN_STATE) {
     OutputState state = static_cast<OutputState>(_index.data(ROLE_STATE).value<quint8>());
     if (state == OutputState::SPENT) {
-      return QPixmap(":icons/tx-output").scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+      return QIcon(":icons/tx-output").pixmap(QSize(20, 20));
     } else if (state == OutputState::UNSPENT) {
-      return QPixmap(":icons/tx-input").scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+      return QIcon(":icons/tx-input").pixmap(QSize(20, 20));
     }
   }
 

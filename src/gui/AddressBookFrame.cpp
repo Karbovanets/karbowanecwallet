@@ -5,12 +5,14 @@
 
 #include <QApplication>
 #include <QClipboard>
+#include <QMessageBox>
 
 #include "CurrencyAdapter.h"
 #include "AddressBookModel.h"
 #include "AddressBookFrame.h"
 #include "MainWindow.h"
 #include "NewAddressDialog.h"
+#include "NodeAdapter.h"
 #include "WalletEvents.h"
 
 #include "ui_addressbookframe.h"
@@ -35,6 +37,7 @@ AddressBookFrame::AddressBookFrame(QWidget* _parent) : QFrame(_parent), m_ui(new
   contextMenu->addAction(QString(tr("&Pay to")), this, SLOT(payToClicked()));
   contextMenu->addAction(QString(tr("Copy &label")), this, SLOT(copyLabelClicked()));
   contextMenu->addAction(QString(tr("Copy &address")), this, SLOT(copyClicked()));
+  contextMenu->addAction(QString(tr("Copy Account &Number")), this, SLOT(copyAccountNumberClicked()));
   contextMenu->addAction(QString(tr("Copy Payment &ID")), this, SLOT(copyPaymentIdClicked()));
   contextMenu->addAction(QString(tr("&Edit")), this, SLOT(editClicked()));
   contextMenu->addAction(QString(tr("&Delete")), this, SLOT(deleteClicked()));
@@ -139,6 +142,31 @@ void AddressBookFrame::editClicked() {
 
 void AddressBookFrame::copyClicked() {
   QApplication::clipboard()->setText(m_ui->m_addressBookView->currentIndex().data(AddressBookModel::ROLE_ADDRESS).toString());
+}
+
+void AddressBookFrame::copyAccountNumberClicked() {
+  QString address = m_ui->m_addressBookView->currentIndex().data(AddressBookModel::ROLE_ADDRESS).toString();
+  if (address.isEmpty()) {
+    return;
+  }
+
+  std::string* accountNumber = new std::string();
+  NodeAdapter::instance().getAccountNumber(address.toStdString(), *accountNumber,
+    [this, accountNumber](std::error_code ec) {
+      QString result;
+      if (!ec && !accountNumber->empty()) {
+        result = QString::fromStdString(*accountNumber);
+      }
+      delete accountNumber;
+
+      QMetaObject::invokeMethod(this, [this, result]() {
+        if (!result.isEmpty()) {
+          QApplication::clipboard()->setText(result);
+        } else {
+          QMessageBox::information(this, tr("Account Number"), tr("No account number registered for this address."));
+        }
+      }, Qt::QueuedConnection);
+    });
 }
 
 void AddressBookFrame::copyPaymentIdClicked() {

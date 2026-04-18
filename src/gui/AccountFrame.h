@@ -7,6 +7,8 @@
 
 #include <QFrame>
 
+class QEvent;
+
 namespace Ui {
 class AccountFrame;
 }
@@ -21,19 +23,31 @@ public:
   AccountFrame(QWidget* _parent);
   ~AccountFrame();
 
+protected:
+  bool eventFilter(QObject* _object, QEvent* _event) override;
+  void changeEvent(QEvent* _event) override;
+
 private:
   QScopedPointer<Ui::AccountFrame> m_ui;
+  QString m_accountNumber;
+  bool m_accountNumberResolved;
+  bool m_accountNumberFetchInProgress;
 
+  void applyFramePalette();
   void updateWalletAddress(const QString& _address);
   void updateActualBalance(quint64 _balance);
   void updatePendingBalance(quint64 _balance);
   void updateUnmixableBalance(quint64 _balance);
   void reset();
+  void fetchAccountNumber(const QString& _address);
+  void updateAccountNumberDisplay();
 
   QStringList divideAmount(quint64 _val);
 
   Q_SLOT void copyAddress();
   Q_SLOT void showQR();
+  Q_SLOT void copyAccountNumber();
+  Q_SLOT void registerAccountNumber();
 
 Q_SIGNALS:
   void showQRcodeSignal();

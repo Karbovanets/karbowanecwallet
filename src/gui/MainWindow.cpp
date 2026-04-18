@@ -78,12 +78,15 @@ MainWindow::MainWindow() : QMainWindow(),
   m_ui->setupUi(this);
   m_connectionStateIconLabel = new QPushButton();
   m_connectionStateIconLabel->setFlat(true); // Make the button look like a label, but clickable
-  m_connectionStateIconLabel->setStyleSheet(".QPushButton { background-color: rgba(255, 255, 255, 0); border: none;}");
-  m_connectionStateIconLabel->setMaximumSize(16, 16);
+  m_connectionStateIconLabel->setAutoDefault(false);
+  m_connectionStateIconLabel->setDefault(false);
+  m_connectionStateIconLabel->setFocusPolicy(Qt::NoFocus);
+  m_connectionStateIconLabel->setMaximumSize(20, 20);
   m_encryptionStateIconLabel = new QLabel(this);
   m_trackingModeIconLabel = new QLabel(this);
   m_remoteModeIconLabel = new QLabel(this);
   m_syncProgressBar = new QProgressBar();
+  m_syncStatusLabel = new QLabel();
   m_synchronizationStateIconLabel = new AnimatedLabel(this);
   connectToSignals();
   createLanguageMenu();
@@ -140,6 +143,8 @@ void MainWindow::initUi() {
 #endif
 
   m_ui->accountToolBar->setAllowedAreas(Qt::TopToolBarArea);
+  m_ui->accountToolBar->setContentsMargins(0, 0, 0, 0);
+  m_ui->accountToolBar->layout()->setContentsMargins(0, 0, 0, 0);
 
   accountWidget = m_ui->accountToolBar->addWidget(m_ui->m_accountFrame);
   addToolBar(Qt::TopToolBarArea, m_ui->accountToolBar);
@@ -149,8 +154,9 @@ void MainWindow::initUi() {
   m_ui->accountToolBar->setMovable(false);
   m_ui->toolBar->setMovable(false);
 
+  applyToolBarPalette();
+
   m_ui->m_aboutCryptonoteAction->setText(QString(tr("About %1 Wallet")).arg(CurrencyAdapter::instance().getCurrencyDisplayName()));
-  m_ui->m_overviewFrame->hide();
   m_ui->m_sendFrame->hide();
   accountWidget->setVisible(false);
   m_ui->m_receiveFrame->hide();
@@ -159,42 +165,55 @@ void MainWindow::initUi() {
   m_ui->m_miningFrame->hide();
   m_ui->m_coinsFrame->hide();
 
-  m_tabActionGroup->addAction(m_ui->m_overviewAction);
+  m_tabActionGroup->addAction(m_ui->m_transactionsAction);
   m_tabActionGroup->addAction(m_ui->m_sendAction);
   m_tabActionGroup->addAction(m_ui->m_receiveAction);
-  m_tabActionGroup->addAction(m_ui->m_transactionsAction);
   m_tabActionGroup->addAction(m_ui->m_addressBookAction);
   m_tabActionGroup->addAction(m_ui->m_miningAction);
   m_tabActionGroup->addAction(m_ui->m_coinsAction);
 
+  // Add spacing between icon and text in toolbar buttons
+  for (auto* action : m_ui->toolBar->actions()) {
+      if (!action->icon().isNull() && !action->iconText().isEmpty()) {
+           action->setIconText(QStringLiteral("  ") + action->iconText());
+      }
+  }
+
   m_syncProgressBar->setMaximum(maxProgressBar);
   m_syncProgressBar->setMinimum(0);
   m_syncProgressBar->setValue(0);
-  m_syncProgressBar->setFormat(m_statusBarText);
-  m_syncProgressBar->setTextVisible(true);
+  m_syncProgressBar->setTextVisible(false);
   m_syncProgressBar->setMaximumHeight(30);
+  m_syncProgressBar->setFixedWidth(180);
   m_syncProgressBar->hide();
 
-  statusBar()->addPermanentWidget(m_syncProgressBar, 1);
+  m_syncStatusLabel->hide();
+
+  statusBar()->setMinimumHeight(28);
+  statusBar()->setContentsMargins(4, 0, 4, 0);
+  statusBar()->setSizeGripEnabled(false);
+  statusBar()->setStyleSheet("QStatusBar::item { border: none; }");
+  statusBar()->addPermanentWidget(m_syncStatusLabel, 1);
+  statusBar()->addPermanentWidget(m_syncProgressBar);
   statusBar()->addPermanentWidget(m_trackingModeIconLabel);
   statusBar()->addPermanentWidget(m_remoteModeIconLabel);
   statusBar()->addPermanentWidget(m_connectionStateIconLabel);
   statusBar()->addPermanentWidget(m_encryptionStateIconLabel);
   statusBar()->addPermanentWidget(m_synchronizationStateIconLabel);
 
-  m_synchronizationStateIconLabel->setFixedSize(16,16);
+  m_synchronizationStateIconLabel->setFixedSize(20, 20);
   m_synchronizationStateIconLabel->setScaledContents( true );
-  m_connectionStateIconLabel->setFixedSize(16,16);
-  m_encryptionStateIconLabel->setFixedSize(16,16);
+  m_connectionStateIconLabel->setFixedSize(20, 20);
+  m_encryptionStateIconLabel->setFixedSize(20, 20);
   m_encryptionStateIconLabel->setScaledContents( true );
-  m_trackingModeIconLabel->setFixedSize(16,16);
+  m_trackingModeIconLabel->setFixedSize(20, 20);
   m_trackingModeIconLabel->setScaledContents( true );
-  m_remoteModeIconLabel->setFixedSize(16,16);
+  m_remoteModeIconLabel->setFixedSize(20, 20);
   m_remoteModeIconLabel->setScaledContents( true );
 
-  m_ui->m_overviewAction->toggle();
+  m_ui->m_transactionsAction->toggle();
   encryptedFlagChanged(false);
-  
+
   qobject_cast<AnimatedLabel*>(m_synchronizationStateIconLabel)->setSprite(QPixmap(":icons/sync_sprite"), QSize(16, 16), 5, 24);
   m_connectionStateIconLabel->setIcon(QPixmap(":icons/disconnected").scaled(96, 96, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
   m_trackingModeIconLabel->setPixmap(QPixmap(":icons/tracking").scaledToHeight(96, Qt::SmoothTransformation));
@@ -329,11 +348,37 @@ void MainWindow::changeEvent(QEvent* _event) {
     break;
 #endif
   }
+  case QEvent::PaletteChange:
+  case QEvent::StyleChange:
+    if (!m_isAboutToQuit)
+      applyToolBarPalette();
+    break;
   default:
     break;
   }
   QWidget::changeEvent(_event);
   QMainWindow::changeEvent(_event);
+}
+
+void MainWindow::applyToolBarPalette() {
+  const QColor windowColor = palette().color(QPalette::Window);
+  const QColor darkerColor = windowColor.darker(135);
+  const QColor lighterColor = windowColor.lighter(125);
+  const QColor accentColor = palette().color(QPalette::Highlight);
+
+  m_ui->toolBar->setContentsMargins(0, 0, 0, 0);
+  m_ui->toolBar->layout()->setContentsMargins(0, 0, 0, 0);
+  m_ui->toolBar->layout()->setSpacing(0);
+  m_ui->toolBar->setStyleSheet(
+    QString(
+      "QToolBar#toolBar { background-color: %1; border: none; spacing: 0px; padding: 0px; }"
+      "QToolBar#toolBar QToolButton { background-color: %1; border: none; border-radius: 0px;"
+      "  padding: 6px 14px; margin: 0px; min-height: 36px; }"
+      "QToolBar#toolBar QToolButton:hover { background-color: %4; }"
+      "QToolBar#toolBar QToolButton:checked { background-color: %2;"
+      "  border-top: 2px solid %3; }"
+    )
+    .arg(darkerColor.name(), windowColor.name(), accentColor.name(), lighterColor.name()));
 }
 
 bool MainWindow::event(QEvent* _event) {
@@ -544,7 +589,7 @@ void MainWindow::importTrackingKey() {
 
 void MainWindow::isTrackingMode() {
   m_ui->m_sendFrame->hide();
-  m_ui->m_overviewAction->trigger();
+  m_ui->m_transactionsAction->trigger();
   m_ui->m_sendAction->setEnabled(false);
   m_ui->m_openUriAction->setEnabled(false);
   m_ui->m_showMnemonicSeedAction->setEnabled(false);
@@ -596,19 +641,19 @@ void MainWindow::createLanguageMenu(void)
   // -----------------------
 
   QDir dir(m_langPath);
-  
+
   // Use *.qm to ensure 'ua.qm' is caught even if the filter is picky
   QStringList fileNames = dir.entryList(QStringList("*.qm"), QDir::Files);
 
   for (int i = 0; i < fileNames.size(); ++i) {
     QString file = fileNames[i];
     QString locale = QFileInfo(file).baseName(); // Gets "ua" from "ua.qm"
-    
+
     // Convert "ua" or "uk" to a readable name like "Українська"
     QString lang = QLocale(locale).nativeLanguageName();
-    
+
     // Fallback if QLocale doesn't recognize "ua"
-    if (lang.isEmpty()) lang = locale; 
+    if (lang.isEmpty()) lang = locale;
 
     QAction *action = new QAction(lang, this);
     action->setCheckable(true);
@@ -916,8 +961,7 @@ void MainWindow::setStatusBarText(const QString& _text) {
   if (m_syncProgressBar->isHidden()) {
     statusBar()->showMessage(m_statusBarText);
   } else {
-    // TODO: not the best indent, but it is very simple and works
-    m_syncProgressBar->setFormat(QString("  ") + m_statusBarText);
+    m_syncStatusLabel->setText(QString("  ") + m_statusBarText);
     statusBar()->clearMessage();
   }
 }
@@ -948,7 +992,6 @@ void MainWindow::lockWalletWithPassword() {
 
   if (hide) {
     accountWidget->setVisible(false);
-    m_ui->m_overviewFrame->hide();
     m_ui->m_receiveFrame->hide();
     m_ui->m_sendFrame->hide();
     m_ui->m_transactionsFrame->hide();
@@ -972,7 +1015,7 @@ void MainWindow::lockWalletWithPassword() {
 
   if (hide) {
     accountWidget->setVisible(true);
-    m_ui->m_overviewFrame->show();
+    m_ui->m_transactionsAction->trigger();
   }
 }
 
@@ -990,7 +1033,7 @@ bool MainWindow::confirmWithPassword() {
       return true;
     }
   }
-  
+
   return false;
 }
 
@@ -1026,7 +1069,10 @@ void MainWindow::walletSynchronizationInProgress(uint32_t _current, uint32_t _to
   } else {
     syncProgress = maxProgressBar;
   }
-  if (m_syncProgressBar->isHidden() && progressAct) m_syncProgressBar->show();
+  if (m_syncProgressBar->isHidden() && progressAct) {
+    m_syncProgressBar->show();
+    m_syncStatusLabel->show();
+  }
   m_syncProgressBar->setValue(syncProgress);
   m_ui->m_proofBalanceAction->setEnabled(false);
 }
@@ -1042,6 +1088,7 @@ void MainWindow::walletSynchronized(int _error, const QString& _error_text) {
   }
   statusBar()->showMessage(m_statusBarText);
   m_syncProgressBar->hide();
+  m_syncStatusLabel->hide();
 }
 
 void MainWindow::walletOpened(bool _error, const QString& _error_text) {
@@ -1072,9 +1119,9 @@ void MainWindow::walletOpened(bool _error, const QString& _error_text) {
 
     setWindowTitle(QString(tr("%1 - Karbo Wallet %2")).arg(Settings::instance().getWalletFile()).arg(Settings::instance().getVersion()));
 
-    m_ui->m_overviewAction->trigger();
+    m_ui->m_transactionsAction->trigger();
     accountWidget->setVisible(true);
-    m_ui->m_overviewFrame->show();
+    m_ui->m_transactionsFrame->show();
 
     checkTrackingMode();
     updateRecentActionList();
@@ -1104,7 +1151,6 @@ void MainWindow::walletClosed() {
   m_ui->m_verifySignedMessageAction->setEnabled(false);
   m_ui->m_proofBalanceAction->setEnabled(false);
   m_ui->m_lockWalletAction->setEnabled(false);
-  m_ui->m_overviewFrame->hide();
   accountWidget->setVisible(false);
   m_ui->m_receiveFrame->hide();
   m_ui->m_sendFrame->hide();

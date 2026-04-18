@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <functional>
 #include <QObject>
 #include <QThread>
 
@@ -76,6 +77,9 @@ public:
 
   CryptoNote::INode* getNode();
   System::Dispatcher& getDispatcher();
+
+  void getAccountNumber(const std::string& address, std::string& accountNumber, const std::function<void(std::error_code)>& callback);
+  void resolveAccountNumber(const std::string& accountNumber, std::string& address, const std::function<void(std::error_code)>& callback);
 
 private:
   Node* m_node;

@@ -31,6 +31,11 @@ public:
 
 private:
   QScopedPointer<Ui::NewAddressDialog> m_ui;
+  QString m_resolvedAddress;
+
+  void onAddressEdited(const QString& _text);
+  void resolveAccountNumber(const QString& _input);
+  static bool looksLikeAccountNumber(const QString& _text);
 };
 
 }

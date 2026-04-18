@@ -54,6 +54,7 @@ TransactionsFrame::TransactionsFrame(QWidget* _parent) : QFrame(_parent), m_ui(n
   contextMenu->addAction(QString(tr("Show &details")), this, SLOT(showTxDetails()));
 
   m_ui->m_selectedAmountLabel->hide();
+  m_ui->m_selectedAmount->setTextFormat(Qt::PlainText);
 
   m_ui->m_dateSelect->addItem(tr("Unconfirmed"), Unconfirmed);
   m_ui->m_dateSelect->addItem(tr("All"), All);
@@ -180,7 +181,6 @@ void TransactionsFrame::computeSelected() {
         amount += amountstring.toDouble();
     }
     QString amountText = QString::number(amount, 'f', 12) + " " + CurrencyAdapter::instance().getCurrencyTicker().toUpper();
-    if (amount < 0) amountText = "<span style='color:red;'>" + amountText + "</span>";
     m_ui->m_selectedAmount->show();
     m_ui->m_selectedAmount->setText(amountText);
     m_ui->m_selectedAmountLabel->show();
@@ -197,8 +197,8 @@ QString TransactionsFrame::formatAmount(int64_t _amount) const {
 QWidget *TransactionsFrame::createDateRangeWidget()
 {
     dateRangeWidget = new QFrame();
-    dateRangeWidget->setFrameStyle(QFrame::Panel | QFrame::Plain);
-    dateRangeWidget->setStyleSheet("QFrame { border: 0; max-width: 240px; }");
+    dateRangeWidget->setFrameShape(QFrame::NoFrame);
+    dateRangeWidget->setMaximumWidth(240);
     dateRangeWidget->setContentsMargins(1,1,1,1);
     QHBoxLayout *layout = new QHBoxLayout(dateRangeWidget);
     layout->setContentsMargins(0,0,0,0);

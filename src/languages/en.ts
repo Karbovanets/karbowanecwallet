@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en" sourcelanguage="en">
+<TS version="2.1" language="en_US" sourcelanguage="en_US">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -1416,6 +1416,16 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/ui/transferframe.ui" line="132"/>
         <source>Enter a label for this address to add it to your address book</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="137"/>
+        <source>Account number not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/TransferFrame.cpp" line="140"/>
+        <source>Invalid account number</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

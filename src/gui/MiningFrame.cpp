@@ -4,16 +4,15 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <algorithm>
 #include <QDebug>
 #include <QThread>
 #include <QUrl>
 #include <QtConcurrent/QtConcurrent>
 #include <QtConcurrent/QtConcurrentRun>
-#include <QDebug>
 
 #include "MiningFrame.h"
 #include "MainWindow.h"
-#include "Settings.h"
 #include "WalletAdapter.h"
 #include "NodeAdapter.h"
 #include "CryptoNoteWrapper.h"
@@ -34,6 +33,15 @@ namespace WalletGui {
 
 const quint32 HASHRATE_TIMER_INTERVAL = 1000;
 const quint32 MINER_ROUTINE_TIMER_INTERVAL = 60000;
+
+namespace {
+
+QColor withAlpha(QColor color, int alpha) {
+  color.setAlpha(alpha);
+  return color;
+}
+
+}
 
 MiningFrame::MiningFrame(QWidget* _parent) :
     QFrame(_parent), m_ui(new Ui::MiningFrame),
@@ -57,21 +65,12 @@ MiningFrame::MiningFrame(QWidget* _parent) :
   m_ui->m_hashRateChart->addGraph();
   m_ui->m_hashRateChart->graph(0)->setScatterStyle(QCPScatterStyle::ssDot);
   m_ui->m_hashRateChart->graph(0)->setLineStyle(QCPGraph::lsLine);
-  m_ui->m_hashRateChart->graph()->setPen(QPen(QRgb(0xe3e1e3)));
-  m_ui->m_hashRateChart->graph()->setBrush(QBrush(QRgb(0x0b1620)));
 
   QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);
   dateTicker->setDateTimeFormat("hh:mm:ss");
   m_ui->m_hashRateChart->xAxis->setTicker(dateTicker);
   m_ui->m_hashRateChart->yAxis->setRange(0, m_maxHr);
   m_ui->m_hashRateChart->yAxis->setLabel(tr("Hashrate"));
-  m_ui->m_hashRateChart->xAxis->setLabelColor(Qt::white);
-  m_ui->m_hashRateChart->yAxis->setLabelColor(Qt::white);
-  m_ui->m_hashRateChart->xAxis->setTickLabelColor(Qt::white);
-  m_ui->m_hashRateChart->yAxis->setTickLabelColor(Qt::white);
-  if (m_ui->m_hashRateChart->legend) {
-      m_ui->m_hashRateChart->legend->setTextColor(Qt::white);
-  }
 
   // make top and right axes visible but without ticks and labels
   m_ui->m_hashRateChart->xAxis2->setVisible(true);
@@ -80,19 +79,7 @@ MiningFrame::MiningFrame(QWidget* _parent) :
   m_ui->m_hashRateChart->yAxis2->setTicks(false);
   m_ui->m_hashRateChart->xAxis2->setTickLabels(false);
   m_ui->m_hashRateChart->yAxis2->setTickLabels(false);
-
-  m_ui->m_hashRateChart->xAxis->setTickPen(QPen(Qt::white));
-  m_ui->m_hashRateChart->yAxis->setTickPen(QPen(Qt::white));
-
-  m_ui->m_hashRateChart->xAxis->setSubTickPen(QPen(Qt::gray));
-  m_ui->m_hashRateChart->yAxis->setSubTickPen(QPen(Qt::gray));
-
-  m_ui->m_hashRateChart->xAxis->setBasePen(QPen(Qt::gray));
-  m_ui->m_hashRateChart->yAxis->setBasePen(QPen(Qt::gray));
-  m_ui->m_hashRateChart->xAxis2->setBasePen(QPen(Qt::gray));
-  m_ui->m_hashRateChart->yAxis2->setBasePen(QPen(Qt::gray));
-
-  m_ui->m_hashRateChart->setBackground(QBrush(QRgb(0x19232d)));
+  applyChartPalette();
 
   addPoint(QDateTime::currentDateTime().toSecsSinceEpoch(), 0);
   plot();
@@ -109,6 +96,56 @@ MiningFrame::MiningFrame(QWidget* _parent) :
 
 MiningFrame::~MiningFrame() {
   stopSolo();
+}
+
+void MiningFrame::changeEvent(QEvent* _event) {
+  QFrame::changeEvent(_event);
+  if (_event->type() == QEvent::PaletteChange || _event->type() == QEvent::StyleChange) {
+    applyChartPalette();
+    m_ui->m_hashRateChart->replot();
+  }
+}
+
+void MiningFrame::applyChartPalette() {
+  const QPalette chartPalette = palette();
+  const QColor accentColor = chartPalette.color(QPalette::Highlight);
+  const QColor textColor = chartPalette.color(QPalette::WindowText);
+  const QColor axisColor = chartPalette.color(QPalette::Mid);
+  const QColor subTickColor = chartPalette.color(QPalette::Midlight);
+  const QColor backgroundColor = chartPalette.color(QPalette::Window);
+
+  m_ui->m_hashRateChart->graph()->setPen(QPen(accentColor));
+  m_ui->m_hashRateChart->graph()->setBrush(QBrush(withAlpha(accentColor, 48)));
+
+  m_ui->m_hashRateChart->xAxis->setLabelColor(textColor);
+  m_ui->m_hashRateChart->yAxis->setLabelColor(textColor);
+  m_ui->m_hashRateChart->xAxis->setTickLabelColor(textColor);
+  m_ui->m_hashRateChart->yAxis->setTickLabelColor(textColor);
+
+  m_ui->m_hashRateChart->xAxis->setTickPen(QPen(axisColor));
+  m_ui->m_hashRateChart->yAxis->setTickPen(QPen(axisColor));
+
+  m_ui->m_hashRateChart->xAxis->setSubTickPen(QPen(subTickColor));
+  m_ui->m_hashRateChart->yAxis->setSubTickPen(QPen(subTickColor));
+
+  m_ui->m_hashRateChart->xAxis->setBasePen(QPen(axisColor));
+  m_ui->m_hashRateChart->yAxis->setBasePen(QPen(axisColor));
+  m_ui->m_hashRateChart->xAxis2->setBasePen(QPen(axisColor));
+  m_ui->m_hashRateChart->yAxis2->setBasePen(QPen(axisColor));
+
+  if (m_ui->m_hashRateChart->legend) {
+    m_ui->m_hashRateChart->legend->setTextColor(textColor);
+    m_ui->m_hashRateChart->legend->setBrush(QBrush(backgroundColor));
+    m_ui->m_hashRateChart->legend->setBorderPen(QPen(axisColor));
+  }
+
+  m_ui->m_hashRateChart->setBackground(QBrush(backgroundColor));
+
+  // Match wrapper frame background to chart background so margins don't show a different color
+  m_ui->m_chartFrame->setAutoFillBackground(true);
+  QPalette framePalette = m_ui->m_chartFrame->palette();
+  framePalette.setColor(QPalette::Window, backgroundColor);
+  m_ui->m_chartFrame->setPalette(framePalette);
 }
 
 void MiningFrame::addPoint(double x, double y)
