@@ -86,6 +86,7 @@ MainWindow::MainWindow() : QMainWindow(),
   m_trackingModeIconLabel = new QLabel(this);
   m_remoteModeIconLabel = new QLabel(this);
   m_syncProgressBar = new QProgressBar();
+  m_syncStatusLabel = new QLabel();
   m_synchronizationStateIconLabel = new AnimatedLabel(this);
   connectToSignals();
   createLanguageMenu();
@@ -181,16 +182,19 @@ void MainWindow::initUi() {
   m_syncProgressBar->setMaximum(maxProgressBar);
   m_syncProgressBar->setMinimum(0);
   m_syncProgressBar->setValue(0);
-  m_syncProgressBar->setFormat(m_statusBarText);
-  m_syncProgressBar->setTextVisible(true);
+  m_syncProgressBar->setTextVisible(false);
   m_syncProgressBar->setMaximumHeight(30);
+  m_syncProgressBar->setFixedWidth(180);
   m_syncProgressBar->hide();
+
+  m_syncStatusLabel->hide();
 
   statusBar()->setMinimumHeight(28);
   statusBar()->setContentsMargins(4, 0, 4, 0);
   statusBar()->setSizeGripEnabled(false);
   statusBar()->setStyleSheet("QStatusBar::item { border: none; }");
-  statusBar()->addPermanentWidget(m_syncProgressBar, 1);
+  statusBar()->addPermanentWidget(m_syncStatusLabel, 1);
+  statusBar()->addPermanentWidget(m_syncProgressBar);
   statusBar()->addPermanentWidget(m_trackingModeIconLabel);
   statusBar()->addPermanentWidget(m_remoteModeIconLabel);
   statusBar()->addPermanentWidget(m_connectionStateIconLabel);
@@ -957,8 +961,7 @@ void MainWindow::setStatusBarText(const QString& _text) {
   if (m_syncProgressBar->isHidden()) {
     statusBar()->showMessage(m_statusBarText);
   } else {
-    // TODO: not the best indent, but it is very simple and works
-    m_syncProgressBar->setFormat(QString("  ") + m_statusBarText);
+    m_syncStatusLabel->setText(QString("  ") + m_statusBarText);
     statusBar()->clearMessage();
   }
 }
@@ -1066,7 +1069,10 @@ void MainWindow::walletSynchronizationInProgress(uint32_t _current, uint32_t _to
   } else {
     syncProgress = maxProgressBar;
   }
-  if (m_syncProgressBar->isHidden() && progressAct) m_syncProgressBar->show();
+  if (m_syncProgressBar->isHidden() && progressAct) {
+    m_syncProgressBar->show();
+    m_syncStatusLabel->show();
+  }
   m_syncProgressBar->setValue(syncProgress);
   m_ui->m_proofBalanceAction->setEnabled(false);
 }
@@ -1082,6 +1088,7 @@ void MainWindow::walletSynchronized(int _error, const QString& _error_text) {
   }
   statusBar()->showMessage(m_statusBarText);
   m_syncProgressBar->hide();
+  m_syncStatusLabel->hide();
 }
 
 void MainWindow::walletOpened(bool _error, const QString& _error_text) {

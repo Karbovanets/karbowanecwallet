@@ -54,6 +54,7 @@ private:
 
   QScopedPointer<Ui::MainWindow> m_ui;
   QProgressBar* m_syncProgressBar;
+  QLabel* m_syncStatusLabel;
   QPushButton* m_connectionStateIconLabel;
   QLabel* m_encryptionStateIconLabel;
   QLabel* m_synchronizationStateIconLabel;
