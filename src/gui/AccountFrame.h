@@ -32,6 +32,13 @@ private:
   QString m_accountNumber;
   bool m_accountNumberResolved;
   bool m_accountNumberFetchInProgress;
+  // Set to true the moment the user confirms a registration. Used to hide
+  // the Register button immediately so a single click can't be repeated
+  // while the registration tx is still unconfirmed (otherwise users send
+  // multiple duplicate registration txs in the same block, and only the
+  // first one is honored by consensus). Reset on wallet close, on address
+  // change, and once a real account number arrives from the daemon.
+  bool m_registrationPending;
 
   void applyFramePalette();
   void updateWalletAddress(const QString& _address);

@@ -92,7 +92,8 @@ QStringList AccountFrame::divideAmount(quint64 _val) {
 }
 
 AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::AccountFrame),
-  m_accountNumberResolved(false), m_accountNumberFetchInProgress(false) {
+  m_accountNumberResolved(false), m_accountNumberFetchInProgress(false),
+  m_registrationPending(false) {
   m_ui->setupUi(this);
   connect(&WalletAdapter::instance(), &WalletAdapter::updateWalletAddressSignal, this, &AccountFrame::updateWalletAddress);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletActualBalanceUpdatedSignal, this, &AccountFrame::updateActualBalance,
@@ -183,6 +184,9 @@ void AccountFrame::updateWalletAddress(const QString& _address) {
   m_accountNumber.clear();
   m_accountNumberResolved = false;
   m_accountNumberFetchInProgress = false;
+  // The address changed, so any previous registration-suppression flag is
+  // moot — the new address has its own registration state to discover.
+  m_registrationPending = false;
   updateAccountNumberDisplay();
   fetchAccountNumber(_address);
 }
@@ -277,6 +281,9 @@ void AccountFrame::fetchAccountNumber(const QString& _address) {
 
       m_accountNumberResolved = true;
       m_accountNumber = result;
+      // Registration confirmed — drop the suppression flag so future
+      // address-clearing scenarios behave normally.
+      m_registrationPending = false;
       m_accountNumberFetchInProgress = false;
       updateAccountNumberDisplay();
 
@@ -288,6 +295,18 @@ void AccountFrame::updateAccountNumberDisplay() {
   if (m_accountNumber.isEmpty()) {
     const bool canRegister = WalletAdapter::instance().isOpen() && !Settings::instance().isTrackingMode();
     m_ui->m_accountNumberLabel->clear();
+    if (m_registrationPending && canRegister) {
+      // We've already submitted a registration tx; show a transient hint
+      // instead of the Register button so the user doesn't fire off
+      // duplicate registrations while the first one is in mempool.
+      m_ui->m_accountNumberLabel->setText(tr("Registration pending..."));
+      m_ui->m_accountNumberLabel->setToolTip(tr("A registration transaction has been sent. "
+        "Your account number will appear here once it confirms."));
+      m_ui->m_accountNumberLabel->setVisible(true);
+      m_ui->m_copyAccountNumberButton->setVisible(false);
+      m_ui->m_registerAccountButton->setVisible(false);
+      return;
+    }
     m_ui->m_accountNumberLabel->setVisible(!canRegister);
     if (!canRegister) {
       m_ui->m_accountNumberLabel->setText(tr("Not registered"));
@@ -323,7 +342,14 @@ void AccountFrame::registerAccountNumber() {
   if (QMessageBox::question(this, tr("Register Account Number"),
       tr("Register an account number for easy payments?\nA small fee will be charged."),
       QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+    // Hide the Register button BEFORE handing off to the wallet so that
+    // even if the send takes a moment the user can't double-click it.
+    // sendTransaction is fire-and-forget here; consensus only honors the
+    // first registration per address per block, so duplicates are
+    // pure waste of fees + dust.
+    m_registrationPending = true;
     m_accountNumberResolved = false;
+    updateAccountNumberDisplay();
     WalletAdapter::instance().registerAccountNumber();
   }
 }
@@ -335,6 +361,11 @@ void AccountFrame::reset() {
   m_ui->m_addressLabel->clear();
   m_ui->m_addressLabel->setToolTip(tr("Your receiving address"));
   m_accountNumber.clear();
+  m_accountNumberResolved = false;
+  m_accountNumberFetchInProgress = false;
+  // Wallet closed — drop any registration-pending suppression so a fresh
+  // wallet open never inherits stale UI state from the prior session.
+  m_registrationPending = false;
   m_ui->m_accountNumberLabel->clear();
   m_ui->m_accountNumberLabel->setVisible(false);
   m_ui->m_copyAccountNumberButton->setVisible(false);
