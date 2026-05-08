@@ -3174,20 +3174,16 @@ Você tem certeza?</translation>
         <location filename="../Miner.cpp" line="235"/>
         <source>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="277"/>
         <source>Mining stopped, %n thread(s) finished</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
         </translation>
     </message>
     <message>
@@ -3998,7 +3994,7 @@ quando a carteira vai terminar de sincronizar</translation>
     </message>
     <message numerus="yes">
         <source>Wallet optimization transaction, %n confirmation(s)</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>Transação de otimização de carteira, %n confirmaçõ</numerusform>
             <numerusform>Transação de otimização de carteira, %n confirmações</numerusform>
         </translation>

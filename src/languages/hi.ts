@@ -2966,20 +2966,16 @@ Are you sure?</source>
         <location filename="../Miner.cpp" line="235"/>
         <source>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="277"/>
         <source>Mining stopped, %n thread(s) finished</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
         </translation>
     </message>
     <message>
@@ -3466,7 +3462,7 @@ when the wallet is synchronized</translation>
         <source>%n confirmation(s)</source>
         <translation>
             <numerusform>%n पुष्टिकरण</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n पुष्टिकरण</numerusform>
         </translation>
     </message>
     <message>
@@ -3671,7 +3667,7 @@ when the wallet is synchronized</translation>
         <source>Incoming transaction, %n confirmation(s)</source>
         <translation>
             <numerusform>इनकमिंग लेनदेन, %n पुष्टि</numerusform>
-            <numerusform></numerusform>
+            <numerusform>इनकमिंग लेनदेन, %n पुष्टि</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -3679,12 +3675,12 @@ when the wallet is synchronized</translation>
         <source>Mined, %n confirmation(s)</source>
         <translation>
             <numerusform>माइन हुई, %n पुष्टि</numerusform>
-            <numerusform></numerusform>
+            <numerusform>माइन हुई, %n पुष्टि</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Wallet optimization transaction, %n confirmation(s)</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>बटुआ अनुकूलन लेनदेन, %n पुष्टि</numerusform>
             <numerusform>बटुआ अनुकूलन लेनदेन, %n पुष्टि</numerusform>
         </translation>
@@ -3694,7 +3690,7 @@ when the wallet is synchronized</translation>
         <source>Sent to yourself, %n confirmation(s)</source>
         <translation>
             <numerusform>खुद को भेजा हुआ, %n पुष्टि</numerusform>
-            <numerusform></numerusform>
+            <numerusform>खुद को भेजा हुआ, %n पुष्टि</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -3702,7 +3698,7 @@ when the wallet is synchronized</translation>
         <source>Outgoing transaction, %n confirmation(s)</source>
         <translation>
             <numerusform>आउटगोइंग लेनदेन, %n पुष्टि</numerusform>
-            <numerusform></numerusform>
+            <numerusform>आउटगोइंग लेनदेन, %n पुष्टि</numerusform>
         </translation>
     </message>
 </context>

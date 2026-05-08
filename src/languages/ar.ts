@@ -2988,11 +2988,11 @@ Are you sure?</source>
         <source>%n active connection(s)</source>
         <translation>
             <numerusform>%n اتصال نشط</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n اتصال نشط</numerusform>
+            <numerusform>%n اتصال نشط</numerusform>
+            <numerusform>%n اتصال نشط</numerusform>
+            <numerusform>%n اتصال نشط</numerusform>
+            <numerusform>%n اتصال نشط</numerusform>
         </translation>
     </message>
     <message>
@@ -3048,84 +3048,24 @@ Are you sure?</source>
         <location filename="../Miner.cpp" line="235"/>
         <source>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="277"/>
         <source>Mining stopped, %n thread(s) finished</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
         </translation>
     </message>
     <message>
@@ -3653,11 +3593,11 @@ when the wallet is synchronized</translation>
         <source>%n confirmation(s)</source>
         <translation>
             <numerusform>تأكيد٪ n</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>تأكيد٪ n</numerusform>
+            <numerusform>تأكيد٪ n</numerusform>
+            <numerusform>تأكيد٪ n</numerusform>
+            <numerusform>تأكيد٪ n</numerusform>
+            <numerusform>تأكيد٪ n</numerusform>
         </translation>
     </message>
     <message>
@@ -3862,11 +3802,11 @@ when the wallet is synchronized</translation>
         <source>Incoming transaction, %n confirmation(s)</source>
         <translation>
             <numerusform>المعاملة الواردة ،:%n تأكيد</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>المعاملة الواردة ،:%n تأكيد</numerusform>
+            <numerusform>المعاملة الواردة ،:%n تأكيد</numerusform>
+            <numerusform>المعاملة الواردة ،:%n تأكيد</numerusform>
+            <numerusform>المعاملة الواردة ،:%n تأكيد</numerusform>
+            <numerusform>المعاملة الواردة ،:%n تأكيد</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -3874,22 +3814,22 @@ when the wallet is synchronized</translation>
         <source>Mined, %n confirmation(s)</source>
         <translation>
             <numerusform>معدن،٪ n تأكيد</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>معدن،٪ n تأكيد</numerusform>
+            <numerusform>معدن،٪ n تأكيد</numerusform>
+            <numerusform>معدن،٪ n تأكيد</numerusform>
+            <numerusform>معدن،٪ n تأكيد</numerusform>
+            <numerusform>معدن،٪ n تأكيد</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Wallet optimization transaction, %n confirmation(s)</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>ل،%n تأكيد معاملات تحسين المحفظة</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>ل،%n تأكيد معاملات تحسين المحفظة</numerusform>
+            <numerusform>ل،%n تأكيد معاملات تحسين المحفظة</numerusform>
+            <numerusform>ل،%n تأكيد معاملات تحسين المحفظة</numerusform>
+            <numerusform>ل،%n تأكيد معاملات تحسين المحفظة</numerusform>
+            <numerusform>ل،%n تأكيد معاملات تحسين المحفظة</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -3897,11 +3837,11 @@ when the wallet is synchronized</translation>
         <source>Sent to yourself, %n confirmation(s)</source>
         <translation>
             <numerusform>مرسل إلى نفسك ،٪ n تأكيد</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>مرسل إلى نفسك ،٪ n تأكيد</numerusform>
+            <numerusform>مرسل إلى نفسك ،٪ n تأكيد</numerusform>
+            <numerusform>مرسل إلى نفسك ،٪ n تأكيد</numerusform>
+            <numerusform>مرسل إلى نفسك ،٪ n تأكيد</numerusform>
+            <numerusform>مرسل إلى نفسك ،٪ n تأكيد</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -3909,11 +3849,11 @@ when the wallet is synchronized</translation>
         <source>Outgoing transaction, %n confirmation(s)</source>
         <translation>
             <numerusform>المعاملة الصادرة ،٪ n التأكيد</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>المعاملة الصادرة ،٪ n التأكيد</numerusform>
+            <numerusform>المعاملة الصادرة ،٪ n التأكيد</numerusform>
+            <numerusform>المعاملة الصادرة ،٪ n التأكيد</numerusform>
+            <numerusform>المعاملة الصادرة ،٪ n التأكيد</numerusform>
+            <numerusform>المعاملة الصادرة ،٪ n التأكيد</numerusform>
         </translation>
     </message>
 </context>
@@ -3994,11 +3934,11 @@ when the wallet is synchronized</translation>
         <source>%n blocks per second</source>
         <translation>
             <numerusform>%n كتل في الثانية</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n كتل في الثانية</numerusform>
+            <numerusform>%n كتل في الثانية</numerusform>
+            <numerusform>%n كتل في الثانية</numerusform>
+            <numerusform>%n كتل في الثانية</numerusform>
+            <numerusform>%n كتل في الثانية</numerusform>
         </translation>
     </message>
     <message>
@@ -4011,11 +3951,11 @@ when the wallet is synchronized</translation>
         <source>%n day(s) and</source>
         <translation>
             <numerusform>%n يوم و</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n يوم و</numerusform>
+            <numerusform>%n يوم و</numerusform>
+            <numerusform>%n يوم و</numerusform>
+            <numerusform>%n يوم و</numerusform>
+            <numerusform>%n يوم و</numerusform>
         </translation>
     </message>
     <message>

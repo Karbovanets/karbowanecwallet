@@ -3154,15 +3154,9 @@ Are you sure?</source>
         <location filename="../Miner.cpp" line="235"/>
         <source>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;%1 Розпочато карбування на %n потоці зі складністю %2. Хай щастить!&lt;/numerusform&gt;
-            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;
-            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;%1 Розпочато карбування на %n потоці зі складністю %2. Хай щастить!&lt;/numerusform&gt;
-            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;
-            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;%1 Розпочато карбування на %n потоці зі складністю %2. Хай щастить!&lt;/numerusform&gt;
-            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;
-            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;</numerusform>
+            <numerusform>%1 Розпочато карбування на %n потоці зі складністю %2. Хай щастить!</numerusform>
+            <numerusform>%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!</numerusform>
+            <numerusform>%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!</numerusform>
         </translation>
     </message>
     <message>
@@ -3171,7 +3165,7 @@ Are you sure?</source>
     </message>
     <message numerus="yes">
         <source>Mining stopped, %n threads finished</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>Карбування зупинено, завершено %n потік</numerusform>
             <numerusform>Карбування зупинено, завершено %n потоки</numerusform>
             <numerusform>Карбування зупинено, завершено %n потоків</numerusform>
@@ -3181,15 +3175,9 @@ Are you sure?</source>
         <location filename="../Miner.cpp" line="277"/>
         <source>Mining stopped, %n thread(s) finished</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоку&lt;/numerusform&gt;
-            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;
-            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоку&lt;/numerusform&gt;
-            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;
-            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоку&lt;/numerusform&gt;
-            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;
-            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;</numerusform>
+            <numerusform>Карбування зупинено, завершено роботу %n потоку</numerusform>
+            <numerusform>Карбування зупинено, завершено роботу %n потоків</numerusform>
+            <numerusform>Карбування зупинено, завершено роботу %n потоків</numerusform>
         </translation>
     </message>
     <message>
@@ -4005,7 +3993,7 @@ when the wallet is synchronized</source>
     </message>
     <message numerus="yes">
         <source>Wallet optimization transaction, %n confirmation(s)</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>Оптимізація гаманця, %n підтвердження</numerusform>
             <numerusform>Оптимізація гаманця, %n підтвердження</numerusform>
             <numerusform>Оптимізація гаманця, %n підтверджень</numerusform>

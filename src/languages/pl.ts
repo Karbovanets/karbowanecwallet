@@ -2991,7 +2991,7 @@ Jesteś pewien?</translation>
     </message>
     <message numerus="yes">
         <source>%n peer(s)</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%n peer</numerusform>
             <numerusform>%n peery</numerusform>
             <numerusform>%n peerów</numerusform>
@@ -3162,30 +3162,18 @@ Jesteś pewien?</translation>
         <location filename="../Miner.cpp" line="235"/>
         <source>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>%1 Kopanie rozpoczęte z %n wątkiem przy trudności %2, powodzenia!</numerusform>
+            <numerusform>%1 Kopanie rozpoczęte z %n wątkami przy trudności %2, powodzenia!</numerusform>
+            <numerusform>%1 Kopanie rozpoczęte z %n wątkami przy trudności %2, powodzenia!</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="277"/>
         <source>Mining stopped, %n thread(s) finished</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>Kopanie zatrzymane, zakończono %n wątek</numerusform>
+            <numerusform>Kopanie zatrzymane, zakończono %n wątki</numerusform>
+            <numerusform>Kopanie zatrzymane, zakończono %n wątków</numerusform>
         </translation>
     </message>
     <message>
@@ -4001,7 +3989,7 @@ kiedy portfel skończy synchronizowanie</translation>
     </message>
     <message numerus="yes">
         <source>Wallet optimization transaction, %n confirmation(s)</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>Transakcja optymalizacji portfela, , %n potwiedzenie</numerusform>
             <numerusform>Transakcja optymalizacji portfela, %n potwiedzenia</numerusform>
             <numerusform>Transakcja optymalizacji portfela, %n potwiedzeń</numerusform>

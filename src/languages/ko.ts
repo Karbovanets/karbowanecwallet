@@ -3018,14 +3018,14 @@ Are you sure?</source>
         <location filename="../Miner.cpp" line="235"/>
         <source>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="277"/>
         <source>Mining stopped, %n thread(s) finished</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>Mining stopped, %n thread(s) finished</numerusform>
         </translation>
     </message>
     <message>
@@ -3768,7 +3768,7 @@ when the wallet is synchronized</translation>
     </message>
     <message numerus="yes">
         <source>Wallet optimization transaction, %n confirmation(s)</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>월렛 최적화 거래, %n개 확인됨</numerusform>
         </translation>
     </message>

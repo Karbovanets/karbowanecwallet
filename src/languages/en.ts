@@ -1953,10 +1953,8 @@ Are you sure?</translation>
         <location filename="../gui/MainWindow.cpp" line="898"/>
         <source>%n active connection(s)</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>%n active connection</numerusform>
+            <numerusform>%n active connections</numerusform>
         </translation>
     </message>
     <message>
@@ -2158,10 +2156,8 @@ when the wallet is synchronized</translation>
         <location filename="../gui/TransactionDetailsDialog.cpp" line="50"/>
         <source>%n confirmation(s)</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>%n confirmation</numerusform>
+            <numerusform>%n confirmations</numerusform>
         </translation>
     </message>
 </context>
@@ -2342,40 +2338,32 @@ when the wallet is synchronized</translation>
         <location filename="../gui/TransactionsModel.cpp" line="332"/>
         <source>Incoming transaction, %n confirmation(s)</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>Incoming transaction, %n confirmation</numerusform>
+            <numerusform>Incoming transaction, %n confirmations</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../gui/TransactionsModel.cpp" line="335"/>
         <source>Mined, %n confirmation(s)</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>Mined, %n confirmation</numerusform>
+            <numerusform>Mined, %n confirmations</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../gui/TransactionsModel.cpp" line="338"/>
         <source>Sent to yourself, %n confirmation(s)</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>Sent to yourself, %n confirmation</numerusform>
+            <numerusform>Sent to yourself, %n confirmations</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../gui/TransactionsModel.cpp" line="341"/>
         <source>Outgoing transaction, %n confirmation(s)</source>
         <translation>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
-            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
-            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>Outgoing transaction, %n confirmation</numerusform>
+            <numerusform>Outgoing transaction, %n confirmations</numerusform>
         </translation>
     </message>
 </context>
