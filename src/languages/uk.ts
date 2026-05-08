@@ -67,7 +67,7 @@
     <message>
         <location filename="../gui/ui/accountframe.ui" line="26"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="../gui/ui/accountframe.ui" line="175"/>
@@ -219,47 +219,47 @@
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="30"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>English</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="35"/>
         <source>Українська</source>
-        <translation type="unfinished"></translation>
+        <translation>Українська</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="40"/>
         <source>Русский</source>
-        <translation type="unfinished"></translation>
+        <translation>Русский</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="45"/>
         <source>Polski</source>
-        <translation type="unfinished"></translation>
+        <translation>Polski</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="50"/>
         <source>Беларуская</source>
-        <translation type="unfinished"></translation>
+        <translation>Беларуская</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="55"/>
         <source>Deutsch</source>
-        <translation type="unfinished"></translation>
+        <translation>Deutsch</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="60"/>
         <source>Español</source>
-        <translation type="unfinished"></translation>
+        <translation>Español</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="65"/>
         <source>Français</source>
-        <translation type="unfinished"></translation>
+        <translation>Français</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="70"/>
         <source>Português</source>
-        <translation type="unfinished"></translation>
+        <translation>Português</translation>
     </message>
 </context>
 <context>
@@ -305,7 +305,7 @@
     <message>
         <location filename="../gui/ui/coinsframe.ui" line="14"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="../gui/ui/coinsframe.ui" line="31"/>
@@ -617,12 +617,12 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/importkeysdialog.ui" line="103"/>
         <source>View Secret Key:</source>
-        <translation type="unfinished"></translation>
+        <translation>Секретний ключ перегляду:</translation>
     </message>
     <message>
         <location filename="../gui/ui/importkeysdialog.ui" line="89"/>
         <source>Spend Secret Key:</source>
-        <translation type="unfinished"></translation>
+        <translation>Секретний ключ витрат:</translation>
     </message>
     <message>
         <location filename="../gui/ui/importkeysdialog.ui" line="20"/>
@@ -1034,7 +1034,7 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/mainwindow.ui" line="675"/>
         <source>Ctrl+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+L</translation>
     </message>
     <message>
         <location filename="../gui/ui/mainwindow.ui" line="683"/>
@@ -1124,7 +1124,7 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/miningframe.ui" line="14"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="../gui/ui/miningframe.ui" line="51"/>
@@ -1227,17 +1227,17 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/newnodedialog.ui" line="55"/>
         <source>Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Шлях:</translation>
     </message>
     <message>
         <location filename="../gui/ui/newnodedialog.ui" line="62"/>
         <source>/</source>
-        <translation type="unfinished"></translation>
+        <translation>/</translation>
     </message>
     <message>
         <location filename="../gui/ui/newnodedialog.ui" line="69"/>
         <source>SSL:</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL:</translation>
     </message>
 </context>
 <context>
@@ -1301,7 +1301,7 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/nowalletframe.ui" line="14"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="../gui/ui/nowalletframe.ui" line="62"/>
@@ -1476,12 +1476,12 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/outputdetailsdialog.ui" line="284"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <location filename="../gui/ui/outputdetailsdialog.ui" line="291"/>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <location filename="../gui/ui/outputdetailsdialog.ui" line="298"/>
@@ -1603,12 +1603,12 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/privatekeysdialog.ui" line="43"/>
         <source>Spend Secret Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Секретний ключ витрат</translation>
     </message>
     <message>
         <location filename="../gui/ui/privatekeysdialog.ui" line="57"/>
         <source>View Secret Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Секретний ключ перегляду</translation>
     </message>
 </context>
 <context>
@@ -1685,7 +1685,7 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/ui/receiveframe.ui" line="14"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <source>Copy address</source>
@@ -2306,7 +2306,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/AddressBookFrame.cpp" line="40"/>
         <source>Copy Account &amp;Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy Account &amp;Number</translation>
     </message>
     <message>
         <location filename="../gui/AddressBookFrame.cpp" line="42"/>
@@ -2328,12 +2328,12 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/AddressBookFrame.cpp" line="166"/>
         <source>Account Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Номер рахунку</translation>
     </message>
     <message>
         <location filename="../gui/AddressBookFrame.cpp" line="166"/>
         <source>No account number registered for this address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Для цієї адреси не зареєстровано номер рахунку.</translation>
     </message>
     <message>
         <location filename="../gui/AddressBookFrame.cpp" line="37"/>
@@ -2490,12 +2490,12 @@ A small fee will be charged.</source>
     <message>
         <location filename="../CommandLineParser.cpp" line="38"/>
         <source>Reject deep reorganization exceeding specified block count (default: %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Reject deep reorganization exceeding specified block count (default: %1)</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="40"/>
         <source>blocks</source>
-        <translation type="unfinished"></translation>
+        <translation>блоки</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="41"/>
@@ -2543,22 +2543,22 @@ A small fee will be charged.</source>
     <message>
         <location filename="../CommandLineParser.cpp" line="20"/>
         <source>Interface for RPC server</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface for RPC server</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="21"/>
         <source>Port for RPC server</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт для RPC-сервера</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="22"/>
         <source>Run RPC server</source>
-        <translation type="unfinished"></translation>
+        <translation>Запустити RPC-сервер</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="23"/>
         <source>Disallow some RPC server queries</source>
-        <translation type="unfinished"></translation>
+        <translation>Заборонити деякі запити RPC-сервера</translation>
     </message>
 </context>
 <context>
@@ -2647,7 +2647,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/ExportRawTxDialog.cpp" line="35"/>
         <source>Raw hex transaction (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation>Raw hex transaction (*.txt)</translation>
     </message>
 </context>
 <context>
@@ -2778,29 +2778,29 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="90"/>
         <source>Tracking key is not valid</source>
-        <translation type="unfinished">Ключ стеження неправильний</translation>
+        <translation>Ключ стеження неправильний</translation>
     </message>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="90"/>
         <source>The tracking key you entered is not valid.</source>
-        <translation type="unfinished">Введений ключ стеження є неправильним.</translation>
+        <translation>Введений ключ стеження є неправильним.</translation>
     </message>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="106"/>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="110"/>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="114"/>
         <source>Key is not valid</source>
-        <translation type="unfinished">Ключ неправильний</translation>
+        <translation>Ключ неправильний</translation>
     </message>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="106"/>
         <source>The public spend key you entered is not valid.</source>
-        <translation type="unfinished">Введений публічний ключ витрати є неправильним.</translation>
+        <translation>Введений публічний ключ витрати є неправильним.</translation>
     </message>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="110"/>
         <source>The public view key you entered is not valid.</source>
-        <translation type="unfinished">Введений публічний ключ перегляду є неправильним.</translation>
+        <translation>Введений публічний ключ перегляду є неправильним.</translation>
     </message>
     <message>
         <source>The private spend key you entered is not valid.</source>
@@ -2809,7 +2809,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="114"/>
         <source>The private view key you entered is not valid.</source>
-        <translation type="unfinished">Введений приватний ключ перегляду є неправильним.</translation>
+        <translation>Введений приватний ключ перегляду є неправильним.</translation>
     </message>
 </context>
 <context>
@@ -2841,7 +2841,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/InfoDialog.cpp" line="92"/>
         <source>%1 %2</source>
-        <translation type="unfinished">%1 %2</translation>
+        <translation>%1 %2</translation>
     </message>
     <message>
         <location filename="../gui/InfoDialog.cpp" line="42"/>
@@ -3126,7 +3126,7 @@ Are you sure?</source>
     <message>
         <location filename="../gui/MainWindow.cpp" line="735"/>
         <source>You cannot generate balance proof of zero.</source>
-        <translation type="unfinished"></translation>
+        <translation>You cannot generate balance proof of zero.</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.cpp" line="729"/>
@@ -3153,10 +3153,16 @@ Are you sure?</source>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="235"/>
         <source>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</source>
-        <translation type="unfinished">
-            <numerusform>%1 Розпочато карбування на %n потоці зі складністю %2. Хай щастить!</numerusform>
-            <numerusform>%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!</numerusform>
-            <numerusform>%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!</numerusform>
+        <translation>
+            <numerusform>&lt;numerusform&gt;%1 Розпочато карбування на %n потоці зі складністю %2. Хай щастить!&lt;/numerusform&gt;
+            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;
+            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;%1 Розпочато карбування на %n потоці зі складністю %2. Хай щастить!&lt;/numerusform&gt;
+            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;
+            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;%1 Розпочато карбування на %n потоці зі складністю %2. Хай щастить!&lt;/numerusform&gt;
+            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;
+            &lt;numerusform&gt;%1 Розпочато карбування на %n потоках зі складністю %2. Хай щастить!&lt;/numerusform&gt;</numerusform>
         </translation>
     </message>
     <message>
@@ -3174,10 +3180,16 @@ Are you sure?</source>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="277"/>
         <source>Mining stopped, %n thread(s) finished</source>
-        <translation type="unfinished">
-            <numerusform>Карбування зупинено, завершено роботу %n потоку</numerusform>
-            <numerusform>Карбування зупинено, завершено роботу %n потоків</numerusform>
-            <numerusform>Карбування зупинено, завершено роботу %n потоків</numerusform>
+        <translation>
+            <numerusform>&lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоку&lt;/numerusform&gt;
+            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;
+            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоку&lt;/numerusform&gt;
+            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;
+            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоку&lt;/numerusform&gt;
+            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;
+            &lt;numerusform&gt;Карбування зупинено, завершено роботу %n потоків&lt;/numerusform&gt;</numerusform>
         </translation>
     </message>
     <message>
@@ -3248,7 +3260,7 @@ Are you sure?</source>
         <location filename="../gui/MiningFrame.cpp" line="250"/>
         <location filename="../gui/MiningFrame.cpp" line="318"/>
         <source>%1</source>
-        <translation type="unfinished">%1</translation>
+        <translation>%1</translation>
     </message>
 </context>
 <context>
@@ -3494,12 +3506,12 @@ Are you sure?</source>
     <message>
         <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="75"/>
         <source>OK</source>
-        <translation type="unfinished">Гаразд</translation>
+        <translation>Гаразд</translation>
     </message>
     <message>
         <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="75"/>
         <source>%1 / 25</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 / 25</translation>
     </message>
     <message>
         <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="82"/>
@@ -4010,12 +4022,12 @@ when the wallet is synchronized</source>
     <message>
         <location filename="../gui/TransferFrame.cpp" line="137"/>
         <source>Account number not found</source>
-        <translation type="unfinished">Номер рахунку не знайдено</translation>
+        <translation>Номер рахунку не знайдено</translation>
     </message>
     <message>
         <location filename="../gui/TransferFrame.cpp" line="140"/>
         <source>Invalid account number</source>
-        <translation type="unfinished">Невірний номер рахунку</translation>
+        <translation>Невірний номер рахунку</translation>
     </message>
 </context>
 <context>
@@ -4066,7 +4078,7 @@ when the wallet is synchronized</source>
     <message>
         <location filename="../WalletAdapter.cpp" line="482"/>
         <source>Registering account number</source>
-        <translation type="unfinished"></translation>
+        <translation>Реєстрація номера рахунку</translation>
     </message>
     <message>
         <location filename="../WalletAdapter.cpp" line="759"/>
@@ -4341,7 +4353,7 @@ when the wallet is synchronized</source>
     <message>
         <location filename="../gui/ui/walletrpcsettingsdialog.ui" line="57"/>
         <source>127.0.0.1</source>
-        <translation type="unfinished">127.0.0.1</translation>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location filename="../gui/ui/walletrpcsettingsdialog.ui" line="64"/>

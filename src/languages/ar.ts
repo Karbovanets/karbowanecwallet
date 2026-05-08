@@ -11,7 +11,7 @@
     <message>
         <location filename="../gui/ui/aboutdialog.ui" line="155"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Karbo v. %1, core v. %2&lt;/p&gt;&lt;p&gt;This is the next generation anonymous cryptocurrency based on CryptoNote.&lt;/p&gt;&lt;p&gt;Copyright (c) 2012-2015. CryptoNote Developers&lt;/p&gt;&lt;p&gt;Copyright (c) 2012-2016. Bytecoin Developers&lt;/p&gt;&lt;p&gt;Copyright (c) 2015-2016. DigitalNote Developers&lt;/p&gt;&lt;p&gt;Copyright (c) 2016-2026. Karbo (Karbowanec) Developers&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://opensource.org/licenses/MIT&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://opensource.org/licenses/MIT&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://cryptonote.org/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://cryptonote.org/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://karbo.io/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://karbo.io/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;THE SOFTWARE IS PROVIDED &amp;quot;AS IS&amp;quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Karbo v. %1, core v. %2&lt;/p&gt;&lt;p&gt;This is the next generation anonymous cryptocurrency based on CryptoNote.&lt;/p&gt;&lt;p&gt;Copyright (c) 2012-2015. CryptoNote Developers&lt;/p&gt;&lt;p&gt;Copyright (c) 2012-2016. Bytecoin Developers&lt;/p&gt;&lt;p&gt;Copyright (c) 2015-2016. DigitalNote Developers&lt;/p&gt;&lt;p&gt;Copyright (c) 2016-2026. Karbo (Karbowanec) Developers&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://opensource.org/licenses/MIT&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://opensource.org/licenses/MIT&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://cryptonote.org/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://cryptonote.org/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://karbo.io/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://karbo.io/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;THE SOFTWARE IS PROVIDED &amp;quot;AS IS&amp;quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/ui/aboutdialog.ui" line="191"/>
@@ -193,37 +193,37 @@
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="30"/>
         <source>English</source>
-        <translation type="unfinished">اللغة الانجليزية</translation>
+        <translation>اللغة الانجليزية</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="35"/>
         <source>Українська</source>
-        <translation type="unfinished"></translation>
+        <translation>Українська</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="40"/>
         <source>Русский</source>
-        <translation type="unfinished"></translation>
+        <translation>Русский</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="50"/>
         <source>Беларуская</source>
-        <translation type="unfinished"></translation>
+        <translation>Беларуская</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="60"/>
         <source>Español</source>
-        <translation type="unfinished"></translation>
+        <translation>Español</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="65"/>
         <source>Français</source>
-        <translation type="unfinished"></translation>
+        <translation>Français</translation>
     </message>
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="70"/>
         <source>Português</source>
-        <translation type="unfinished"></translation>
+        <translation>Português</translation>
     </message>
     <message>
         <source>РЈРєСЂР°С—РЅСЃСЊРєР°</source>
@@ -236,7 +236,7 @@
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="45"/>
         <source>Polski</source>
-        <translation type="unfinished">بولندي</translation>
+        <translation>بولندي</translation>
     </message>
     <message>
         <source>Р‘РµР»Р°СЂСѓСЃРєР°СЏ</source>
@@ -245,7 +245,7 @@
     <message>
         <location filename="../gui/ui/changelanguagedialog.ui" line="55"/>
         <source>Deutsch</source>
-        <translation type="unfinished">الألمانية</translation>
+        <translation>الألمانية</translation>
     </message>
     <message>
         <source>EspaГ±ol</source>
@@ -313,7 +313,7 @@
     <message>
         <location filename="../gui/ui/coinsframe.ui" line="14"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="../gui/ui/coinsframe.ui" line="31"/>
@@ -474,12 +474,12 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/exportrawtxdialog.ui" line="26"/>
         <source>Export raw transaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Export raw transaction</translation>
     </message>
     <message>
         <location filename="../gui/ui/exportrawtxdialog.ui" line="53"/>
         <source>You can broadcast this transaction to the network e.g. via block explorer or RPC request to any public node.</source>
-        <translation type="unfinished"></translation>
+        <translation>You can broadcast this transaction to the network e.g. via block explorer or RPC request to any public node.</translation>
     </message>
     <message>
         <location filename="../gui/ui/exportrawtxdialog.ui" line="75"/>
@@ -641,12 +641,12 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/importkeysdialog.ui" line="103"/>
         <source>View Secret Key:</source>
-        <translation type="unfinished"></translation>
+        <translation>مفتاح العرض السري:</translation>
     </message>
     <message>
         <location filename="../gui/ui/importkeysdialog.ui" line="89"/>
         <source>Spend Secret Key:</source>
-        <translation type="unfinished"></translation>
+        <translation>مفتاح الإنفاق السري:</translation>
     </message>
 </context>
 <context>
@@ -942,7 +942,7 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/mainwindow.ui" line="675"/>
         <source>Ctrl+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+L</translation>
     </message>
     <message>
         <location filename="../gui/ui/mainwindow.ui" line="683"/>
@@ -1086,7 +1086,7 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/miningframe.ui" line="102"/>
         <source>Speed, H/s:</source>
-        <translation type="unfinished">السرعة ، H / s:</translation>
+        <translation>السرعة ، H / s:</translation>
     </message>
     <message>
         <location filename="../gui/ui/miningframe.ui" line="109"/>
@@ -1197,17 +1197,17 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/newnodedialog.ui" line="55"/>
         <source>Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>المسار:</translation>
     </message>
     <message>
         <location filename="../gui/ui/newnodedialog.ui" line="62"/>
         <source>/</source>
-        <translation type="unfinished"></translation>
+        <translation>/</translation>
     </message>
     <message>
         <location filename="../gui/ui/newnodedialog.ui" line="69"/>
         <source>SSL:</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL:</translation>
     </message>
     <message>
         <location filename="../gui/ui/newnodedialog.ui" line="103"/>
@@ -1448,12 +1448,12 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/outputdetailsdialog.ui" line="284"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <location filename="../gui/ui/outputdetailsdialog.ui" line="291"/>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <location filename="../gui/ui/outputdetailsdialog.ui" line="298"/>
@@ -1548,17 +1548,17 @@ Please wait...</source>
     <message>
         <location filename="../gui/ui/privatekeysdialog.ui" line="26"/>
         <source>Private Keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Private Keys</translation>
     </message>
     <message>
         <location filename="../gui/ui/privatekeysdialog.ui" line="43"/>
         <source>Spend Secret Key</source>
-        <translation type="unfinished"></translation>
+        <translation>مفتاح الإنفاق السري</translation>
     </message>
     <message>
         <location filename="../gui/ui/privatekeysdialog.ui" line="57"/>
         <source>View Secret Key</source>
-        <translation type="unfinished"></translation>
+        <translation>مفتاح العرض السري</translation>
     </message>
     <message>
         <location filename="../gui/ui/privatekeysdialog.ui" line="86"/>
@@ -1627,7 +1627,7 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/ui/qrcodedialog.ui" line="32"/>
         <source>QR Code</source>
-        <translation type="unfinished"></translation>
+        <translation>رمز QR</translation>
     </message>
     <message>
         <location filename="../gui/ui/qrcodedialog.ui" line="94"/>
@@ -1789,7 +1789,7 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/ui/sendframe.ui" line="386"/>
         <source>Priority:</source>
-        <translation type="unfinished"></translation>
+        <translation>Priority:</translation>
     </message>
     <message>
         <location filename="../gui/ui/sendframe.ui" line="393"/>
@@ -1809,7 +1809,7 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/ui/sendframe.ui" line="450"/>
         <source>Send All</source>
-        <translation type="unfinished"></translation>
+        <translation>Send All</translation>
     </message>
     <message>
         <location filename="../gui/ui/sendframe.ui" line="473"/>
@@ -1883,7 +1883,7 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/ui/signmessagedialog.ui" line="26"/>
         <source>Sign or verify message</source>
-        <translation type="unfinished"></translation>
+        <translation>Sign or verify message</translation>
     </message>
     <message>
         <location filename="../gui/ui/signmessagedialog.ui" line="51"/>
@@ -1893,7 +1893,7 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/ui/signmessagedialog.ui" line="76"/>
         <source>Sign message</source>
-        <translation type="unfinished">العنوان</translation>
+        <translation>العنوان</translation>
     </message>
     <message>
         <location filename="../gui/ui/signmessagedialog.ui" line="99"/>
@@ -1910,7 +1910,7 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/ui/signmessagedialog.ui" line="178"/>
         <source>Verify message</source>
-        <translation type="unfinished"></translation>
+        <translation>Verify message</translation>
     </message>
     <message>
         <location filename="../gui/ui/signmessagedialog.ui" line="198"/>
@@ -2095,33 +2095,33 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/AccountFrame.cpp" line="146"/>
         <source>Copy address</source>
-        <translation type="unfinished">نسخ العنوان</translation>
+        <translation>نسخ العنوان</translation>
     </message>
     <message>
         <location filename="../gui/AccountFrame.cpp" line="230"/>
         <source>QR Code</source>
-        <translation type="unfinished"></translation>
+        <translation>رمز QR</translation>
     </message>
     <message>
         <location filename="../gui/AccountFrame.cpp" line="237"/>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation>متاح</translation>
     </message>
     <message>
         <location filename="../gui/AccountFrame.cpp" line="242"/>
         <location filename="../gui/AccountFrame.cpp" line="253"/>
         <source>Total</source>
-        <translation type="unfinished"></translation>
+        <translation>الإجمالي</translation>
     </message>
     <message>
         <location filename="../gui/AccountFrame.cpp" line="248"/>
         <source>Pending</source>
-        <translation type="unfinished">قيد الانتظار</translation>
+        <translation>قيد الانتظار</translation>
     </message>
     <message>
         <location filename="../gui/AccountFrame.cpp" line="260"/>
         <source>Unmixable</source>
-        <translation type="unfinished"></translation>
+        <translation>غير قابل للخلط</translation>
     </message>
     <message>
         <location filename="../gui/AccountFrame.cpp" line="328"/>
@@ -2146,7 +2146,7 @@ Do you want to go to the download page?</source>
     <message>
         <location filename="../gui/AccountFrame.cpp" line="364"/>
         <source>Error</source>
-        <translation type="unfinished">خطأ</translation>
+        <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../gui/AccountFrame.cpp" line="364"/>
@@ -2162,12 +2162,13 @@ Do you want to go to the download page?</source>
         <location filename="../gui/AccountFrame.cpp" line="369"/>
         <source>Register an account number for easy payments?
 A small fee will be charged.</source>
-        <translation type="unfinished"></translation>
+        <translation>Register an account number for easy payments?
+A small fee will be charged.</translation>
     </message>
     <message>
         <location filename="../gui/AccountFrame.cpp" line="388"/>
         <source>Your receiving address</source>
-        <translation type="unfinished">عنوان الاستلام </translation>
+        <translation>عنوان الاستلام</translation>
     </message>
     <message>
         <source>&lt;p style=&quot;height:30&quot;&gt;Available: &lt;strong style=&quot;font-size:14px; color: #ffffff;&quot;&gt;%1&lt;/strong&gt;&lt;small style=&quot;font-size:10px; color: #D3D3D3;&quot;&gt;%2 %3&lt;/small&gt;&lt;/p&gt;</source>
@@ -2210,7 +2211,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/AddressBookFrame.cpp" line="40"/>
         <source>Copy Account &amp;Number</source>
-        <translation type="unfinished"></translation>
+        <translation>نسخ &amp;رقم الحساب</translation>
     </message>
     <message>
         <location filename="../gui/AddressBookFrame.cpp" line="41"/>
@@ -2256,12 +2257,12 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/AddressBookFrame.cpp" line="166"/>
         <source>Account Number</source>
-        <translation type="unfinished"></translation>
+        <translation>رقم الحساب</translation>
     </message>
     <message>
         <location filename="../gui/AddressBookFrame.cpp" line="166"/>
         <source>No account number registered for this address.</source>
-        <translation type="unfinished"></translation>
+        <translation>لا يوجد رقم حساب مسجل لهذا العنوان.</translation>
     </message>
 </context>
 <context>
@@ -2337,7 +2338,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../CommandLineParser.cpp" line="15"/>
         <source>Used to deploy test nets. Checkpoints and hardcoded seeds are ignored, network id is changed. Use it with –data-dir flag. The wallet must be launched with –testnet flag</source>
-        <translation type="unfinished"></translation>
+        <translation>Used to deploy test nets. Checkpoints and hardcoded seeds are ignored, network id is changed. Use it with –data-dir flag. The wallet must be launched with –testnet flag</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="17"/>
@@ -2370,22 +2371,22 @@ A small fee will be charged.</source>
     <message>
         <location filename="../CommandLineParser.cpp" line="20"/>
         <source>Interface for RPC server</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface for RPC server</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="21"/>
         <source>Port for RPC server</source>
-        <translation type="unfinished"></translation>
+        <translation>منفذ خادم RPC</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="22"/>
         <source>Run RPC server</source>
-        <translation type="unfinished"></translation>
+        <translation>تشغيل خادم RPC</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="23"/>
         <source>Disallow some RPC server queries</source>
-        <translation type="unfinished"></translation>
+        <translation>منع بعض استعلامات خادم RPC</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="24"/>
@@ -2462,12 +2463,12 @@ A small fee will be charged.</source>
     <message>
         <location filename="../CommandLineParser.cpp" line="38"/>
         <source>Reject deep reorganization exceeding specified block count (default: %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Reject deep reorganization exceeding specified block count (default: %1)</translation>
     </message>
     <message>
         <location filename="../CommandLineParser.cpp" line="40"/>
         <source>blocks</source>
-        <translation type="unfinished"></translation>
+        <translation>كتل</translation>
     </message>
     <message>
         <source>Allow deep reorganization to make it possible to self-heal chain split</source>
@@ -2569,12 +2570,12 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/ExportRawTxDialog.cpp" line="35"/>
         <source>Save transaction to...</source>
-        <translation type="unfinished"></translation>
+        <translation>حفظ المعاملة إلى...</translation>
     </message>
     <message>
         <location filename="../gui/ExportRawTxDialog.cpp" line="35"/>
         <source>Raw hex transaction (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation>معاملة بصيغة hex خام (*.txt)</translation>
     </message>
 </context>
 <context>
@@ -2619,7 +2620,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/ImportKeyDialog.cpp" line="79"/>
         <source>Failed to parse account keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Failed to parse account keys</translation>
     </message>
     <message>
         <location filename="../gui/ImportKeyDialog.cpp" line="83"/>
@@ -2653,7 +2654,7 @@ A small fee will be charged.</source>
         <location filename="../gui/ImportKeysDialog.cpp" line="96"/>
         <location filename="../gui/ImportKeysDialog.cpp" line="100"/>
         <source>Key is not valid</source>
-        <translation type="unfinished">المفتاح غير صالح.</translation>
+        <translation>المفتاح غير صالح.</translation>
     </message>
     <message>
         <location filename="../gui/ImportKeysDialog.cpp" line="96"/>
@@ -2691,29 +2692,29 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="90"/>
         <source>Tracking key is not valid</source>
-        <translation type="unfinished">مفتاح التتبع غير صالح</translation>
+        <translation>مفتاح التتبع غير صالح</translation>
     </message>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="90"/>
         <source>The tracking key you entered is not valid.</source>
-        <translation type="unfinished">مفتاح التتبع الذي أدخلته غير صالح.</translation>
+        <translation>مفتاح التتبع الذي أدخلته غير صالح.</translation>
     </message>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="106"/>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="110"/>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="114"/>
         <source>Key is not valid</source>
-        <translation type="unfinished">المفتاح غير صالح.</translation>
+        <translation>المفتاح غير صالح.</translation>
     </message>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="106"/>
         <source>The public spend key you entered is not valid.</source>
-        <translation type="unfinished">مفتاح الإنفاق العام الذي أدخلته غير صالح.</translation>
+        <translation>مفتاح الإنفاق العام الذي أدخلته غير صالح.</translation>
     </message>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="110"/>
         <source>The public view key you entered is not valid.</source>
-        <translation type="unfinished">مفتاح العرض العام الذي أدخلته غير صالح.</translation>
+        <translation>مفتاح العرض العام الذي أدخلته غير صالح.</translation>
     </message>
     <message>
         <source>The private spend key you entered is not valid.</source>
@@ -2722,7 +2723,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="114"/>
         <source>The private view key you entered is not valid.</source>
-        <translation type="unfinished">مفتاح العرض الخاص الذي أدخلته غير صالح.</translation>
+        <translation>مفتاح العرض الخاص الذي أدخلته غير صالح.</translation>
     </message>
     <message>
         <location filename="../gui/ImportTrackingKeyDialog.cpp" line="124"/>
@@ -2774,7 +2775,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/InfoDialog.cpp" line="92"/>
         <source>%1 %2</source>
-        <translation type="unfinished">1 %2% </translation>
+        <translation>1 %2%</translation>
     </message>
 </context>
 <context>
@@ -2815,7 +2816,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/MainWindow.cpp" line="475"/>
         <source>Wrong wallet file extension, wallet file should have &quot;.wallet&quot;, &quot;.keys&quot; or &quot;.trackingwallet&quot; extension.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wrong wallet file extension, wallet file should have &quot;.wallet&quot;, &quot;.keys&quot; or &quot;.trackingwallet&quot; extension.</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.cpp" line="499"/>
@@ -2890,7 +2891,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/MainWindow.cpp" line="688"/>
         <source>Language changed to %1. The change will take effect after restarting the wallet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Language changed to %1. The change will take effect after restarting the wallet.</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.cpp" line="1120"/>
@@ -2934,7 +2935,7 @@ A small fee will be charged.</source>
     <message>
         <location filename="../gui/MainWindow.cpp" line="735"/>
         <source>You cannot generate balance proof of zero.</source>
-        <translation type="unfinished"></translation>
+        <translation>You cannot generate balance proof of zero.</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.cpp" line="754"/>
@@ -3041,51 +3042,111 @@ Are you sure?</source>
     <message>
         <location filename="../Miner.cpp" line="141"/>
         <source>Failed to get block template</source>
-        <translation type="unfinished"></translation>
+        <translation>Failed to get block template</translation>
     </message>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="235"/>
         <source>%1 Mining has started with %n thread(s) at difficulty %2, good luck!</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../Miner.cpp" line="277"/>
         <source>Mining stopped, %n thread(s) finished</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
+            <numerusform>&lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;
+            &lt;numerusform&gt;&lt;/numerusform&gt;</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../Miner.cpp" line="374"/>
         <source>Signing block failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Signing block failed</translation>
     </message>
     <message>
         <location filename="../Miner.cpp" line="385"/>
         <source>getBlockLongHash failed</source>
-        <translation type="unfinished"></translation>
+        <translation>getBlockLongHash failed</translation>
     </message>
     <message>
         <location filename="../Miner.cpp" line="408"/>
         <source>%1 Found block %2 at height %3 for difficulty %4, POW %5</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Found block %2 at height %3 for difficulty %4, POW %5</translation>
     </message>
     <message>
         <location filename="../Miner.cpp" line="412"/>
         <source>Failed to submit block to the main chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Failed to submit block to the main chain</translation>
     </message>
 </context>
 <context>
@@ -3105,7 +3166,7 @@ Are you sure?</source>
     <message>
         <location filename="../gui/MiningFrame.cpp" line="73"/>
         <source>Hashrate</source>
-        <translation type="unfinished"></translation>
+        <translation>معدل التجزئة</translation>
     </message>
     <message>
         <location filename="../gui/MiningFrame.cpp" line="180"/>
@@ -3117,7 +3178,7 @@ Are you sure?</source>
         <location filename="../gui/MiningFrame.cpp" line="250"/>
         <location filename="../gui/MiningFrame.cpp" line="318"/>
         <source>%1</source>
-        <translation type="unfinished">1%</translation>
+        <translation>1%</translation>
     </message>
     <message>
         <location filename="../gui/MiningFrame.cpp" line="253"/>
@@ -3373,12 +3434,12 @@ Are you sure?</source>
     <message>
         <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="75"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="75"/>
         <source>%1 / 25</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 / 25</translation>
     </message>
     <message>
         <location filename="../gui/RestoreFromMnemonicSeedDialog.cpp" line="82"/>
@@ -3406,28 +3467,28 @@ Are you sure?</source>
     <message>
         <location filename="../gui/SendFrame.cpp" line="63"/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>منخفض</translation>
     </message>
     <message>
         <location filename="../gui/SendFrame.cpp" line="64"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>عادي</translation>
     </message>
     <message>
         <location filename="../gui/SendFrame.cpp" line="65"/>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>مرتفع</translation>
     </message>
     <message>
         <location filename="../gui/SendFrame.cpp" line="66"/>
         <source>Highest</source>
-        <translation type="unfinished"></translation>
+        <translation>الأعلى</translation>
     </message>
     <message>
         <location filename="../gui/SendFrame.cpp" line="88"/>
         <location filename="../gui/SendFrame.cpp" line="209"/>
         <source>Node fee: %1 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>رسوم العقدة: %1 %2</translation>
     </message>
     <message>
         <location filename="../gui/SendFrame.cpp" line="236"/>
@@ -3445,7 +3506,7 @@ Are you sure?</source>
         <location filename="../gui/SendFrame.cpp" line="327"/>
         <location filename="../gui/SendFrame.cpp" line="584"/>
         <source>Insufficient balance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Insufficient balance.</translation>
     </message>
     <message>
         <location filename="../gui/SendFrame.cpp" line="409"/>
@@ -3511,7 +3572,8 @@ Are you sure?</source>
         <location filename="../gui/SendGlassFrame.cpp" line="102"/>
         <source>You will be able to send %1
 when the wallet is synchronized</source>
-        <translation type="unfinished"></translation>
+        <translation>You will be able to send %1
+when the wallet is synchronized</translation>
     </message>
     <message>
         <location filename="../gui/SendGlassFrame.cpp" line="119"/>
@@ -3524,27 +3586,27 @@ when the wallet is synchronized</source>
     <message>
         <location filename="../gui/SignMessageDialog.cpp" line="41"/>
         <source>Sign message</source>
-        <translation type="unfinished">العنوان</translation>
+        <translation>العنوان</translation>
     </message>
     <message>
         <location filename="../gui/SignMessageDialog.cpp" line="41"/>
         <source>Verify signed message</source>
-        <translation type="unfinished">تحقق من الرسالة الموقعة</translation>
+        <translation>تحقق من الرسالة الموقعة</translation>
     </message>
     <message>
         <location filename="../gui/SignMessageDialog.cpp" line="69"/>
         <source>Signature is valid</source>
-        <translation type="unfinished"></translation>
+        <translation>التوقيع صالح</translation>
     </message>
     <message>
         <location filename="../gui/SignMessageDialog.cpp" line="71"/>
         <source>Signature is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>التوقيع غير صالح!</translation>
     </message>
     <message>
         <location filename="../gui/SignMessageDialog.cpp" line="74"/>
         <source>Address is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>العنوان غير صالح!</translation>
     </message>
 </context>
 <context>
@@ -3563,7 +3625,18 @@ when the wallet is synchronized</source>
 &lt;span style=&quot; font-weight:600;&quot;&gt;Transaction Key: &lt;/span&gt;%9&lt;br&gt;
 &lt;span style=&quot; font-weight:600;&quot;&gt;Transaction Proof: &lt;/span&gt;%10
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Status: &lt;/span&gt;%1&lt;br&gt;
+&lt;span style=&quot; font-weight:600;&quot;&gt;Date: &lt;/span&gt;%2&lt;br&gt;
+&lt;span style=&quot; font-weight:600;&quot;&gt;To: &lt;/span&gt;%4&lt;br&gt;
+&lt;span style=&quot; font-weight:600;&quot;&gt;Amount: &lt;/span&gt;%5&lt;br&gt;
+&lt;span style=&quot; font-weight:600;&quot;&gt;Fee: &lt;/span&gt;%6&lt;br&gt;
+&lt;span style=&quot; font-weight:600;&quot;&gt;Payment ID: &lt;/span&gt;%7&lt;br&gt;
+&lt;span style=&quot; font-weight:600;&quot;&gt;Transaction Hash: &lt;/span&gt;%8&lt;br&gt;
+&lt;span style=&quot; font-weight:600;&quot;&gt;Transaction Key: &lt;/span&gt;%9&lt;br&gt;
+&lt;span style=&quot; font-weight:600;&quot;&gt;Transaction Proof: &lt;/span&gt;%10
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/TransactionDetailsDialog.cpp" line="51"/>
@@ -3849,12 +3922,12 @@ when the wallet is synchronized</source>
     <message>
         <location filename="../gui/TransferFrame.cpp" line="137"/>
         <source>Account number not found</source>
-        <translation type="unfinished">رقم الحساب غير موجود</translation>
+        <translation>رقم الحساب غير موجود</translation>
     </message>
     <message>
         <location filename="../gui/TransferFrame.cpp" line="140"/>
         <source>Invalid account number</source>
-        <translation type="unfinished">رقم الحساب غير صالح</translation>
+        <translation>رقم الحساب غير صالح</translation>
     </message>
 </context>
 <context>
@@ -3903,7 +3976,7 @@ when the wallet is synchronized</source>
     <message>
         <location filename="../WalletAdapter.cpp" line="482"/>
         <source>Registering account number</source>
-        <translation type="unfinished"></translation>
+        <translation>جارٍ تسجيل رقم الحساب</translation>
     </message>
     <message>
         <location filename="../WalletAdapter.cpp" line="624"/>
@@ -4149,12 +4222,12 @@ when the wallet is synchronized</source>
     <message>
         <location filename="../WalletAdapter.cpp" line="970"/>
         <source>Failed to sign message</source>
-        <translation type="unfinished"></translation>
+        <translation>Failed to sign message</translation>
     </message>
     <message>
         <location filename="../WalletAdapter.cpp" line="970"/>
         <source>This is tracking wallet. The message can be signed only by a full wallet.</source>
-        <translation type="unfinished"></translation>
+        <translation>This is tracking wallet. The message can be signed only by a full wallet.</translation>
     </message>
 </context>
 <context>
@@ -4183,7 +4256,7 @@ when the wallet is synchronized</source>
     <message>
         <location filename="../gui/ui/walletrpcsettingsdialog.ui" line="57"/>
         <source>127.0.0.1</source>
-        <translation type="unfinished">127.0.0.1</translation>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location filename="../gui/ui/walletrpcsettingsdialog.ui" line="64"/>
