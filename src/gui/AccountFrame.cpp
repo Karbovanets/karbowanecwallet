@@ -7,6 +7,7 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QKeySequence>
+#include <QMenu>
 #include <QTimer>
 #include <QFontDatabase>
 #include <QMessageBox>
@@ -34,6 +35,14 @@ constexpr int ADDRESS_CHUNKS_PER_ROW = 4;
 QString stripVisualAddressSeparators(QString text) {
   text.remove(QRegularExpression(QStringLiteral("[\\s\\x{00A0}\\x{2028}\\x{2029}]")));
   return text;
+}
+
+QString getCopyableAddressText(const QString& selectedText) {
+  if (selectedText.isEmpty()) {
+    return WalletAdapter::instance().getAddress();
+  }
+
+  return stripVisualAddressSeparators(selectedText);
 }
 
 QString formatDisplayAddress(const QString& address) {
@@ -131,6 +140,16 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
   m_ui->m_addressLabel->setWordWrap(true);
   m_ui->m_addressLabel->setTextFormat(Qt::RichText);
   m_ui->m_addressLabel->installEventFilter(this);
+  m_ui->m_addressLabel->setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(m_ui->m_addressLabel, &QLabel::customContextMenuRequested, this, [this](const QPoint& _pos) {
+    QMenu menu(this);
+    QAction* copyAction = menu.addAction(tr("Copy address"));
+    copyAction->setEnabled(!WalletAdapter::instance().getAddress().isEmpty());
+
+    if (menu.exec(m_ui->m_addressLabel->mapToGlobal(_pos)) == copyAction) {
+      QApplication::clipboard()->setText(getCopyableAddressText(m_ui->m_addressLabel->selectedText()));
+    }
+  });
   m_ui->m_accountNumberLabel->setFont(accountNumberFont);
   m_ui->m_accountNumberLabel->setTextFormat(Qt::PlainText);
   m_ui->m_copyButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -167,10 +186,17 @@ void AccountFrame::applyFramePalette() {
 }
 
 bool AccountFrame::eventFilter(QObject* _object, QEvent* _event) {
-  if (_object == m_ui->m_addressLabel && _event->type() == QEvent::KeyPress) {
-    const auto* keyEvent = static_cast<QKeyEvent*>(_event);
-    if (keyEvent->matches(QKeySequence::Copy) && m_ui->m_addressLabel->hasSelectedText()) {
-      QApplication::clipboard()->setText(stripVisualAddressSeparators(m_ui->m_addressLabel->selectedText()));
+  if (_object == m_ui->m_addressLabel &&
+      (_event->type() == QEvent::KeyPress || _event->type() == QEvent::ShortcutOverride)) {
+    auto* keyEvent = static_cast<QKeyEvent*>(_event);
+    if (keyEvent->matches(QKeySequence::Copy)) {
+      const QString copyText = getCopyableAddressText(m_ui->m_addressLabel->selectedText());
+      if (copyText.isEmpty()) {
+        return false;
+      }
+
+      QApplication::clipboard()->setText(copyText);
+      _event->accept();
       return true;
     }
   }
