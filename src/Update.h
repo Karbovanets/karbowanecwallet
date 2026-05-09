@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2020 The Karbowanec developers
+// Copyright (c) 2016-2026 The Karbowanec developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,8 +11,8 @@
 #include <QNetworkReply>
 #include <QUrl>
 
-const static QString KARBO_UPDATE_URL   = "https://api.github.com/repos/seredat/karbowanecwallet/tags";
-const static QString KARBO_DOWNLOAD_URL = "https://github.com/seredat/karbowanecwallet/releases/";
+const static QString KARBO_UPDATE_URL   = "https://api.github.com/repos/karbovanets/karbowanecwallet/tags";
+const static QString KARBO_DOWNLOAD_URL = "https://github.com/Karbovanets/karbowanecwallet/releases/";
 
 class Updater : public QObject
 {
