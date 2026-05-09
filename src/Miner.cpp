@@ -18,7 +18,9 @@
 
 #include "Miner.h"
 
+#include <chrono>
 #include <future>
+#include <iterator>
 #include <numeric>
 #include <sstream>
 #include <thread>
@@ -102,10 +104,17 @@ namespace WalletGui
       }
     }
 
+    m_starter_nonce = Random::randomValue<uint32_t>();
     m_diffic = di;
     ++m_template_no;
-    m_starter_nonce = Random::randomValue<uint32_t>();
     return true;
+  }
+
+  //-----------------------------------------------------------------------------------------------------
+  void Miner::reset_nonce_sequence() {
+    std::lock_guard<decltype(m_template_lock)> lk(m_template_lock);
+    m_starter_nonce = Random::randomValue<uint32_t>();
+    ++m_template_no;
   }
   //-----------------------------------------------------------------------------------------------------
   bool Miner::on_block_chain_update() {
@@ -138,11 +147,21 @@ namespace WalletGui
 
     if (!NodeAdapter::instance().getBlockTemplate(bl, m_account, extra_nonce, di, height)) {
       m_logger(Logging::ERROR) << "Failed to get_block_template(), stopping mining";
-      Q_EMIT minerMessageSignal(QString(tr("Failed to get block template")));
+      const QString errorMessage = tr("Failed to get block template");
+      Q_EMIT minerMessageSignal(errorMessage);
+      Q_EMIT miningErrorSignal(errorMessage);
       return false;
     }
 
-    set_block_template(bl, di);
+    if (!set_block_template(bl, di)) {
+      const QString errorMessage = tr("Failed to set block template");
+      m_logger(Logging::ERROR) << errorMessage.toStdString();
+      Q_EMIT minerMessageSignal(errorMessage);
+      Q_EMIT miningErrorSignal(errorMessage);
+      return false;
+    }
+
+    Q_EMIT minerTemplateUpdatedSignal(height, static_cast<quint64>(di));
 
     return true;
   }
@@ -171,8 +190,10 @@ namespace WalletGui
   //-----------------------------------------------------------------------------------------------------
   void Miner::merge_hr()
   {
+    const uint64_t now = millisecondsSinceEpoch();
+    const uint64_t hashes = m_hashes.exchange(0);
     if(m_last_hr_merge_time && is_mining()) {
-      m_current_hash_rate = m_hashes * 1000 / (millisecondsSinceEpoch() - m_last_hr_merge_time + 1);
+      m_current_hash_rate = hashes * 1000 / (now - m_last_hr_merge_time + 1);
       std::lock_guard<std::mutex> lk(m_last_hash_rates_lock);
       m_last_hash_rates.push_back(m_current_hash_rate);
       if(m_last_hash_rates.size() > 19)
@@ -183,8 +204,7 @@ namespace WalletGui
       //qDebug() << "Hashrate: " << m_hash_rate << " H/s";
     }
     
-    m_last_hr_merge_time = millisecondsSinceEpoch();
-    m_hashes = 0;
+    m_last_hr_merge_time = now;
   }
 
   //-----------------------------------------------------------------------------------------------------
@@ -197,6 +217,7 @@ namespace WalletGui
   {   
     if (!m_stop_mining) {
       m_logger(Logging::DEBUGGING) << "Starting miner but it's already started";
+      Q_EMIT miningErrorSignal(tr("Miner is already running"));
       return false;
     }
 
@@ -204,15 +225,26 @@ namespace WalletGui
 
     if(!m_threads.empty()) {
       m_logger(Logging::DEBUGGING) << "Unable to start miner because there are active mining threads";
+      Q_EMIT miningErrorSignal(tr("Unable to start miner because there are active mining threads"));
       return false;
     }
 
     if (!WalletAdapter::instance().getAccountKeys(m_account)) {
       m_logger(Logging::ERROR) << "Unable to start miner because couldn't get account keys";
+      Q_EMIT miningErrorSignal(tr("Unable to start miner because account keys are unavailable"));
+      return false;
     }
 
     m_threads_total = static_cast<uint32_t>(threads_count);
-    m_starter_nonce = Random::randomValue<uint32_t>();
+    reset_nonce_sequence();
+    m_hashes = 0;
+    m_current_hash_rate = 0;
+    m_hash_rate = 0;
+    m_last_hr_merge_time = millisecondsSinceEpoch();
+    {
+      std::lock_guard<std::mutex> hashRatesLock(m_last_hash_rates_lock);
+      m_last_hash_rates.clear();
+    }
 
     // always request block template on start
     if (!request_block_template()) {
@@ -224,7 +256,8 @@ namespace WalletGui
     m_pausers_count = 0; // in case mining wasn't resumed after pause
 
     for (uint32_t i = 0; i != threads_count; i++) {
-      m_threads.push_back(std::thread(std::bind(&Miner::worker_thread, this, i)));
+      std::shared_ptr<std::atomic<bool>> stopSignal(new std::atomic<bool>(false));
+      m_threads.emplace_back(i, stopSignal, std::thread(std::bind(&Miner::worker_thread, this, i, stopSignal)));
     }
 
     QDateTime date = QDateTime::currentDateTime();
@@ -236,6 +269,58 @@ namespace WalletGui
             .arg(formattedTime)
             .arg(m_diffic)
         );
+    Q_EMIT minerStartedSignal(static_cast<quint32>(threads_count), static_cast<quint64>(m_diffic));
+    return true;
+  }
+
+  //-----------------------------------------------------------------------------------------------------
+  bool Miner::set_thread_count(size_t threads_count) {
+    if (threads_count == 0) {
+      threads_count = 1;
+    }
+
+    if (!is_mining()) {
+      m_threads_total = static_cast<uint32_t>(threads_count);
+      return true;
+    }
+
+    std::list<MiningThread> threadsToJoin;
+    uint32_t oldThreadsCount = 0;
+
+    {
+      std::lock_guard<std::mutex> lk(m_threads_lock);
+      oldThreadsCount = static_cast<uint32_t>(m_threads.size());
+      if (threads_count == oldThreadsCount) {
+        return true;
+      }
+
+      m_threads_total = static_cast<uint32_t>(threads_count);
+
+      if (threads_count > oldThreadsCount) {
+        for (uint32_t i = oldThreadsCount; i != threads_count; ++i) {
+          std::shared_ptr<std::atomic<bool>> stopSignal(new std::atomic<bool>(false));
+          m_threads.emplace_back(i, stopSignal, std::thread(std::bind(&Miner::worker_thread, this, i, stopSignal)));
+        }
+      } else {
+        while (m_threads.size() > threads_count) {
+          auto threadIt = std::prev(m_threads.end());
+          threadIt->stop_signal->store(true);
+          threadsToJoin.splice(threadsToJoin.end(), m_threads, threadIt);
+        }
+      }
+    }
+
+    reset_nonce_sequence();
+
+    for (auto& miningThread : threadsToJoin) {
+      if (miningThread.thread.joinable()) {
+        miningThread.thread.join();
+      }
+    }
+
+    m_logger(Logging::INFO) << "Mining thread count changed from " << oldThreadsCount << " to " << threads_count;
+    Q_EMIT minerMessageSignal(tr("Mining thread count changed to %n thread(s)", nullptr, static_cast<int>(threads_count)));
+    Q_EMIT minerThreadsChangedSignal(static_cast<quint32>(threads_count));
     return true;
   }
   
@@ -257,24 +342,44 @@ namespace WalletGui
   //-----------------------------------------------------------------------------------------------------
   bool Miner::stop()
   {
-    send_stop_signal();
+    const bool wasMining = !m_stop_mining.exchange(true);
+    int threadsCount = 0;
+    std::list<MiningThread> threadsToJoin;
 
-    int threadsCount = m_threads.size();
-
-    std::lock_guard<std::mutex> lk(m_threads_lock);
-
-    for (auto& th : m_threads) {
-      th.detach();
+    {
+      std::lock_guard<std::mutex> lk(m_threads_lock);
+      threadsCount = static_cast<int>(m_threads.size());
+      threadsToJoin.splice(threadsToJoin.end(), m_threads);
     }
 
-    m_threads.clear();
+    const std::thread::id currentThreadId = std::this_thread::get_id();
+    for (auto& miningThread : threadsToJoin) {
+      if (!miningThread.thread.joinable()) {
+        continue;
+      }
+      if (miningThread.thread.get_id() == currentThreadId) {
+        miningThread.thread.detach();
+      } else {
+        miningThread.thread.join();
+      }
+    }
 
+    m_hashes = 0;
     m_current_hash_rate = 0;
     m_hash_rate = 0;
-    m_last_hash_rates.clear();
+    m_last_hr_merge_time = 0;
+    {
+      std::lock_guard<std::mutex> hashRatesLock(m_last_hash_rates_lock);
+      m_last_hash_rates.clear();
+    }
 
-    m_logger(Logging::INFO) << "Mining stopped, " << m_threads.size() << " threads finished" ;
+    if (!wasMining && threadsCount == 0) {
+      return true;
+    }
+
+    m_logger(Logging::INFO) << "Mining stopped, " << threadsCount << " threads finished" ;
     Q_EMIT minerMessageSignal(tr("Mining stopped, %n thread(s) finished", nullptr, threadsCount));
+    Q_EMIT minerStoppedSignal(static_cast<quint32>(threadsCount));
 
     return true;
   }
@@ -309,16 +414,16 @@ namespace WalletGui
       //Q_EMIT minerMessageSignal(QString("MINING RESUMED"));
   }
   //-----------------------------------------------------------------------------------------------------
-  bool Miner::worker_thread(uint32_t th_local_index)
+  bool Miner::worker_thread(uint32_t th_local_index, std::shared_ptr<std::atomic<bool>> _thread_stop)
   {
     m_logger(Logging::DEBUGGING) << "Miner thread was started ["<< th_local_index << "]";
-    uint32_t nonce = m_starter_nonce + th_local_index;
+    uint32_t nonce = m_starter_nonce.load() + th_local_index;
     difficulty_type local_diff = 0;
     uint32_t local_template_ver = 0;
     Crypto::cn_context context;
     Block b;
 
-    while(!m_stop_mining)
+    while(!m_stop_mining.load() && !_thread_stop->load())
     {
       if(m_pausers_count) //anti split workaround
       {
@@ -326,14 +431,13 @@ namespace WalletGui
         continue;
       }
 
-      if(local_template_ver != m_template_no) {
+      const uint32_t observed_template_ver = m_template_no.load();
+      if(local_template_ver != observed_template_ver) {
         std::unique_lock<std::mutex> lk(m_template_lock);
         b = m_template;
         local_diff = m_diffic;
-        lk.unlock();
-
-        local_template_ver = m_template_no;
-        nonce = m_starter_nonce + th_local_index;
+        local_template_ver = m_template_no.load();
+        nonce = m_starter_nonce.load() + th_local_index;
       }
 
       if(!local_template_ver) //no any set_block_template call
@@ -350,7 +454,9 @@ namespace WalletGui
         BinaryArray ba;
         if (!get_block_hashing_blob(b, ba)) {
           m_logger(Logging::ERROR) << "get_block_hashing_blob for signature failed.";
-          Q_EMIT minerMessageSignal(QString("get_block_hashing_blob for signature failed"));
+          const QString errorMessage = QStringLiteral("get_block_hashing_blob for signature failed");
+          Q_EMIT minerMessageSignal(errorMessage);
+          Q_EMIT miningErrorSignal(errorMessage);
           m_stop_mining = true;
         }
 
@@ -360,7 +466,9 @@ namespace WalletGui
           Crypto::KeyDerivation derivation;
           if (!Crypto::generate_key_derivation(txPublicKey, m_account.viewSecretKey, derivation)) {
             m_logger(Logging::ERROR) << "Failed to generate_key_derivation for block signature";
-            Q_EMIT minerMessageSignal(QString("Failed to generate_key_derivation for block signature"));
+            const QString errorMessage = QStringLiteral("Failed to generate_key_derivation for block signature");
+            Q_EMIT minerMessageSignal(errorMessage);
+            Q_EMIT miningErrorSignal(errorMessage);
             m_stop_mining = true;
           }
           Crypto::SecretKey ephSecKey;
@@ -371,7 +479,9 @@ namespace WalletGui
         }
         catch (std::exception& e) {
           m_logger(Logging::ERROR) << "Signing block failed: " << e.what();
-          Q_EMIT minerMessageSignal(QString(tr("Signing block failed")) + QString(e.what()));
+          const QString errorMessage = QString(tr("Signing block failed")) + QString(e.what());
+          Q_EMIT minerMessageSignal(errorMessage);
+          Q_EMIT miningErrorSignal(errorMessage);
           m_stop_mining = true;
         }
       }
@@ -379,15 +489,17 @@ namespace WalletGui
       // step 2: get long hash
       Crypto::Hash pow;
 
-      if (!m_stop_mining) {
+      if (!m_stop_mining.load()) {
         if (!NodeAdapter::instance().getBlockLongHash(context, b, pow)) {
           m_logger(Logging::ERROR) << "getBlockLongHash failed.";
-          Q_EMIT minerMessageSignal(QString(tr("getBlockLongHash failed")));
+          const QString errorMessage = tr("getBlockLongHash failed");
+          Q_EMIT minerMessageSignal(errorMessage);
+          Q_EMIT miningErrorSignal(errorMessage);
           m_stop_mining = true;
         }
       }
 
-      if (!m_stop_mining && check_hash(pow, local_diff))
+      if (!m_stop_mining.load() && check_hash(pow, local_diff))
       {
         // we lucky!
 
@@ -396,7 +508,9 @@ namespace WalletGui
         Crypto::Hash id;
         if (!get_block_hash(b, id)) {
           m_logger(Logging::ERROR) << "Failed to get block hash.";
-          Q_EMIT minerMessageSignal(QString("Failed to get block hash"));
+          const QString errorMessage = QStringLiteral("Failed to get block hash");
+          Q_EMIT minerMessageSignal(errorMessage);
+          Q_EMIT miningErrorSignal(errorMessage);
           m_stop_mining = true;
         }
         uint32_t bh = boost::get<BaseInput>(b.baseTransaction.inputs[0]).blockIndex;
@@ -404,18 +518,23 @@ namespace WalletGui
         QDateTime date = QDateTime::currentDateTime();
         QString formattedTime = date.toString("dd.MM.yyyy hh:mm:ss");
 
+        const QString blockHash = QString::fromStdString(Common::podToHex(id));
+        const QString powHash = QString::fromStdString(Common::podToHex(pow));
         m_logger(Logging::INFO) << "Found block " << Common::podToHex(id) << " at height " << bh << " for difficulty: " << local_diff << ", POW " << Common::podToHex(pow);
-        Q_EMIT minerMessageSignal(QString(tr("%1 Found block %2 at height %3 for difficulty %4, POW %5")).arg(formattedTime).arg(QString::fromStdString(Common::podToHex(id))).arg(bh).arg(local_diff).arg(QString::fromStdString(Common::podToHex(pow))));
+        Q_EMIT minerMessageSignal(QString(tr("%1 Found block %2 at height %3 for difficulty %4, POW %5")).arg(formattedTime).arg(blockHash).arg(bh).arg(local_diff).arg(powHash));
+        Q_EMIT blockFoundSignal(blockHash, bh, static_cast<quint64>(local_diff), powHash);
 
         if(!NodeAdapter::instance().handleBlockFound(b)) {
           m_logger(Logging::ERROR) << "Failed to submit block to the main chain";
-          Q_EMIT minerMessageSignal(QString(tr("Failed to submit block to the main chain")));
+          const QString errorMessage = tr("Failed to submit block to the main chain");
+          Q_EMIT minerMessageSignal(errorMessage);
+          Q_EMIT miningErrorSignal(errorMessage);
         } else {
           // yay!
         }
       }
 
-      nonce += m_threads_total;
+      nonce += m_threads_total.load();
       ++m_hashes;
     }
     m_logger(Logging::DEBUGGING) << "Miner thread stopped ["<< th_local_index << "]";
