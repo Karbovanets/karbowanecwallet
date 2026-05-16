@@ -253,6 +253,7 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/Rpc/JsonRpc.cpp
   cryptonote/src/Rpc/RpcServer.cpp
   cryptonote/src/Rpc/RpcServerConfig.cpp
+  cryptonote/src/Rpc/BuiltinExplorer.cpp
   cryptonote/src/Serialization/BinaryInputStreamSerializer.cpp
   cryptonote/src/Serialization/BinaryOutputStreamSerializer.cpp
   cryptonote/src/Serialization/JsonInputValueSerializer.cpp
