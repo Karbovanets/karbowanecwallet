@@ -62,12 +62,13 @@ private:
 
   void initCpuCoreList();
   void startSolo();
-  void stopSolo();
+  void stopSolo(bool _stoppedByNoPeers = false);
 
   bool m_wallet_closed = false;
   bool m_solo_mining = false;
   bool m_sychronized = false;
   bool m_mining_was_stopped = false;
+  bool m_miningStoppedByNoPeers = false;
   QDateTime m_sessionStartedAt;
   double m_sessionTotalHashes = 0;
   double m_roundHashes = 0;
@@ -103,6 +104,7 @@ private:
   Q_SLOT void enableSolo();
   Q_SLOT void setMiningThreads();
   Q_SLOT void onBlockHeightUpdated(quint64 _height);
+  Q_SLOT void onPeerCountUpdated(quintptr _count);
   Q_SLOT void onSynchronizationCompleted();
   Q_SLOT void updateBalance(quint64 _balance);
   Q_SLOT void updatePendingBalance(quint64 _balance);

@@ -130,6 +130,9 @@ QString eventColor(const QString& kind) {
   if (kind == QStringLiteral("CPU")) {
     return QStringLiteral("#2f7d6d");
   }
+  if (kind == QStringLiteral("PEERS")) {
+    return QStringLiteral("#b86b00");
+  }
   if (kind == QStringLiteral("BLOCK")) {
     return QStringLiteral("#d7ff3f");
   }
@@ -204,6 +207,7 @@ MiningFrame::MiningFrame(QWidget* _parent) :
   connect(&WalletAdapter::instance(), &WalletAdapter::walletPendingBalanceUpdatedSignal, this, &MiningFrame::updatePendingBalance, Qt::QueuedConnection);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletSynchronizationCompletedSignal, this, &MiningFrame::onSynchronizationCompleted, Qt::QueuedConnection);
   connect(&NodeAdapter::instance(), &NodeAdapter::localBlockchainUpdatedSignal, this, &MiningFrame::onBlockHeightUpdated, Qt::QueuedConnection);
+  connect(&NodeAdapter::instance(), &NodeAdapter::peerCountUpdatedSignal, this, &MiningFrame::onPeerCountUpdated, Qt::QueuedConnection);
   connect(&NodeAdapter::instance(), &NodeAdapter::poolChangedSignal, this, &MiningFrame::poolChanged,Qt::QueuedConnection);
   connect(&*m_miner, &Miner::minerMessageSignal, this, &MiningFrame::updateMinerLog, Qt::QueuedConnection);
   connect(&*m_miner, &Miner::minerStartedSignal, this, &MiningFrame::onMinerStarted, Qt::QueuedConnection);
@@ -709,6 +713,15 @@ void MiningFrame::stopMiningForShutdown() {
 }
 
 void MiningFrame::startSolo() {
+  if (NodeAdapter::instance().getPeerCount() == 0) {
+    setMiningStatusBadge(tr("No peers"), QStringLiteral("rgba(219, 178, 83, 75)"), QStringLiteral("#7a5a16"));
+    m_ui->m_startSolo->setChecked(false);
+    m_ui->m_startSolo->setEnabled(false);
+    m_ui->m_stopSolo->setEnabled(false);
+    appendMiningEvent(QStringLiteral("PEERS"), tr("Mining was not started because there are no connected peers"));
+    return;
+  }
+
   quint64 difficulty = NodeAdapter::instance().getDifficulty();
   updateDifficulty(difficulty);
 
@@ -729,9 +742,10 @@ void MiningFrame::startSolo() {
   m_ui->m_startSolo->setEnabled(false);
   m_ui->m_stopSolo->setEnabled(true);
   m_solo_mining = true;
+  m_miningStoppedByNoPeers = false;
 }
 
-void MiningFrame::stopSolo() {
+void MiningFrame::stopSolo(bool _stoppedByNoPeers) {
   if(m_solo_mining) {
     killTimer(m_soloHashRateTimerId);
     m_soloHashRateTimerId = -1;
@@ -754,7 +768,8 @@ void MiningFrame::stopSolo() {
       m_ui->m_cpuMaxPreset->setEnabled(true);
     }
     m_solo_mining = false;
-    m_mining_was_stopped = true;
+    m_mining_was_stopped = !_stoppedByNoPeers;
+    m_miningStoppedByNoPeers = _stoppedByNoPeers;
   }
 }
 
@@ -801,13 +816,41 @@ void MiningFrame::onBlockHeightUpdated(quint64 _height) {
   updateDifficulty(difficulty);
 }
 
+void MiningFrame::onPeerCountUpdated(quintptr _count) {
+  if (NodeAdapter::instance().getNodeType() != NodeType::IN_PROCESS) {
+    return;
+  }
+
+  if (_count == 0) {
+    m_sychronized = false;
+    if (m_solo_mining) {
+      appendMiningEvent(QStringLiteral("PEERS"), tr("Mining stopped because there are no connected peers"));
+      stopSolo(true);
+    }
+
+    setMiningStatusBadge(tr("No peers"), QStringLiteral("rgba(219, 178, 83, 75)"), QStringLiteral("#7a5a16"));
+    m_ui->m_startSolo->setEnabled(false);
+    m_ui->m_stopSolo->setEnabled(false);
+    return;
+  }
+
+  if (m_sychronized && !m_wallet_closed) {
+    enableSolo();
+  }
+}
+
 void MiningFrame::onSynchronizationCompleted() {
   NodeType node = NodeAdapter::instance().getNodeType();
   if (node != NodeType::IN_PROCESS) {
     m_ui->m_startSolo->setEnabled(false);
     return;
   }
+  const bool resumeMining = m_miningStoppedByNoPeers && NodeAdapter::instance().getPeerCount() > 0;
   enableSolo();
+  if (resumeMining && !m_solo_mining && !m_miner->is_mining()) {
+    m_miningStoppedByNoPeers = false;
+    startSolo();
+  }
 }
 
 void MiningFrame::updateBalance(quint64 _balance) {
@@ -867,6 +910,7 @@ void MiningFrame::onMinerStopped(quint32 _threads) {
 
   m_solo_mining = false;
   m_mining_was_stopped = true;
+  m_miningStoppedByNoPeers = false;
 }
 
 void MiningFrame::onMinerThreadsChanged(quint32 _threads) {

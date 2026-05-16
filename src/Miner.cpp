@@ -122,6 +122,15 @@ namespace WalletGui
       return true;
     }
 
+    if (NodeAdapter::instance().getPeerCount() == 0) {
+      const QString errorMessage = tr("Mining stopped because there are no connected peers");
+      m_logger(Logging::WARNING) << errorMessage.toStdString();
+      Q_EMIT minerMessageSignal(errorMessage);
+      Q_EMIT miningErrorSignal(errorMessage);
+      stop();
+      return false;
+    }
+
     //pause();
 
     if (request_block_template()) {
@@ -218,6 +227,14 @@ namespace WalletGui
     if (!m_stop_mining) {
       m_logger(Logging::DEBUGGING) << "Starting miner but it's already started";
       Q_EMIT miningErrorSignal(tr("Miner is already running"));
+      return false;
+    }
+
+    if (NodeAdapter::instance().getPeerCount() == 0) {
+      const QString errorMessage = tr("Mining was not started because there are no connected peers");
+      m_logger(Logging::WARNING) << errorMessage.toStdString();
+      Q_EMIT minerMessageSignal(errorMessage);
+      Q_EMIT miningErrorSignal(errorMessage);
       return false;
     }
 
