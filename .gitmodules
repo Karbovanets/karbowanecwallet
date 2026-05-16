@@ -1,3 +1,4 @@
 [submodule "cryptonote"]
 	path = cryptonote
 	url = https://github.com/Karbovanets/karbowanec.git
+	branch = master
