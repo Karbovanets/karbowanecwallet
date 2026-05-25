@@ -9,6 +9,8 @@
 #include <QTimer>
 #include <QUrl>
 
+#include <exception>
+
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
 
@@ -53,8 +55,8 @@ public:
 
   void start(Node** _node, const CryptoNote::Currency* currency,  INodeCallback* _callback, Logging::LoggerManager* _loggerManager,
     const CryptoNote::CoreConfig& _coreConfig, const CryptoNote::NetNodeConfig& _netNodeConfig, const CryptoNote::RpcServerConfig& _rpcServerConfig) {
-    (*_node) = createInprocessNode(*currency, *_loggerManager, _coreConfig, _netNodeConfig, _rpcServerConfig, *_callback);
     try {
+      (*_node) = createInprocessNode(*currency, *_loggerManager, _coreConfig, _netNodeConfig, _rpcServerConfig, *_callback);
       (*_node)->init([this](std::error_code _err) {
           if (_err) {
             Q_EMIT nodeInitFailedSignal(_err.value());
@@ -65,20 +67,26 @@ public:
           Q_EMIT nodeInitCompletedSignal();
           QCoreApplication::processEvents();
         });
-    } catch (std::runtime_error& err) {
+    } catch (std::exception&) {
+      if (*_node != nullptr) {
+        delete *_node;
+        *_node = nullptr;
+      }
       Q_EMIT nodeInitFailedSignal(CryptoNote::error::INTERNAL_WALLET_ERROR);
       QCoreApplication::processEvents();
-      return;
     }
 
-    delete *_node;
-    *_node = nullptr;
+    if (*_node != nullptr) {
+      delete *_node;
+      *_node = nullptr;
+    }
     Q_EMIT nodeDeinitCompletedSignal();
   }
 
   void stop(Node** _node) {
-    Q_CHECK_PTR(*_node);
-    (*_node)->deinit();
+    if (*_node != nullptr) {
+      (*_node)->deinit();
+    }
   }
 };
 
@@ -365,11 +373,21 @@ bool NodeAdapter::initInProcessNode() {
   CryptoNote::CoreConfig coreConfig = makeCoreConfig();
   CryptoNote::NetNodeConfig netNodeConfig = makeNetNodeConfig();
   CryptoNote::RpcServerConfig rpcServerConfig = makeRpcServerConfig();
-  Q_EMIT initNodeSignal(&m_node, &CurrencyAdapter::instance().getCurrency(), this, &LoggerAdapter::instance().getLoggerManager(), coreConfig, netNodeConfig, rpcServerConfig);
   QEventLoop waitLoop;
   connect(m_nodeInitializer, &InProcessNodeInitializer::nodeInitCompletedSignal, &waitLoop, &QEventLoop::quit);
   connect(m_nodeInitializer, &InProcessNodeInitializer::nodeInitFailedSignal, &waitLoop, &QEventLoop::exit);
+  Q_EMIT initNodeSignal(&m_node, &CurrencyAdapter::instance().getCurrency(), this, &LoggerAdapter::instance().getLoggerManager(), coreConfig, netNodeConfig, rpcServerConfig);
   if (waitLoop.exec() != 0) {
+    if (m_nodeInitializerThread.isRunning()) {
+      m_nodeInitializerThread.quit();
+      m_nodeInitializerThread.wait();
+    }
+
+    if (m_node != nullptr) {
+      delete m_node;
+      m_node = nullptr;
+    }
+
     return false;
   }
 
@@ -379,18 +397,18 @@ bool NodeAdapter::initInProcessNode() {
 }
 
 void NodeAdapter::deinit() {
-  if (m_node != nullptr) {
-    if (m_nodeInitializerThread.isRunning()) {
-      m_nodeInitializer->stop(&m_node);
+  if (m_nodeInitializerThread.isRunning()) {
+    if (m_node != nullptr) {
       QEventLoop waitLoop;
       connect(m_nodeInitializer, &InProcessNodeInitializer::nodeDeinitCompletedSignal, &waitLoop, &QEventLoop::quit, Qt::QueuedConnection);
+      m_nodeInitializer->stop(&m_node);
       waitLoop.exec();
-      m_nodeInitializerThread.quit();
-      m_nodeInitializerThread.wait();
-    } else {
-      delete m_node;
-      m_node = nullptr;
     }
+    m_nodeInitializerThread.quit();
+    m_nodeInitializerThread.wait();
+  } else if (m_node != nullptr) {
+    delete m_node;
+    m_node = nullptr;
   }
 }
 
