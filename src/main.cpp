@@ -14,6 +14,8 @@
 #include <QSplashScreen>
 #include <QSettings>
 
+#include <CryptoNoteConfig.h>
+
 #include <oclero/qlementine.hpp>
 
 // Subclass to fix tooltip colors (Qlementine draws tooltips directly, ignoring palette)
@@ -68,7 +70,7 @@ int main(int argc, char* argv[]) {
   QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
   QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
   QApplication app(argc, argv);
-  app.setApplicationName(CurrencyAdapter::instance().getCurrencyName() + "wallet");
+  app.setApplicationName(QString::fromLatin1(CryptoNote::CRYPTONOTE_NAME) + "wallet");
   app.setApplicationVersion(Settings::instance().getVersion());
   app.setQuitOnLastWindowClosed(false);
 
@@ -81,6 +83,7 @@ int main(int argc, char* argv[]) {
   CommandLineParser cmdLineParser(nullptr);
   Settings::instance().setCommandLineParser(&cmdLineParser);
   bool cmdLineParseResult = cmdLineParser.process(app.arguments());
+  CurrencyAdapter::instance().init(cmdLineParser.hasTestnetOption());
   Settings::instance().load();
 
   //Translator must be created before the application's widgets.

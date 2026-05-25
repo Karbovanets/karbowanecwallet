@@ -16,6 +16,7 @@ class CurrencyAdapter {
 public:
   static CurrencyAdapter& instance();
 
+  void init(bool testnet);
   CryptoNote::Currency& getCurrency();
   QString getCurrencyDisplayName() const;
   QString getCurrencyName() const;

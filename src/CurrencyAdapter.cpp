@@ -11,15 +11,31 @@
 
 namespace WalletGui {
 
+namespace {
+
+CryptoNote::Currency makeCurrency(bool testnet) {
+  return CryptoNote::CurrencyBuilder(LoggerAdapter::instance().getLoggerManager()).testnet(testnet).currency();
+}
+
+}
+
 CurrencyAdapter& CurrencyAdapter::instance() {
   static CurrencyAdapter inst;
   return inst;
 }
 
-CurrencyAdapter::CurrencyAdapter() : m_currency(CryptoNote::CurrencyBuilder(LoggerAdapter::instance().getLoggerManager()).currency()) {
+CurrencyAdapter::CurrencyAdapter() : m_currency(makeCurrency(false)) {
 }
 
 CurrencyAdapter::~CurrencyAdapter() {
+}
+
+void CurrencyAdapter::init(bool testnet) {
+  if (m_currency.isTestnet() == testnet) {
+    return;
+  }
+
+  m_currency = makeCurrency(testnet);
 }
 
 CryptoNote::Currency& CurrencyAdapter::getCurrency() {
