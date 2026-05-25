@@ -205,6 +205,7 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/crypto/gk_proof.cpp
   cryptonote/src/crypto/triptych.cpp
   cryptonote/src/crypto/pedersen.cpp
+  cryptonote/src/crypto/msm.cpp
   cryptonote/src/crypto/transaction_balance.cpp
   cryptonote/src/CryptoNoteCore/BlockchainIndices.cpp
   cryptonote/src/CryptoNoteCore/LMDBBlockchainDB.cpp
