@@ -203,7 +203,7 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/crypto/yespower.c
   cryptonote/src/crypto/ct_ecdh.cpp
   cryptonote/src/crypto/gk_proof.cpp
-  cryptonote/src/crypto/mlsag.cpp
+  cryptonote/src/crypto/triptych.cpp
   cryptonote/src/crypto/pedersen.cpp
   cryptonote/src/crypto/transaction_balance.cpp
   cryptonote/src/CryptoNoteCore/BlockchainIndices.cpp
@@ -229,6 +229,7 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/CryptoNoteCore/TransactionPool.cpp
   cryptonote/src/CryptoNoteCore/TransactionPrefixImpl.cpp
   cryptonote/src/CryptoNoteCore/TransactionUtils.cpp
+  cryptonote/src/CryptoNoteCore/TransactionValidation.cpp
   cryptonote/src/CryptoNoteProtocol/CryptoNoteProtocolHandler.cpp
   cryptonote/src/InProcessNode/InProcessNode.cpp
   cryptonote/src/InProcessNode/InProcessNodeErrors.cpp
