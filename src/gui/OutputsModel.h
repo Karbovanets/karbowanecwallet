@@ -20,7 +20,7 @@ class OutputsModel : public QAbstractItemModel {
   Q_ENUMS(Roles)
 
 public:
-  enum class OutputType : uint8_t { Invalid, Key, Multisignature };
+  enum class OutputType : uint8_t { Invalid, Key, Confidential, Multisignature };
   enum class OutputState : quint8 { SPENT, UNSPENT };
 
   enum Columns{

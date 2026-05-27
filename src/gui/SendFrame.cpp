@@ -32,7 +32,27 @@
 namespace WalletGui {
 
 namespace {
-const int DEFAULT_RING_SIZE = 16;
+const int MIN_MIXIN_SLIDER_VALUE = 0;
+const int MAX_MIXIN_SLIDER_VALUE = 3;
+const int DEFAULT_MIXIN_SLIDER_VALUE = MAX_MIXIN_SLIDER_VALUE;
+
+quint64 anonymityForSliderValue(int _value) {
+  switch (_value) {
+  case 0:
+    return 0;
+  case 1:
+    return static_cast<quint64>(CryptoNote::parameters::CT_MIN_RING_SIZE);
+  case 2:
+    return 8;
+  default:
+    return static_cast<quint64>(CryptoNote::parameters::CT_MAX_RING_SIZE);
+  }
+}
+
+quint64 backendMixinForSliderValue(int _value) {
+  const quint64 anonymity = anonymityForSliderValue(_value);
+  return anonymity > 0 ? anonymity - 1 : 0;
+}
 }
 
 SendFrame::SendFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::SendFrame), m_glassFrame(new SendGlassFrame(nullptr)),
@@ -40,10 +60,12 @@ SendFrame::SendFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::SendFrame
 {
   m_ui->setupUi(this);
   m_glassFrame->setObjectName("m_sendGlassFrame");
+  m_ui->m_mixinSlider->setMinimum(MIN_MIXIN_SLIDER_VALUE);
+  m_ui->m_mixinSlider->setMaximum(MAX_MIXIN_SLIDER_VALUE);
+  m_ui->m_mixinSlider->setValue(DEFAULT_MIXIN_SLIDER_VALUE);
+  m_ui->m_mixinSlider->setToolTip(tr("Anonymity options: 0, 4, 8, 16"));
+  m_ui->m_mixinLabel->setToolTip(tr("Selected anonymity option"));
   clearAllClicked();
-  m_ui->m_mixinSlider->setMinimum(CryptoNote::parameters::CT_MIN_RING_SIZE);
-  m_ui->m_mixinSlider->setMaximum(CryptoNote::parameters::CT_MAX_RING_SIZE);
-  m_ui->m_mixinSlider->setValue(DEFAULT_RING_SIZE);
   mixinValueChanged(m_ui->m_mixinSlider->value());
   m_ui->m_prioritySlider->setValue(2);
   priorityValueChanged(m_ui->m_prioritySlider->value());
@@ -171,9 +193,10 @@ void SendFrame::clearAllClicked() {
   amountValueChanged();
   m_ui->m_paymentIdEdit->clear();
   m_ignoreMixinWarning = true;
-  m_ui->m_mixinSlider->setValue(DEFAULT_RING_SIZE);
+  m_ui->m_mixinSlider->setValue(DEFAULT_MIXIN_SLIDER_VALUE);
   m_ignoreMixinWarning = false;
   m_mixinWarningShown = false;
+  m_zeroMixinWarningShown = false;
   m_ui->m_prioritySlider->setValue(2);
   priorityValueChanged(m_ui->m_prioritySlider->value());
 }
@@ -461,11 +484,27 @@ void SendFrame::sendClicked() {
 }
 
 void SendFrame::mixinValueChanged(int _value) {
-  m_ui->m_mixinLabel->setText(QString::number(_value));
-  if (!m_ignoreMixinWarning && _value != DEFAULT_RING_SIZE && !m_mixinWarningShown) {
+  const quint64 anonymity = anonymityForSliderValue(_value);
+  m_ui->m_mixinLabel->setText(QString::number(anonymity));
+
+  if (m_ignoreMixinWarning) {
+    return;
+  }
+
+  if (anonymity == 0) {
+    if (!m_zeroMixinWarningShown) {
+      m_zeroMixinWarningShown = true;
+      QMessageBox::warning(this, tr("Privacy warning"),
+                           tr("Anonymity 0 sends without decoys. Use it only for mined/coinbase outputs or when a transaction cannot be built otherwise."),
+                           QMessageBox::Ok);
+    }
+    return;
+  }
+
+  if (_value != DEFAULT_MIXIN_SLIDER_VALUE && !m_mixinWarningShown) {
     m_mixinWarningShown = true;
     QMessageBox::warning(this, tr("Privacy warning"),
-                         tr("Lowering the ring size degrades privacy and should only be used when a transaction is too large because it has many inputs."),
+                         tr("Lowering anonymity reduces privacy and should only be used when a transaction is too large because it has many inputs."),
                          QMessageBox::Ok);
   }
 }
@@ -514,7 +553,7 @@ quint64 SendFrame::getFee() {
 }
 
 quint64 SendFrame::getBackendMixin() const {
-  return m_ui->m_mixinSlider->value() > 0 ? static_cast<quint64>(m_ui->m_mixinSlider->value() - 1) : 0;
+  return backendMixinForSliderValue(m_ui->m_mixinSlider->value());
 }
 
 void SendFrame::sendTransactionCompleted(CryptoNote::TransactionId _id, bool _error, const QString& _errorText) {

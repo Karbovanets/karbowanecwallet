@@ -3483,7 +3483,13 @@ Are you sure?</source>
     </message>
     <message>
         <location filename="../gui/OutputsModel.cpp" line="188"/>
-        <location filename="../gui/OutputsModel.cpp" line="291"/>
+        <location filename="../gui/OutputsModel.cpp" line="293"/>
+        <source>Confidential</source>
+        <translation>기밀</translation>
+    </message>
+    <message>
+        <location filename="../gui/OutputsModel.cpp" line="190"/>
+        <location filename="../gui/OutputsModel.cpp" line="295"/>
         <source>Multisignature</source>
         <translation>다중 서명</translation>
     </message>

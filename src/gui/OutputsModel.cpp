@@ -184,6 +184,8 @@ QVariant OutputsModel::getDisplayRole(const QModelIndex& _index) const {
   case COLUMN_TYPE: {
     if (type == OutputType::Key)
       return tr("Key");
+    else if (type == OutputType::Confidential)
+      return tr("Confidential");
     else if (type == OutputType::Multisignature)
       return tr("Multisignature");
     else
@@ -213,7 +215,7 @@ QVariant OutputsModel::getDisplayRole(const QModelIndex& _index) const {
   case COLUMN_TX_PUBLIC_KEY: {
     if (type == OutputType::Key)
       return _index.data(ROLE_TX_PUBLIC_KEY).toByteArray().toHex().toUpper();
-    else if (type == OutputType::Multisignature)
+    else if (type == OutputType::Confidential || type == OutputType::Multisignature)
       return "-";
   }
 
@@ -287,6 +289,8 @@ QVariant OutputsModel::getEditRole(const QModelIndex& _index) const {
   case COLUMN_TYPE: {
     if (type == OutputType::Key)
       return tr("Key");
+    else if (type == OutputType::Confidential)
+      return tr("Confidential");
     else if (type == OutputType::Multisignature)
       return tr("Multisignature");
     else
@@ -316,7 +320,7 @@ QVariant OutputsModel::getEditRole(const QModelIndex& _index) const {
   case COLUMN_TX_PUBLIC_KEY: {
     if (type == OutputType::Key)
       return _index.data(ROLE_TX_PUBLIC_KEY).toByteArray().toHex().toUpper();
-    else if (type == OutputType::Multisignature)
+    else if (type == OutputType::Confidential || type == OutputType::Multisignature)
       return "-";
   }
 

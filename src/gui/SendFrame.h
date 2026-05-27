@@ -45,6 +45,7 @@ private:
   quint64 m_selectedOutputsAmount = 0;
   bool m_ignoreMixinWarning = false;
   bool m_mixinWarningShown = false;
+  bool m_zeroMixinWarningShown = false;
   QList<CryptoNote::TransactionOutputInformation> m_selectedOutputs;
 
   void sendTransactionCompleted(CryptoNote::TransactionId _id, bool _error, const QString& _error_text);
