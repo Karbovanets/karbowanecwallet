@@ -760,7 +760,7 @@ QString WalletAdapter::walletErrorMessage(int _error_code) {
     case CryptoNote::error::WalletErrorCodes::WRONG_PASSWORD:                return tr("The password is wrong");
     case CryptoNote::error::WalletErrorCodes::ALREADY_INITIALIZED:           return tr("The object is already initialized");
     case CryptoNote::error::WalletErrorCodes::INTERNAL_WALLET_ERROR:         return tr("Internal error occurred");
-    case CryptoNote::error::WalletErrorCodes::MIXIN_COUNT_TOO_BIG:           return tr("MixIn count is too big");
+    case CryptoNote::error::WalletErrorCodes::MIXIN_COUNT_TOO_BIG:           return tr("Not enough decoy outputs for all selected inputs. Anonymity 0 can spend mined/coinbase outputs without decoys, but transparent inputs still need same-amount decoys. Try a smaller amount or select mined outputs from the Coins tab.");
     case CryptoNote::error::WalletErrorCodes::BAD_ADDRESS:                   return tr("Bad address");
     case CryptoNote::error::WalletErrorCodes::TRANSACTION_SIZE_TOO_BIG:      return tr("Transaction size is too big");
     case CryptoNote::error::WalletErrorCodes::WRONG_AMOUNT:                  return tr("Wrong amount");
