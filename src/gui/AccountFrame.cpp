@@ -109,6 +109,8 @@ AccountFrame::AccountFrame(QWidget* _parent) : QFrame(_parent), m_ui(new Ui::Acc
     Qt::QueuedConnection);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletPendingBalanceUpdatedSignal, this, &AccountFrame::updatePendingBalance,
     Qt::QueuedConnection);
+  connect(&WalletAdapter::instance(), &WalletAdapter::walletTotalBalanceUpdatedSignal, this, &AccountFrame::updateTotalBalance,
+    Qt::QueuedConnection);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletUnmixableBalanceUpdatedSignal, this, &AccountFrame::updateUnmixableBalance,
     Qt::QueuedConnection);
   connect(&WalletAdapter::instance(), &WalletAdapter::walletCloseCompletedSignal, this, &AccountFrame::reset);
@@ -235,21 +237,19 @@ void AccountFrame::updateActualBalance(quint64 _balance) {
   QStringList actualList = divideAmount(_balance);
   const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
   m_ui->m_actualBalanceLabel->setText(formatBalanceLabel(tr("Available"), actualList, ticker, 18, 10));
-
-  quint64 pendingBalance = WalletAdapter::instance().getPendingBalance();
-
-  QStringList pendingList = divideAmount(_balance + pendingBalance);
-  m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), pendingList, ticker, 20, 10));
+  updateTotalBalance(WalletAdapter::instance().getTotalBalance());
 }
 
 void AccountFrame::updatePendingBalance(quint64 _balance) {
   QStringList pendingList = divideAmount(_balance);
   const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
   m_ui->m_pendingBalanceLabel->setText(formatBalanceLabel(tr("Pending"), pendingList, ticker, 18, 10));
+  updateTotalBalance(WalletAdapter::instance().getTotalBalance());
+}
 
-  quint64 actualBalance = WalletAdapter::instance().getActualBalance();
-
-  QStringList totalList = divideAmount(_balance + actualBalance);
+void AccountFrame::updateTotalBalance(quint64 _balance) {
+  QStringList totalList = divideAmount(_balance);
+  const QString ticker = CurrencyAdapter::instance().getCurrencyTicker().toUpper();
   m_ui->m_totalBalanceLabel->setText(formatBalanceLabel(tr("Total"), totalList, ticker, 20, 10));
 }
 

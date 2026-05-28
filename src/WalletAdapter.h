@@ -48,6 +48,7 @@ public:
 
   QString getAddress() const;
   quint64 getActualBalance() const;
+  quint64 getTotalBalance() const;
   quint64 getUnmixableBalance() const;
   quint64 getPendingBalance() const;
   quint64 getTransactionCount() const;
@@ -87,6 +88,7 @@ public:
   void synchronizationCompleted(std::error_code _error) Q_DECL_OVERRIDE;
   void actualBalanceUpdated(uint64_t _actual_balance) Q_DECL_OVERRIDE;
   void pendingBalanceUpdated(uint64_t _pending_balance) Q_DECL_OVERRIDE;
+  void totalBalanceUpdated(uint64_t _total_balance) Q_DECL_OVERRIDE;
   void unmixableBalanceUpdated(uint64_t _dust_balance) Q_DECL_OVERRIDE;
   void externalTransactionCreated(CryptoNote::TransactionId _transaction_id) Q_DECL_OVERRIDE;
   void sendTransactionCompleted(CryptoNote::TransactionId _transaction_id, std::error_code _result) Q_DECL_OVERRIDE;
@@ -147,6 +149,7 @@ Q_SIGNALS:
   void walletSynchronizationCompletedSignal(int _error, const QString& _error_text);
   void walletActualBalanceUpdatedSignal(quint64 _actual_balance);
   void walletPendingBalanceUpdatedSignal(quint64 _pending_balance);
+  void walletTotalBalanceUpdatedSignal(quint64 _total_balance);
   void walletUnmixableBalanceUpdatedSignal(quint64 _dust_balance);
   void walletTransactionCreatedSignal(CryptoNote::TransactionId _transaction_id);
   void walletSendTransactionCompletedSignal(CryptoNote::TransactionId _transaction_id, int _error, const QString& _error_text);

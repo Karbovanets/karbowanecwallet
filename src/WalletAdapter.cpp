@@ -115,6 +115,14 @@ quint64 WalletAdapter::getActualBalance() const {
   return 0;
 }
 
+quint64 WalletAdapter::getTotalBalance() const {
+  try {
+    return m_wallet == nullptr ? 0 : m_wallet->totalBalance();
+  } catch (std::system_error&) {
+  }
+  return 0;
+}
+
 quint64 WalletAdapter::getPendingBalance() const {
   try {
     return m_wallet == nullptr ? 0 : m_wallet->pendingBalance();
@@ -618,6 +626,7 @@ void WalletAdapter::onWalletInitCompleted(int _error, const QString& _errorText)
   case 0: {
     Q_EMIT walletActualBalanceUpdatedSignal(m_wallet->actualBalance());
     Q_EMIT walletPendingBalanceUpdatedSignal(m_wallet->pendingBalance());
+    Q_EMIT walletTotalBalanceUpdatedSignal(m_wallet->totalBalance());
     Q_EMIT walletUnmixableBalanceUpdatedSignal(m_wallet->unmixableBalance());
     Q_EMIT updateWalletAddressSignal(QString::fromStdString(m_wallet->getAddress()));
     Q_EMIT reloadWalletTransactionsSignal();
@@ -734,6 +743,10 @@ void WalletAdapter::actualBalanceUpdated(uint64_t _actual_balance) {
 
 void WalletAdapter::pendingBalanceUpdated(uint64_t _pending_balance) {
   Q_EMIT walletPendingBalanceUpdatedSignal(_pending_balance);
+}
+
+void WalletAdapter::totalBalanceUpdated(uint64_t _total_balance) {
+  Q_EMIT walletTotalBalanceUpdatedSignal(_total_balance);
 }
 
 void WalletAdapter::unmixableBalanceUpdated(uint64_t _dust_balance) {
