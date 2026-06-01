@@ -197,6 +197,8 @@ void SendFrame::clearAllClicked() {
   m_ignoreMixinWarning = false;
   m_mixinWarningShown = false;
   m_zeroMixinWarningShown = false;
+  m_ui->unshieldCheckBox->setChecked(false);
+  m_ui->dontRelayCheckBox->setEnabled(true);
   m_ui->m_prioritySlider->setValue(2);
   priorityValueChanged(m_ui->m_prioritySlider->value());
 }
@@ -206,6 +208,8 @@ void SendFrame::reset() {
   m_selectedOutputsAmount = 0;
   m_ui->m_mixinSlider->setEnabled(true);
   m_ui->m_sendAllButton->setEnabled(true);
+  m_ui->unshieldCheckBox->setChecked(false);
+  m_ui->dontRelayCheckBox->setEnabled(true);
   amountValueChanged();
 }
 
@@ -419,6 +423,7 @@ void SendFrame::sendClicked() {
     return;
   }
 
+  const bool unshield = m_ui->unshieldCheckBox->isChecked();
   quint64 total_transaction_amount = 0;
   for (size_t i = 0; i < walletTransfers.size(); i++) {
     total_transaction_amount += walletTransfers.at(i).amount;
@@ -453,6 +458,12 @@ void SendFrame::sendClicked() {
     dlg.confirmNoPaymentId();
   }
   if (dlg.exec() == QDialog::Accepted) {
+    if (unshield && QMessageBox::warning(this, tr("Unshield transaction"),
+        tr("This will create transparent outputs with public amounts. Anyone watching the chain can see those amounts, which reduces privacy. Continue?"),
+        QMessageBox::Yes | QMessageBox::No, QMessageBox::No) != QMessageBox::Yes) {
+      return;
+    }
+
     std::list<CryptoNote::TransactionOutputInformation> selectedOutputsList;
     for (const auto &item : m_selectedOutputs) {
       selectedOutputsList.push_back(item);
@@ -460,17 +471,17 @@ void SendFrame::sendClicked() {
     if (WalletAdapter::instance().isOpen()) {
       if (!m_ui->dontRelayCheckBox->isChecked()) {
         if (m_selectedOutputsAmount > 0) {
-          WalletAdapter::instance().sendTransaction(walletTransfers, selectedOutputsList, fee, m_ui->m_paymentIdEdit->text(), getBackendMixin());
+          WalletAdapter::instance().sendTransaction(walletTransfers, selectedOutputsList, fee, m_ui->m_paymentIdEdit->text(), getBackendMixin(), unshield);
         } else {
-          WalletAdapter::instance().sendTransaction(walletTransfers, fee, m_ui->m_paymentIdEdit->text(), getBackendMixin());
+          WalletAdapter::instance().sendTransaction(walletTransfers, fee, m_ui->m_paymentIdEdit->text(), getBackendMixin(), unshield);
         }
       } else {
         QString rawTx;
 
         if (m_selectedOutputsAmount > 0) {
-          rawTx = WalletAdapter::instance().prepareRawTransaction(walletTransfers, selectedOutputsList, fee, m_ui->m_paymentIdEdit->text(), getBackendMixin());
+          rawTx = WalletAdapter::instance().prepareRawTransaction(walletTransfers, selectedOutputsList, fee, m_ui->m_paymentIdEdit->text(), getBackendMixin(), unshield);
         } else {
-          rawTx = WalletAdapter::instance().prepareRawTransaction(walletTransfers, fee, m_ui->m_paymentIdEdit->text(), getBackendMixin());
+          rawTx = WalletAdapter::instance().prepareRawTransaction(walletTransfers, fee, m_ui->m_paymentIdEdit->text(), getBackendMixin(), unshield);
         }
 
         if (!rawTx.isEmpty()) {

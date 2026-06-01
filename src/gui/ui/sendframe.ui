@@ -401,6 +401,29 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="unshieldCheckBox">
+        <property name="toolTip">
+         <string>Send confidential funds to transparent outputs with visible amounts.</string>
+        </property>
+        <property name="text">
+         <string>Unshield</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="5">
+       <widget class="QLabel" name="m_unshieldWarningLabel">
+        <property name="styleSheet">
+         <string notr="true">color: #7f3030; font-size: 11px;</string>
+        </property>
+        <property name="text">
+         <string>Exposes output amounts on-chain and reduces privacy.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -564,6 +587,7 @@
   <tabstop>m_mixinSlider</tabstop>
   <tabstop>donateCheckBox</tabstop>
   <tabstop>m_donateSpin</tabstop>
+  <tabstop>unshieldCheckBox</tabstop>
   <tabstop>m_sendAllButton</tabstop>
   <tabstop>m_clearAllButton</tabstop>
   <tabstop>m_addRecipientButton</tabstop>
