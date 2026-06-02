@@ -2014,6 +2014,31 @@ Do you want to go to the download page?</source>
         <source>Prepare transaction but do not relay</source>
         <translation>Підготувати транзакцію, але не передавати в мережу</translation>
     </message>
+    <message>
+        <location filename="../gui/ui/sendframe.ui" line="409"/>
+        <source>Send with a public amount instead of a confidential amount.</source>
+        <translation>Надіслати з публічною сумою замість конфіденційної.</translation>
+    </message>
+    <message>
+        <location filename="../gui/ui/sendframe.ui" line="412"/>
+        <source>Unshield</source>
+        <translation>Розхистити</translation>
+    </message>
+    <message>
+        <location filename="../gui/ui/sendframe.ui" line="422"/>
+        <source>Amount becomes public. Privacy is reduced.</source>
+        <translation>Сума стане публічною. Приватність зменшиться.</translation>
+    </message>
+    <message>
+        <location filename="../gui/SendFrame.cpp" line="461"/>
+        <source>Reveal amount</source>
+        <translation>Розкриття суми</translation>
+    </message>
+    <message>
+        <location filename="../gui/SendFrame.cpp" line="462"/>
+        <source>The amount you send will be public and visible to everyone. This reduces privacy. Continue?</source>
+        <translation>Сума, яку ви надсилаєте, стане публічною і видимою для всіх. Це зменшує приватність. Продовжити?</translation>
+    </message>
 </context>
 <context>
     <name>ShowPaymentRequestDialog</name>

@@ -1882,6 +1882,31 @@ Do you want to go to the download page?</source>
         <source>Available balance:</source>
         <translation type="vanished">利用可能残高：</translation>
     </message>
+    <message>
+        <location filename="../gui/ui/sendframe.ui" line="409"/>
+        <source>Send with a public amount instead of a confidential amount.</source>
+        <translation>Send with a public amount instead of a confidential amount.</translation>
+    </message>
+    <message>
+        <location filename="../gui/ui/sendframe.ui" line="412"/>
+        <source>Unshield</source>
+        <translation>Unshield</translation>
+    </message>
+    <message>
+        <location filename="../gui/ui/sendframe.ui" line="422"/>
+        <source>Amount becomes public. Privacy is reduced.</source>
+        <translation>Amount becomes public. Privacy is reduced.</translation>
+    </message>
+    <message>
+        <location filename="../gui/SendFrame.cpp" line="461"/>
+        <source>Reveal amount</source>
+        <translation>Reveal amount</translation>
+    </message>
+    <message>
+        <location filename="../gui/SendFrame.cpp" line="462"/>
+        <source>The amount you send will be public and visible to everyone. This reduces privacy. Continue?</source>
+        <translation>The amount you send will be public and visible to everyone. This reduces privacy. Continue?</translation>
+    </message>
 </context>
 <context>
     <name>ShowPaymentRequestDialog</name>

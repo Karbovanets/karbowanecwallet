@@ -395,34 +395,48 @@
        </widget>
       </item>
       <item row="2" column="0" colspan="6">
-       <widget class="QCheckBox" name="dontRelayCheckBox">
-        <property name="text">
-         <string>Prepare transaction but do not relay</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QCheckBox" name="unshieldCheckBox">
-        <property name="toolTip">
-         <string>Send confidential funds to transparent outputs with visible amounts.</string>
-        </property>
-        <property name="text">
-         <string>Unshield</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" colspan="5">
-       <widget class="QLabel" name="m_unshieldWarningLabel">
-        <property name="styleSheet">
-         <string notr="true">color: #7f3030; font-size: 11px;</string>
-        </property>
-        <property name="text">
-         <string>Exposes output amounts on-chain and reduces privacy.</string>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="m_transactionOptionsLayout">
+        <item>
+         <widget class="QCheckBox" name="dontRelayCheckBox">
+          <property name="text">
+           <string>Prepare transaction but do not relay</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="unshieldCheckBox">
+          <property name="toolTip">
+           <string>Send with a public amount instead of a confidential amount.</string>
+          </property>
+          <property name="text">
+           <string>Unshield</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="m_unshieldWarningLabel">
+          <property name="styleSheet">
+           <string notr="true">color: #ff8a65; font-size: 11px;</string>
+          </property>
+          <property name="text">
+           <string>Amount becomes public. Privacy is reduced.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="transactionOptionsSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

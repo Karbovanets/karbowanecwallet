@@ -458,8 +458,8 @@ void SendFrame::sendClicked() {
     dlg.confirmNoPaymentId();
   }
   if (dlg.exec() == QDialog::Accepted) {
-    if (unshield && QMessageBox::warning(this, tr("Unshield transaction"),
-        tr("This will create transparent outputs with public amounts. Anyone watching the chain can see those amounts, which reduces privacy. Continue?"),
+    if (unshield && QMessageBox::warning(this, tr("Reveal amount"),
+        tr("The amount you send will be public and visible to everyone. This reduces privacy. Continue?"),
         QMessageBox::Yes | QMessageBox::No, QMessageBox::No) != QMessageBox::Yes) {
       return;
     }
