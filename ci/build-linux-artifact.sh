@@ -18,6 +18,7 @@ apt-get install -y --no-install-recommends \
   file \
   git \
   libboost-all-dev \
+  libcups2 \
   libdbus-1-3 \
   libfontconfig1 \
   libfuse2 \
