@@ -35,8 +35,7 @@ apt-get install -y --no-install-recommends \
 
 python3 -m pip install --no-cache-dir "aqtinstall==3.1.20"
 python3 -m aqt install-qt linux desktop "$qt_version" linux_gcc_64 \
-  -O /opt/Qt \
-  -m qtsvg qttools
+  -O /opt/Qt
 
 git config --global --add safe.directory "$(pwd)"
 
@@ -44,6 +43,22 @@ qt_root="/opt/Qt/$qt_version/gcc_64"
 export CMAKE_PREFIX_PATH="$qt_root"
 export PATH="$qt_root/bin:$PATH"
 export LD_LIBRARY_PATH="$qt_root/lib:${LD_LIBRARY_PATH:-}"
+
+for required_file in \
+  "$qt_root/lib/cmake/Qt6Svg/Qt6SvgConfig.cmake" \
+  "$qt_root/lib/cmake/Qt6LinguistTools/Qt6LinguistToolsConfig.cmake"; do
+  if [[ ! -f "$required_file" ]]; then
+    echo "Required Qt component is missing: $required_file" >&2
+    exit 1
+  fi
+done
+
+for required_tool in qmake lrelease; do
+  if ! command -v "$required_tool" >/dev/null 2>&1; then
+    echo "Required Qt tool is missing: $required_tool" >&2
+    exit 1
+  fi
+done
 
 build_folder="build/release"
 mkdir -p "$build_folder"
