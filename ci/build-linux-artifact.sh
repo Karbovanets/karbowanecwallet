@@ -23,6 +23,7 @@ apt-get install -y --no-install-recommends \
   libfuse2 \
   libglib2.0-0 \
   libgl1-mesa-dev \
+  libssl-dev \
   libxext6 \
   libxrender1 \
   libxcb-cursor0 \
