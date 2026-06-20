@@ -26,8 +26,21 @@ apt-get install -y --no-install-recommends \
   libssl-dev \
   libxext6 \
   libxrender1 \
+  libx11-xcb1 \
   libxcb-cursor0 \
+  libxcb-glx0 \
+  libxcb-icccm4 \
+  libxcb-image0 \
+  libxcb-keysyms1 \
+  libxcb-randr0 \
+  libxcb-render-util0 \
+  libxcb-shape0 \
+  libxcb-shm0 \
+  libxcb-sync1 \
+  libxcb-util1 \
+  libxcb-xfixes0 \
   libxcb-xinerama0 \
+  libxcb-xkb1 \
   libxkbcommon-x11-0 \
   patchelf \
   python3 \
@@ -46,6 +59,8 @@ qt_root="/opt/Qt/$qt_version/gcc_64"
 export CMAKE_PREFIX_PATH="$qt_root"
 export PATH="$qt_root/bin:$PATH"
 export LD_LIBRARY_PATH="$qt_root/lib:${LD_LIBRARY_PATH:-}"
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
 
 for required_file in \
   "$qt_root/lib/cmake/Qt6Svg/Qt6SvgConfig.cmake" \
