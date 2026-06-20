@@ -112,7 +112,12 @@ if [[ "$artifact_kind" != "deb" ]]; then
   exit 1
 fi
 
-deb_version="${krb_version#v}"
+deb_version="${krb_version#[vV]}"
+deb_version="${deb_version#.}"
+if [[ ! "$deb_version" =~ ^[0-9] ]]; then
+  echo "Invalid Debian version derived from '$krb_version': '$deb_version'" >&2
+  exit 1
+fi
 release_name="Karbo-wallet-linux-amd64-$krb_version"
 pkgroot="build/debroot"
 rm -rf "$pkgroot"
