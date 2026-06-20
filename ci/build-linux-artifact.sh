@@ -4,6 +4,7 @@ set -euo pipefail
 artifact_kind="${1:?usage: $0 appimage|deb version}"
 krb_version="${2:?usage: $0 appimage|deb version}"
 qt_version="${QT_VERSION:-6.8.3}"
+build_parallel_level="${BUILD_PARALLEL_LEVEL:-2}"
 
 export DEBIAN_FRONTEND=noninteractive
 export APPIMAGE_EXTRACT_AND_RUN=1
@@ -67,10 +68,12 @@ cmake -S . -B "$build_folder" \
   -DARCH=default \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_CXX_STANDARD=17 \
+  -DCMAKE_C_FLAGS_RELEASE="-O2 -DNDEBUG" \
+  -DCMAKE_CXX_FLAGS_RELEASE="-O2 -DNDEBUG" \
   -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=true \
   -DBOOST_IGNORE_SYSTEM_PATHS_DEFAULT=ON \
   -DBOOST_ROOT=/usr
-cmake --build "$build_folder" --parallel
+cmake --build "$build_folder" --parallel "$build_parallel_level"
 xvfb-run -a "$build_folder/KarbowanecWallet" --version
 
 cd appimage
