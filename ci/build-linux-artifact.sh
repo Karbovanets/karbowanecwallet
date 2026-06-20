@@ -20,6 +20,7 @@ apt-get install -y --no-install-recommends \
   libdbus-1-3 \
   libfontconfig1 \
   libfuse2 \
+  libglib2.0-0 \
   libgl1-mesa-dev \
   libxext6 \
   libxrender1 \
