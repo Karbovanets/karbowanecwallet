@@ -58,7 +58,7 @@ include_directories(${CMAKE_BINARY_DIR}
 
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui Network PrintSupport LinguistTools Svg)
 
-option(KARBO_USE_QLEMENTINE "Use Qlementine instead of the bundled qdarkstyle stylesheet" ON)
+option(KARBO_USE_QLEMENTINE "Use the Qlementine application style" ON)
 
 if (KARBO_USE_QLEMENTINE)
   FetchContent_Declare(
@@ -309,7 +309,7 @@ file(GLOB_RECURSE QCustomPlot external/qcustomplot/*)
 file(GLOB TRANSLATION_FILES src/languages/*.ts)
 
 set(QRC src/resources.qrc)
-if (NOT KARBO_USE_QLEMENTINE)
+if (NOT KARBO_USE_QLEMENTINE AND EXISTS "${CMAKE_CURRENT_LIST_DIR}/src/qdarkstyle/style.qrc")
   list(APPEND QRC src/qdarkstyle/style.qrc)
 endif()
 set_source_files_properties(${TRANSLATION_FILES} PROPERTIES OUTPUT_LOCATION "${CMAKE_BINARY_DIR}/languages")
@@ -673,7 +673,6 @@ elseif (UNIX)
  and everyone can take part.")
     else ()
 		set(CPACK_GENERATOR DEB)
-		set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6svg6, other-dependencies")
 	endif ()
 	
 	set(CPACK_SYSTEM_NAME 64-bit)

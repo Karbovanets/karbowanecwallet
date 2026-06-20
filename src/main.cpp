@@ -13,7 +13,9 @@
 #include <QRegularExpression>
 #include <QSplashScreen>
 #include <QSettings>
+#include <QStyleFactory>
 
+#ifdef KARBO_USE_QLEMENTINE
 #include <oclero/qlementine.hpp>
 
 // Subclass to fix tooltip colors (Qlementine draws tooltips directly, ignoring palette)
@@ -34,6 +36,7 @@ public:
     return fg;
   }
 };
+#endif
 
 #include "CommandLineParser.h"
 #include "CurrencyAdapter.h"
@@ -89,10 +92,11 @@ int main(int argc, char* argv[]) {
 
   setlocale(LC_ALL, "");
 
+#ifdef KARBO_USE_QLEMENTINE
   auto* style = new KarboStyle(&app);
   style->setThemeJsonPath(QStringLiteral(":/themes/qlementine-dark.json"));
   QApplication::setStyle(style);
-
+#endif
 
   if (PaymentServer::ipcSendCommandLine())
   exit(0);

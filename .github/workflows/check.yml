@@ -195,9 +195,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  build-ubuntu24:
-    name: Ubuntu 24.04
-    runs-on: ubuntu-24.04
+  build-linux-deb:
+    name: Linux deb
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
         with:
@@ -205,32 +205,21 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v4.1.1
-        with:
-          version: '6.9.2'
-          target: 'desktop'
-          install-deps: 'true'
-
-      - name: Build
+      - name: Build deb
         id: build
         run: |
-          sudo apt update -y
-          sudo apt install -y libboost-all-dev
-          build_folder="build/release"
           krb_ver=$(git describe --tags --abbrev=0)
-          release_name=Karbo-wallet-ubuntu-24.04-$krb_ver
-          app_name="KarbowanecWallet"
-          mkdir -p "$build_folder"
-          cd "$build_folder"
-          cmake -D ARCH=default -D CMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=true -D BOOST_IGNORE_SYSTEM_PATHS_DEFAULT=ON -D BOOST_ROOT=/usr ../..
-          make
-          cpack
-          tar -czf "$release_name".tar.gz *.deb
-          sha256=$(shasum -a 256 "$release_name".tar.gz | awk '{print toupper($1)}')
-          asset_path="./$build_folder/$release_name".tar.gz
+          release_name=Karbo-wallet-linux-amd64-$krb_ver
+          docker run --rm \
+            -e QT_VERSION=6.8.3 \
+            -v "$PWD:/workspace" \
+            -w /workspace \
+            ubuntu:22.04 \
+            bash ci/build-linux-artifact.sh deb "$krb_ver"
+          sha256=$(shasum -a 256 "./appimage/$release_name.deb" | awk '{print toupper($1)}')
+          asset_path="./appimage/$release_name.deb"
           echo "sha256=${sha256}" >> $GITHUB_OUTPUT
-          echo "release_name=${release_name}.tar.gz" >> $GITHUB_OUTPUT
+          echo "release_name=${release_name}.deb" >> $GITHUB_OUTPUT
           echo "asset_path=${asset_path}" >> $GITHUB_OUTPUT
           echo "krb_ver=${krb_ver}" >> $GITHUB_OUTPUT
 
@@ -244,7 +233,7 @@ jobs:
 
   build-appimage:
     name: AppImage
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
         with:
@@ -252,39 +241,17 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v4.1.1
-        with:
-          version: '6.9.2'
-          target: 'desktop'
-          install-deps: 'true'
-
-      - name: Build
-        id: build
-        run: |
-          sudo apt update -y
-          sudo apt install -y libboost-all-dev
-          build_folder="build/release"
-          krb_ver=$(git describe --tags --abbrev=0)
-          release_name=Karbo-wallet-ubuntu-24.04-$krb_ver
-          app_name="KarbowanecWallet"
-          mkdir -p "$build_folder"
-          cd "$build_folder"
-          cmake -D ARCH=default -D CMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=true -D BOOST_IGNORE_SYSTEM_PATHS_DEFAULT=ON -D BOOST_ROOT=/usr ../..
-          make
-          echo "krb_ver=${krb_ver}" >> $GITHUB_OUTPUT
-
-      - name: Create AppImage
+      - name: Build AppImage
         id: appimage
         run: |
-          krb_version="${{ steps.build.outputs.krb_ver }}"
+          krb_version=$(git describe --tags --abbrev=0)
           appimage_name=Karbo-wallet-"$krb_version".AppImage
-          cd appimage
-          chmod +x ./create-appimage.sh
-          ./create-appimage.sh
-          mv Karbo*.AppImage $appimage_name
-          ls -l $appimage_name
-          cd ..
+          docker run --rm \
+            -e QT_VERSION=6.8.3 \
+            -v "$PWD:/workspace" \
+            -w /workspace \
+            ubuntu:22.04 \
+            bash ci/build-linux-artifact.sh appimage "$krb_version"
           asset_path="./appimage/$appimage_name"
           echo "artifact_name=${appimage_name}" >> $GITHUB_OUTPUT
           echo "asset_path=${asset_path}" >> $GITHUB_OUTPUT
