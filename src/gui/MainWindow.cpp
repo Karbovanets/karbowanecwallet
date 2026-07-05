@@ -711,8 +711,10 @@ void MainWindow::openConnectionSettings() {
     QString connection = dlg.getConnectionMode();
     Settings::instance().setConnection(connection);
 
-    NodeSetting remoteNode = dlg.getRemoteNode();
-    Settings::instance().setCurrentRemoteNode(remoteNode);
+    if (connection.compare("remote") == 0) {
+      NodeSetting remoteNode = dlg.getRemoteNode();
+      Settings::instance().setCurrentRemoteNode(remoteNode);
+    }
 
     quint16 daemonPort = dlg.getLocalDaemonPort();
     Settings::instance().setCurrentLocalDaemonPort(daemonPort);

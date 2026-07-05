@@ -20,7 +20,7 @@ NodeModel::~NodeModel() {
 }
 
 QVariant NodeModel::data(const QModelIndex &index, int role) const {
-  if (!index.isValid()) {
+  if (!index.isValid() || index.row() < 0 || index.row() >= m_RpcNodesList.count()) {
     return QVariant();
   }
   const NodeSetting &data = m_RpcNodesList.at(index.row());
@@ -65,6 +65,10 @@ void NodeModel::addNode(const NodeSetting &nodeSetting) {
 }
 
 void NodeModel::delNode(const int &index) {
+  if (index < 0 || index >= m_RpcNodesList.count()) {
+    return;
+  }
+
   beginResetModel();
   m_RpcNodesList.remove(index);
   endResetModel();
@@ -86,6 +90,10 @@ int NodeModel::getIndexByData(const NodeSetting &nodeSetting) const {
 }
 
 NodeSetting NodeModel::getDataByIndex(const int &index) const {
+  if (index < 0 || index >= m_RpcNodesList.count()) {
+    return NodeSetting();
+  }
+
   return m_RpcNodesList[index];
 }
 

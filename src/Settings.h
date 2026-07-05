@@ -16,9 +16,9 @@ namespace WalletGui {
 
 struct NodeSetting {
   QString host;
-  quint16 port;
-  QString path;
-  bool ssl;
+  quint16 port = 0;
+  QString path = "/";
+  bool ssl = false;
 };
 
 class CommandLineParser;

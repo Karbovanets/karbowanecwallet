@@ -54,6 +54,9 @@ public:
   NodeSetting getRemoteNode() const;
   void initConnectionSettings();
 
+public Q_SLOTS:
+  void accept() Q_DECL_OVERRIDE;
+
 private:
   QScopedPointer<Ui::ConnectionSettingsDialog> m_ui;
   NodeModel *m_nodeModel;

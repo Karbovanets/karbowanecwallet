@@ -5,6 +5,7 @@
 #include <iostream>
 #include <QRegularExpression>
 #include <QHeaderView>
+#include <QMessageBox>
 #include "ui_connectionsettingsdialog.h"
 #include "ConnectionSettings.h"
 #include "CurrencyAdapter.h"
@@ -149,6 +150,15 @@ void ConnectionSettingsDialog::addNodeClicked() {
 void ConnectionSettingsDialog::removeNodeClicked() {
   m_nodeModel->delNode(m_ui->remoteNodesComboBox->currentIndex());
   updateNodeSelect();
+}
+
+void ConnectionSettingsDialog::accept() {
+  if (getConnectionMode().compare("remote") == 0 && m_ui->remoteNodesComboBox->currentIndex() < 0) {
+    QMessageBox::warning(this, tr("No remote node selected"), tr("Add or select a remote node before using remote daemon mode."), QMessageBox::Ok);
+    return;
+  }
+
+  QDialog::accept();
 }
 
 }
