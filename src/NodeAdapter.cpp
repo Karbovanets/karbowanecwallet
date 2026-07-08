@@ -320,7 +320,7 @@ std::vector<CryptoNote::p2pConnection> NodeAdapter::getConnections() {
   return m_node->getConnections();
 }
 
-bool NodeAdapter::getBlockTemplate(CryptoNote::Block& b, const CryptoNote::AccountKeys& acc, const CryptoNote::BinaryArray& extraNonce, CryptoNote::difficulty_type& difficulty, uint32_t& height) {
+bool NodeAdapter::getBlockTemplate(CryptoNote::Block& b, const CryptoNote::AccountKeys& acc, const CryptoNote::BinaryArray& extraNonce, CryptoNote::Difficulty& difficulty, uint32_t& height) {
   Q_CHECK_PTR(m_node);
   return m_node->getBlockTemplate(b, acc, extraNonce, difficulty, height);
 }

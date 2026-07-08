@@ -86,7 +86,7 @@ namespace WalletGui
     stop();
   }
   //-----------------------------------------------------------------------------------------------------
-  bool Miner::set_block_template(const Block& bl, const difficulty_type& di) {
+  bool Miner::set_block_template(const Block& bl, const Difficulty& di) {
     std::lock_guard<decltype(m_template_lock)> lk(m_template_lock);
 
     m_template = bl;
@@ -150,7 +150,7 @@ namespace WalletGui
     qDebug() << formattedTime << "Requesting block template";
 
     Block bl = boost::value_initialized<Block>();
-    CryptoNote::difficulty_type di = 0;
+    CryptoNote::Difficulty di = 0;
     uint32_t height;
     CryptoNote::BinaryArray extra_nonce;
 
@@ -435,7 +435,7 @@ namespace WalletGui
   {
     m_logger(Logging::DEBUGGING) << "Miner thread was started ["<< th_local_index << "]";
     uint32_t nonce = m_starter_nonce.load() + th_local_index;
-    difficulty_type local_diff = 0;
+    Difficulty local_diff = 0;
     uint32_t local_template_ver = 0;
     Crypto::cn_context context;
     Block b;

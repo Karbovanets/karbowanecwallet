@@ -208,7 +208,7 @@ public:
     return m_node.getNextReward();
   }
 
-  bool getBlockTemplate(CryptoNote::Block& b, const CryptoNote::AccountKeys& acc, const CryptoNote::BinaryArray& ex_nonce, CryptoNote::difficulty_type& diffic, uint32_t& height) override {
+  bool getBlockTemplate(CryptoNote::Block& b, const CryptoNote::AccountKeys& acc, const CryptoNote::BinaryArray& ex_nonce, CryptoNote::Difficulty& diffic, uint32_t& height) override {
     // not implemented
     return false;
   }
@@ -482,7 +482,7 @@ public:
     return m_node.getNextReward();
   }
 
-  bool getBlockTemplate(CryptoNote::Block& b, const CryptoNote::AccountKeys& acc, const CryptoNote::BinaryArray& ex_nonce, CryptoNote::difficulty_type& diffic, uint32_t& height) override {
+  bool getBlockTemplate(CryptoNote::Block& b, const CryptoNote::AccountKeys& acc, const CryptoNote::BinaryArray& ex_nonce, CryptoNote::Difficulty& diffic, uint32_t& height) override {
     return m_core.get_block_template(b, acc, diffic, height, ex_nonce);
   }
 
