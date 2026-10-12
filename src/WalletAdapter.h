@@ -132,6 +132,7 @@ private:
   void closeFile();
   void notifyAboutLastTransaction();
   QString walletErrorMessage(int _error_code);
+  void sendTransactionFailed(const std::exception& _error);
   void runWalletRpc();
   void stopWalletRpc();
 

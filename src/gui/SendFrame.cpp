@@ -12,6 +12,8 @@
 #include <QTime>
 #include <QUrl>
 
+#include <limits>
+
 #include "CryptoNoteCore/CryptoNoteFormatUtils.h"
 #include "AddressBookModel.h"
 #include "CurrencyAdapter.h"
@@ -393,10 +395,16 @@ void SendFrame::sendClicked() {
   }
 
   quint64 total_transaction_amount = 0;
-  for (size_t i = 0; i < walletTransfers.size(); i++) {
-    total_transaction_amount += walletTransfers.at(i).amount;
+  for (const auto& transfer : walletTransfers) {
+    const quint64 amount = static_cast<quint64>(transfer.amount);
+    if (amount > std::numeric_limits<quint64>::max() - total_transaction_amount) {
+      QMessageBox::critical(this, tr("Invalid amount"), tr("The total amount is too large."), QMessageBox::Ok);
+      return;
+    }
+    total_transaction_amount += amount;
   }
-  if (total_transaction_amount > (WalletAdapter::instance().getActualBalance() - fee)) {
+  actualBalance = WalletAdapter::instance().getActualBalance();
+  if (fee > actualBalance || total_transaction_amount > actualBalance - fee) {
     QMessageBox::critical(this, tr("Insufficient balance"), tr("Available balance is insufficient to send this transaction. Have you excluded a fee?"), QMessageBox::Ok);
     return;
   }
@@ -591,6 +599,12 @@ void SendFrame::sendAllClicked() {
   }
 
   quint64 fee = getFee();
+  if (fee > actualBalance || m_nodeFee > actualBalance - fee) {
+    QCoreApplication::postEvent(
+      &MainWindow::instance(),
+      new ShowMessageEvent(tr("Insufficient balance."), QtCriticalMsg));
+    return;
+  }
   quint64 amount = actualBalance - (fee + m_nodeFee);
   if (m_ui->donateCheckBox->isChecked()) {
     float donation_amount = CurrencyAdapter::instance().formatAmount(amount).toDouble() * 0.1 / 100;

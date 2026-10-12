@@ -442,8 +442,8 @@ void WalletAdapter::sendTransaction(const std::vector<CryptoNote::WalletLegacyTr
     lock();
     Q_EMIT walletStateChangedSignal(tr("Sending transaction"));
     m_wallet->sendTransaction(_transfers, _fee, NodeAdapter::instance().convertPaymentId(_payment_id), _mixin, 0);
-  } catch (std::system_error&) {
-    unlock();
+  } catch (const std::exception& _error) {
+    sendTransactionFailed(_error);
   }
 }
 
@@ -457,8 +457,8 @@ void WalletAdapter::sendTransaction(const std::vector<CryptoNote::WalletLegacyTr
     lock();
     Q_EMIT walletStateChangedSignal(tr("Sending transaction"));
     m_wallet->sendTransaction(_transfers, _selectedOuts, _fee, NodeAdapter::instance().convertPaymentId(_payment_id), _mixin, 0);
-  } catch (std::system_error&) {
-    unlock();
+  } catch (const std::exception& _error) {
+    sendTransactionFailed(_error);
   }
 }
 
@@ -481,8 +481,8 @@ void WalletAdapter::registerAccountNumber() {
     lock();
     Q_EMIT walletStateChangedSignal(tr("Registering account number"));
     m_wallet->sendTransaction(transfer, NodeAdapter::instance().getMinimalFee(), extraString, 0, 0);
-  } catch (std::system_error&) {
-    unlock();
+  } catch (const std::exception& _error) {
+    sendTransactionFailed(_error);
   }
 }
 
@@ -492,9 +492,12 @@ QString WalletAdapter::prepareRawTransaction(const std::vector<CryptoNote::Walle
     lock();
     Q_EMIT walletStateChangedSignal(tr("Preparing transaction"));
     CryptoNote::TransactionId transactionId;
-    return QString::fromStdString(m_wallet->prepareRawTransaction(transactionId, _transfers, _fee, NodeAdapter::instance().convertPaymentId(_payment_id), _mixin, 0));
-  } catch (std::system_error&) {
+    const QString rawTx = QString::fromStdString(m_wallet->prepareRawTransaction(transactionId, _transfers, _fee, NodeAdapter::instance().convertPaymentId(_payment_id), _mixin, 0));
     unlock();
+    Q_EMIT updateBlockStatusTextWithDelaySignal();
+    return rawTx;
+  } catch (const std::exception& _error) {
+    sendTransactionFailed(_error);
   }
   return QString();
 }
@@ -505,9 +508,12 @@ QString WalletAdapter::prepareRawTransaction(const std::vector<CryptoNote::Walle
     lock();
     Q_EMIT walletStateChangedSignal(tr("Preparing transaction"));
     CryptoNote::TransactionId transactionId;
-    return QString::fromStdString(m_wallet->prepareRawTransaction(transactionId, _transfers, _selectedOuts, _fee, NodeAdapter::instance().convertPaymentId(_payment_id), _mixin, 0));
-  } catch (std::system_error&) {
+    const QString rawTx = QString::fromStdString(m_wallet->prepareRawTransaction(transactionId, _transfers, _selectedOuts, _fee, NodeAdapter::instance().convertPaymentId(_payment_id), _mixin, 0));
     unlock();
+    Q_EMIT updateBlockStatusTextWithDelaySignal();
+    return rawTx;
+  } catch (const std::exception& _error) {
+    sendTransactionFailed(_error);
   }
   return QString();
 }
@@ -787,6 +793,26 @@ QString WalletAdapter::walletErrorMessage(int _error_code) {
     case CryptoNote::error::WalletErrorCodes::BAD_TRANSACTION_EXTRA:         return tr("Wrong transaction extra format");
     default:                                                                 return tr("Unknown error");
   }
+}
+
+// Synchronous failures (insufficient funds, bad address, mixin, node errors, ...)
+// are thrown rather than reported through sendTransactionCompleted(), so report
+// them here to leave the "Sending" state and show the error.
+void WalletAdapter::sendTransactionFailed(const std::exception& _error) {
+  int code = CryptoNote::error::INTERNAL_WALLET_ERROR;
+  QString text;
+  const std::system_error* systemError = dynamic_cast<const std::system_error*>(&_error);
+  if (systemError != nullptr && systemError->code().category() == CryptoNote::error::WalletErrorCategory::INSTANCE) {
+    code = systemError->code().value();
+    text = walletErrorMessage(code);
+  } else {
+    text = tr("Failed to send transaction: %1").arg(QString::fromUtf8(_error.what()));
+  }
+
+  m_logger(Logging::WARNING) << "Transaction could not be sent: " << _error.what();
+  unlock();
+  Q_EMIT walletSendTransactionCompletedSignal(CryptoNote::WALLET_LEGACY_INVALID_TRANSACTION_ID, code, text);
+  Q_EMIT updateBlockStatusTextWithDelaySignal();
 }
 
 void WalletAdapter::onWalletSendTransactionCompleted(CryptoNote::TransactionId _transactionId, int _error, const QString& _errorText) {
