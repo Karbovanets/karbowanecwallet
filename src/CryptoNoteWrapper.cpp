@@ -40,6 +40,23 @@ namespace WalletGui {
 
 namespace {
 
+// The reject-deep-reorg depth must be passed to the Core constructor:
+// Checkpoints::operator= does not copy it, so set_checkpoints() can't deliver it.
+// Disabled in testnet / without-checkpoints modes; 0 means the mined-money unlock window.
+uint32_t computeRejectDeepReorgDepth(const CryptoNote::Currency& currency) {
+  if (Settings::instance().withoutCheckpoints() || Settings::instance().isTestnet()) {
+    return 0;
+  }
+  if (!Settings::instance().hasRejectDeepReorg()) {
+    return 0;
+  }
+  uint32_t depth = Settings::instance().rejectDeepReorg();
+  if (depth == 0) {
+    depth = static_cast<uint32_t>(currency.minedMoneyUnlockWindow());
+  }
+  return depth;
+}
+
 bool parsePaymentId(const std::string& payment_id_str, Crypto::Hash& payment_id) {
   return CryptoNote::parsePaymentId(payment_id_str, payment_id);
 }
@@ -315,7 +332,7 @@ public:
     m_rpcServerConfig(rpcServerConfig),
     m_rpcServer(nullptr),
     m_protocolHandler(currency, m_dispatcher, m_core, nullptr, logManager),
-    m_core(currency, &m_protocolHandler, logManager, m_dispatcher, false, false),
+    m_core(currency, &m_protocolHandler, logManager, m_dispatcher, computeRejectDeepReorgDepth(currency), false),
     m_nodeServer(m_dispatcher, m_protocolHandler, logManager),
     m_node(m_core, m_protocolHandler)
   {
@@ -325,19 +342,15 @@ public:
       } else if (Settings::instance().isTestnet()) {
         m_logger(Logging::INFO) << "Running in Testnet mode";
       } else {
-        quint32 rejectDeepReorg = 0;
-        if (Settings::instance().hasRejectDeepReorg()) {
-          rejectDeepReorg = Settings::instance().rejectDeepReorg();
-          if (rejectDeepReorg == 0) {
-            rejectDeepReorg = m_currency.minedMoneyUnlockWindow();
-          }
+        const uint32_t rejectDeepReorg = computeRejectDeepReorgDepth(m_currency);
+        if (rejectDeepReorg > 0) {
           m_logger(Logging::WARNING) << "Deep reorganization exceeding " << rejectDeepReorg << " blocks will be rejected";
         }
         CryptoNote::Checkpoints checkpoints(logManager, rejectDeepReorg);
-        checkpoints.load_checkpoints_from_dns();
         for (const CryptoNote::CheckpointData& checkpoint : CryptoNote::CHECKPOINTS) {
           checkpoints.add_checkpoint(checkpoint.height, checkpoint.blockId);
         }
+        checkpoints.load_checkpoints_from_dns();
         m_core.set_checkpoints(std::move(checkpoints));
       }
 
