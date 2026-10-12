@@ -96,6 +96,10 @@ int main(int argc, char* argv[]) {
   auto* style = new KarboStyle(&app);
   style->setThemeJsonPath(QStringLiteral(":/themes/qlementine-dark.json"));
   QApplication::setStyle(style);
+  // The style enables menu fade/animation, which leaves ghost context menus and
+  // flicker on Windows. Disable those effects after setStyle has turned them on.
+  QApplication::setEffectEnabled(Qt::UI_FadeMenu, false);
+  QApplication::setEffectEnabled(Qt::UI_AnimateMenu, false);
 #endif
 
   if (PaymentServer::ipcSendCommandLine())

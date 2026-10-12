@@ -787,6 +787,38 @@ void MiningFrame::enableSolo() {
   }
 }
 
+bool MiningFrame::nodeSynchronized() const {
+  // Synced for mining means the local chain has caught up with the best height
+  // advertised by peers.
+  return NodeAdapter::instance().getLastLocalBlockHeight() >= NodeAdapter::instance().getLastKnownBlockHeight();
+}
+
+void MiningFrame::tryResumeAfterNoPeers() {
+  // Solo mining is suspended when the last peer disconnects (see onPeerCountUpdated).
+  // Resume it only once connected to at least one peer and caught up with the network.
+  if (!m_miningStoppedByNoPeers || m_wallet_closed) {
+    return;
+  }
+
+  if (NodeAdapter::instance().getNodeType() != NodeType::IN_PROCESS) {
+    return;
+  }
+
+  if (NodeAdapter::instance().getPeerCount() == 0 || !nodeSynchronized()) {
+    return;
+  }
+
+  m_miningStoppedByNoPeers = false;
+
+  if (m_solo_mining || m_miner->is_mining()) {
+    return;
+  }
+
+  m_sychronized = true;
+  appendMiningEvent(QStringLiteral("PEERS"), tr("Peers reconnected and synced, resuming mining"));
+  startSolo();
+}
+
 void MiningFrame::startStopSoloClicked(QAbstractButton* _button) {
   if (_button == m_ui->m_startSolo && m_ui->m_startSolo->isChecked() && m_wallet_closed != true) {
     startSolo();
@@ -814,6 +846,10 @@ void MiningFrame::onBlockHeightUpdated(quint64 _height) {
 
   quint64 difficulty = NodeAdapter::instance().getDifficulty();
   updateDifficulty(difficulty);
+
+  // The local chain advanced: if mining was suspended for lack of peers and we
+  // are now reconnected and caught up, resume it.
+  tryResumeAfterNoPeers();
 }
 
 void MiningFrame::onPeerCountUpdated(quintptr _count) {
@@ -834,8 +870,9 @@ void MiningFrame::onPeerCountUpdated(quintptr _count) {
     return;
   }
 
-  if (m_sychronized && !m_wallet_closed) {
+  if (!m_wallet_closed && nodeSynchronized()) {
     enableSolo();
+    tryResumeAfterNoPeers();
   }
 }
 
@@ -845,12 +882,8 @@ void MiningFrame::onSynchronizationCompleted() {
     m_ui->m_startSolo->setEnabled(false);
     return;
   }
-  const bool resumeMining = m_miningStoppedByNoPeers && NodeAdapter::instance().getPeerCount() > 0;
   enableSolo();
-  if (resumeMining && !m_solo_mining && !m_miner->is_mining()) {
-    m_miningStoppedByNoPeers = false;
-    startSolo();
-  }
+  tryResumeAfterNoPeers();
 }
 
 void MiningFrame::updateBalance(quint64 _balance) {

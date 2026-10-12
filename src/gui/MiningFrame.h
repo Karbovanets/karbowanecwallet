@@ -63,6 +63,10 @@ private:
   void initCpuCoreList();
   void startSolo();
   void stopSolo(bool _stoppedByNoPeers = false);
+  // Resume solo mining suspended because peers dropped, once the node is
+  // reconnected and synced. No-op unless a resume is actually due.
+  void tryResumeAfterNoPeers();
+  bool nodeSynchronized() const;
 
   bool m_wallet_closed = false;
   bool m_solo_mining = false;
