@@ -67,7 +67,7 @@ private:
   void appendTransaction(CryptoNote::TransactionId _id, quint32& _row_count);
   void appendTransaction(CryptoNote::TransactionId _id);
   void updateWalletTransaction(CryptoNote::TransactionId _id);
-  void localBlockchainUpdated(quint64 _height);
+  void walletSynchronizationCompleted(int _error, const QString& _errorText);
   void reset();
 };
 

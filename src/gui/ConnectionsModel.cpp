@@ -170,9 +170,9 @@ QVariant ConnectionsModel::headerData(int _section, Qt::Orientation _orientation
 }
 
 void ConnectionsModel::refreshConnections() {
+  beginResetModel();
   m_connections = NodeAdapter::instance().getConnections();
-  beginInsertRows(QModelIndex(), m_connections.size(), m_connections.size());
-  endInsertRows();
+  endResetModel();
 }
 
 }
